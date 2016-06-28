@@ -1,0 +1,4 @@
+platform :ios, "8.0"
+use_frameworks!
+
+pod 'TWFoundation', :git => 'https://github.com/royhsu/swift-foundation.git', :branch => 'master', :commit => '28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096'

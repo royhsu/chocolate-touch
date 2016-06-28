@@ -1,0 +1,23 @@
+PODS:
+  - TWFoundation (0.1)
+
+DEPENDENCIES:
+  - TWFoundation (from `https://github.com/royhsu/swift-foundation.git`, commit `28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096`,
+    branch `master`)
+
+EXTERNAL SOURCES:
+  TWFoundation:
+    :branch: master
+    :commit: 28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096
+    :git: https://github.com/royhsu/swift-foundation.git
+
+CHECKOUT OPTIONS:
+  TWFoundation:
+    :branch: master
+    :commit: 28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096
+    :git: https://github.com/royhsu/swift-foundation.git
+
+SPEC CHECKSUMS:
+  TWFoundation: 3bc9f0c1f97d749f094f6dc1e9284c1ef05b2100
+
+COCOAPODS: 0.39.0
