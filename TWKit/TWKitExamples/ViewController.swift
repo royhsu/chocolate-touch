@@ -11,7 +11,7 @@ import TWFoundation
 
 class ViewController: UIViewController {
 
-    private let tableViewController = TWTableViewController(nibType: MyTableViewCell.self)
+    private let tableViewController = TWTableViewController(cellType: MyTableViewCell.self)
     
     private var isLayouted = false
     
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     
         let tableView = tableViewController.tableView
-        
+
         tableViewController.cellHeight = .Fixed(height: 44.0)
         tableViewController.cellConfigurator = { cell, index in
             
