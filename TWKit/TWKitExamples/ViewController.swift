@@ -11,16 +11,38 @@ import TWFoundation
 
 class ViewController: UIViewController {
 
+    private let tableViewController = TWTableViewController(nibType: MyTableViewCell.self)
+    
+    private var isLayouted = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        let tableView = tableViewController.tableView
         
-        let filePath = NSURL(
-            filename: "hello",
-            withExtension: "world",
-            in: Directory.document(mask: .UserDomainMask)
-        )
+        tableViewController.cellHeight = .Fixed(height: 44.0)
+        tableViewController.cellConfigurator = { cell in
+            
+            cell.textLabel?.text = "Hello World"
+            
+        }
+        tableViewController.numberOfRows = 10
         
-        print(filePath)
+        view.addSubview(tableView)
+        tableView.reloadData()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !isLayouted {
+            
+            isLayouted = true
+            
+            tableViewController.view.frame = view.frame
+            
+        }
         
     }
 
