@@ -9,8 +9,8 @@
 import UIKit
 
 public enum CellHeight {
-    case Automatic
-    case Fixed(height: CGFloat)
+    case dynamic
+    case fixed(height: CGFloat)
 }
 
 public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiable>: BaseTableViewController {
@@ -18,7 +18,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     // MARK: Property
     
-    public var cellHeight: CellHeight = .Automatic { didSet { cellHeightDidSet() } }
+    public var cellHeight: CellHeight = .dynamic { didSet { cellHeightDidSet() } }
     public var cellConfigurator: (cell: Cell, index: Int) -> Void = { _, _ in }
     public var numberOfRows = 0
     
@@ -95,7 +95,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
 
 private extension TWTableViewController {
     
-    func setupInitially() { cellHeight = .Automatic }
+    func setupInitially() { cellHeight = .dynamic }
     
 }
 
@@ -107,12 +107,12 @@ private extension TWTableViewController {
     private func cellHeightDidSet() {
         
         switch cellHeight {
-        case .Automatic:
+        case .dynamic:
             
             tableView.estimatedRowHeight = 44.0
             tableView.rowHeight = UITableViewAutomaticDimension
             
-        case .Fixed(let height):
+        case .fixed(let height):
             
             tableView.estimatedRowHeight = 44.0
             tableView.rowHeight = height
