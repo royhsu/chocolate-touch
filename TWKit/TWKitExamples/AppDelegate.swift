@@ -34,7 +34,7 @@ class AppDelegate: UIResponder {
         let controller = TWTableViewController(cellType: TWTableViewCell.self)
         
         controller.navigationItem.title = "TWKit"
-        controller.cellHeight = .Fixed(height: 44.0)
+        controller.cellHeight = .fixed(height: 44.0)
         controller.cellConfigurator = { cell, index in
             
             cell.textLabel?.text = self.rows[index].title
