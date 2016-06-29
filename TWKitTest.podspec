@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-  spec.name             = 'TWKit'
+  spec.name             = 'TWKitTest'
   spec.version          = '0.1'
   spec.license          = 'MIT'
   spec.homepage         = 'The more advanced framework built upon cocoa touch.'
