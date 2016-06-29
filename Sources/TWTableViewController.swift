@@ -58,7 +58,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     }
     
     
-    // MARK: - UITableViewDataSource
+    // MARK: UITableViewDataSource
     
     public final override func numberOfSectionsInTableView(tableView: UITableView) -> Int { return 1 }
     
