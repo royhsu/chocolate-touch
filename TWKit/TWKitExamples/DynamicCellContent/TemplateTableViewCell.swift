@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import UIKit
+import TWKit
 
 class TemplateTableViewCell: TWTableViewCell {
 

@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import Foundation
+import TWFoundation
 
 public protocol Identifiable {
     

@@ -1,11 +1,12 @@
 platform :ios, "8.0"
 use_frameworks!
 
-#target 'TWKit' do
-#	pod 'TWFoundation', :git => 'https://github.com/royhsu/swift-foundation.git', :branch => 'master', :commit => '28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096'
-#end
+target 'TWKit' do
+	pod 'TWFoundation', :git => 'https://github.com/royhsu/swift-foundation.git', :branch => 'master', :commit => 'e606361127550aaa7644c4e9bca7b75c9eb31152'
+end
 
 target 'TWKitExamples' do
 	pod 'AlamofireImage', '2.4.0'
+	pod 'TWKit', :git => 'https://github.com/royhsu/chocolate-touch.git', :tag => '0.1'
 end
 

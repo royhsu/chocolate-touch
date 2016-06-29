@@ -7,6 +7,7 @@
 //
 
 import AlamofireImage
+import TWKit
 
 class DynamicCellContentTableViewController: TWTableViewController<TemplateTableViewCell> {
     
