@@ -23,6 +23,11 @@
 		B0C0A48D1D2386C4009728DC /* DynamicCellContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A48C1D2386C4009728DC /* DynamicCellContentTableViewController.swift */; };
 		B0C0A4B41D23A80D009728DC /* TWKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C0A4351D22C430009728DC /* TWKit.framework */; };
 		B0C0A4E01D23B218009728DC /* TWKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C0A4351D22C430009728DC /* TWKit.framework */; };
+		B0C0A4E11D23B3D9009728DC /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A4661D22CAD3009728DC /* BaseTableViewController.swift */; };
+		B0C0A4E21D23B3D9009728DC /* TWTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A4681D22CB80009728DC /* TWTableViewController.swift */; };
+		B0C0A4E31D23B3D9009728DC /* TWTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A47E1D2370CA009728DC /* TWTableViewCell.swift */; };
+		B0C0A4E41D23B3D9009728DC /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A46C1D22CC01009728DC /* UITableView+Extensions.swift */; };
+		B0C0A4E51D23B3D9009728DC /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A46E1D22CD62009728DC /* Identifiable.swift */; };
 		C49F314ED6F0A34D8D41343D /* Pods_TWKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3744F08A9C60698CFFF6B7 /* Pods_TWKitExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -433,7 +438,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0C0A48D1D2386C4009728DC /* DynamicCellContentTableViewController.swift in Sources */,
+				B0C0A4E41D23B3D9009728DC /* UITableView+Extensions.swift in Sources */,
 				B0C0A4571D22C686009728DC /* AppDelegate.swift in Sources */,
+				B0C0A4E31D23B3D9009728DC /* TWTableViewCell.swift in Sources */,
+				B0C0A4E21D23B3D9009728DC /* TWTableViewController.swift in Sources */,
+				B0C0A4E51D23B3D9009728DC /* Identifiable.swift in Sources */,
+				B0C0A4E11D23B3D9009728DC /* BaseTableViewController.swift in Sources */,
 				B0C0A4891D237C72009728DC /* TemplateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
