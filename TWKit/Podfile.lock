@@ -1,23 +1,13 @@
 PODS:
-  - TWFoundation (0.1)
+  - Alamofire (3.4.1)
+  - AlamofireImage (2.4.0):
+    - Alamofire (~> 3.3)
 
 DEPENDENCIES:
-  - TWFoundation (from `https://github.com/royhsu/swift-foundation.git`, commit `28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096`,
-    branch `master`)
-
-EXTERNAL SOURCES:
-  TWFoundation:
-    :branch: master
-    :commit: 28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096
-    :git: https://github.com/royhsu/swift-foundation.git
-
-CHECKOUT OPTIONS:
-  TWFoundation:
-    :branch: master
-    :commit: 28e8eb885c03b3e40a4fd6df9a150bcfcdb4c096
-    :git: https://github.com/royhsu/swift-foundation.git
+  - AlamofireImage (= 2.4.0)
 
 SPEC CHECKSUMS:
-  TWFoundation: 3bc9f0c1f97d749f094f6dc1e9284c1ef05b2100
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
 
 COCOAPODS: 0.39.0
