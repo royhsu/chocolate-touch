@@ -11,5 +11,5 @@ Pod::Spec.new do |spec|
 
   spec.source_files     = 'Sources/*.swift'
   
-  spec.dependency = 'TWFoundation'
+  spec.dependency 'TWFoundation'
 end
