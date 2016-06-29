@@ -15,18 +15,20 @@ class ViewController: UIViewController {
     
     private var isLayouted = false
     
+    private var names = [ "Roy", "Bob", "Allen", "Chris", "Helen" ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         let tableView = tableViewController.tableView
         
         tableViewController.cellHeight = .Fixed(height: 44.0)
-        tableViewController.cellConfigurator = { cell in
+        tableViewController.cellConfigurator = { cell, index in
             
-            cell.textLabel?.text = "Hello World"
+            cell.textLabel?.text = self.names[index]
             
         }
-        tableViewController.numberOfRows = 10
+        tableViewController.numberOfRows = names.count
         
         view.addSubview(tableView)
         tableView.reloadData()

@@ -19,9 +19,8 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     // MARK: Property
     
     public var cellHeight: CellHeight = .Automatic { didSet { cellHeightDidSet() } }
-    
-    public var cellConfigurator: (cell: Cell) -> Void = { _ in }
-    public var numberOfRows: Int = 0
+    public var cellConfigurator: (cell: Cell, index: Int) -> Void = { _, _ in }
+    public var numberOfRows = 0
     
     
     // MARK: Init
@@ -65,11 +64,15 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     public final override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return numberOfRows }
     
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public final override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat { return tableView.estimatedRowHeight }
+    
+    public final override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat { return tableView.rowHeight }
+    
+    public final override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell: Cell = tableView.dequeueReusableCell(for: indexPath)
         
-        cellConfigurator(cell: cell)
+        cellConfigurator(cell: cell, index: indexPath.row)
         
         return cell
         
