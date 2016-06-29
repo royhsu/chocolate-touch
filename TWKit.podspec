@@ -1,16 +1,13 @@
-Pod::Spec.new do |s|
-  s.name         = "TWKit"
-  s.version      = "0.0.1"
-  s.summary      = "A short description of TWKit."
-  s.description  = "The more advanced framework built upon cocoa touch."
-  s.homepage     = "https://github.com/royhsu/chocolate-touch"
-  s.license      = "MIT"
-  s.author       = { "Tiny World" => "roy.hsu@tinyworld.cc" }
+Pod::Spec.new do |spec|
+  spec.name             = 'TWKit'
+  spec.version          = '0.1'
+  spec.license          = 'MIT'
+  spec.homepage         = 'The more advanced framework built upon cocoa touch.'
+  spec.authors          = { 'Tiny World' => 'roy.hsu@tinyworld.cc' }
+  spec.summary          = 'A personalized foundation framework for Swift.'
+  spec.source           = { :git => 'https://github.com/royhsu/chocolate-touch.git', :head }
 
-  s.ios.deployment_target = "8.0"
+  spec.ios.deployment_target = '8.0'
 
-  s.source       = { :git => "https://github.com/royhsu/chocolate-touch.git", :head }
-  s.source_files  = "Sources/*.swift"
-
-  s.dependency "TWFoundation", :git => "https://github.com/royhsu/swift-foundation.git", :head
+  spec.source_files     = 'Sources/*.swift'
 end
