@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.homepage         = 'https://github.com/royhsu/chocolate-touch'
   spec.authors          = { 'Tiny World' => 'roy.hsu@tinyworld.cc' }
   spec.summary          = 'The more advanced framework built upon cocoa touch.'
-  spec.source           = { :git => 'https://github.com/royhsu/chocolate-touch.git', :tag => spec.version }
+  spec.source           = { :git => 'https://github.com/royhsu/chocolate-touch.git', :branch => master, :commit => 'HEAD' }
 
   spec.ios.deployment_target = '8.0'
 
