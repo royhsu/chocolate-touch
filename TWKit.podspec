@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'TWKit'
-  spec.version          = '0.2'
+  spec.version          = '0.1'
   spec.license          = 'MIT'
   spec.homepage         = 'https://github.com/royhsu/chocolate-touch'
   spec.authors          = { 'Tiny World' => 'roy.hsu@tinyworld.cc' }
@@ -10,5 +10,4 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
 
   spec.source_files     = 'Sources/*.swift'
-  spec.frameworks = 'TWFoundation'
 end
