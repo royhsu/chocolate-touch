@@ -15,19 +15,19 @@ class AppDelegate: UIResponder {
     
     enum Row: Int {
         
-        case Plain
+        case DynamicCellContent
         
         var title: String {
         
             switch self {
-            case .Plain: return "Plain"
+            case .DynamicCellContent: return "Dynamic Cell Content"
             }
         
         }
     
     }
     
-    let rows: [Row] = [ .Plain ]
+    let rows: [Row] = [ .DynamicCellContent ]
     
     lazy var listTableViewController: TWTableViewController<TWTableViewCell> = { [unowned self] in
     
@@ -76,7 +76,13 @@ extension AppDelegate: UITableViewDelegate {
         let row = rows[indexPath.row]
         
         switch row {
-        case .Plain: print(row.title)
+        case .DynamicCellContent:
+            
+            let controller = DynamicCellContentTableViewController()
+            controller.navigationItem.title = row.title
+            
+            window?.rootViewController?.showViewController(controller, sender: nil)
+            
         }
         
     }

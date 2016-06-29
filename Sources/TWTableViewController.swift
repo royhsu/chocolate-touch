@@ -25,19 +25,21 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     // MARK: Init
     
-    public convenience init(cellType: Cell.Type) {
+    public init(cellType: Cell.Type) {
         
-        self.init()
+        super.init(style: .Plain)
         
         tableView.registerCellType(cellType)
+        setupInitially()
         
     }
     
-    public convenience init(nibType: Cell.Type) {
+    public init(nibType: Cell.Type, bundle: NSBundle? = nil) {
         
-        self.init()
+        super.init(style: .Plain)
         
-        tableView.registerCellNib(nibType, bundle: nibBundle)
+        tableView.registerCellNib(nibType, bundle: bundle)
+        setupInitially()
         
     }
     
@@ -47,13 +49,21 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     }
     
-    private init() { super.init(style: .Plain) }
+    private convenience init() { self.init(style: .Plain) }
     
-    private override init(style: UITableViewStyle) { super.init(style: style) }
+    private override init(style: UITableViewStyle) {
+        
+        super.init(style: style)
+        
+        setupInitially()
+        
+    }
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        setupInitially()
         
     }
     
@@ -78,6 +88,15 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
     }
 
+}
+
+
+// MARK: - Setup
+
+private extension TWTableViewController {
+    
+    func setupInitially() { cellHeight = .Automatic }
+    
 }
 
 
