@@ -11,5 +11,5 @@ Pod::Spec.new do |spec|
 
   spec.source_files     = 'Sources/*.swift'
   
-  spec.dependency = 'TWFoundation', :git => 'https://github.com/royhsu/swift-foundation.git'
+  spec.dependency = 'TWFoundation'
 end
