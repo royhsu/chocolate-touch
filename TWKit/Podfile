@@ -7,6 +7,5 @@ end
 
 target 'TWKitExamples' do
 	pod 'AlamofireImage', '2.4.0'
-	pod 'TWKit', :git => 'https://github.com/royhsu/chocolate-touch.git', :tag => '0.1'
 end
 

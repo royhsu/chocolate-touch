@@ -22,6 +22,7 @@
 		B0C0A48B1D237C7F009728DC /* TemplateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C0A48A1D237C7F009728DC /* TemplateTableViewCell.xib */; };
 		B0C0A48D1D2386C4009728DC /* DynamicCellContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A48C1D2386C4009728DC /* DynamicCellContentTableViewController.swift */; };
 		B0C0A4B41D23A80D009728DC /* TWKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C0A4351D22C430009728DC /* TWKit.framework */; };
+		B0C0A4E01D23B218009728DC /* TWKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C0A4351D22C430009728DC /* TWKit.framework */; };
 		C49F314ED6F0A34D8D41343D /* Pods_TWKitExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3744F08A9C60698CFFF6B7 /* Pods_TWKitExamples.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0C0A4E01D23B218009728DC /* TWKit.framework in Frameworks */,
 				C49F314ED6F0A34D8D41343D /* Pods_TWKitExamples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
