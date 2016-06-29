@@ -10,4 +10,6 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '8.0'
 
   spec.source_files     = 'Sources/*.swift'
+  
+  spec.dependency 'TWFoundation', :git => 'https://github.com/royhsu/swift-foundation.git', :branch => 'master', :commit => 'e606361127550aaa7644c4e9bca7b75c9eb31152'
 end

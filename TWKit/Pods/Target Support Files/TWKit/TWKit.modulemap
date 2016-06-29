@@ -1,0 +1,6 @@
+framework module TWKit {
+  umbrella header "TWKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

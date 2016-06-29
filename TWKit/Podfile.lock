@@ -3,27 +3,36 @@ PODS:
   - AlamofireImage (2.4.0):
     - Alamofire (~> 3.3)
   - TWFoundation (0.1)
+  - TWKit (0.1)
 
 DEPENDENCIES:
   - AlamofireImage (= 2.4.0)
   - TWFoundation (from `https://github.com/royhsu/swift-foundation.git`, commit `e606361127550aaa7644c4e9bca7b75c9eb31152`,
     branch `master`)
+  - TWKit (from `https://github.com/royhsu/chocolate-touch.git`, tag `0.1`)
 
 EXTERNAL SOURCES:
   TWFoundation:
     :branch: master
     :commit: e606361127550aaa7644c4e9bca7b75c9eb31152
     :git: https://github.com/royhsu/swift-foundation.git
+  TWKit:
+    :git: https://github.com/royhsu/chocolate-touch.git
+    :tag: '0.1'
 
 CHECKOUT OPTIONS:
   TWFoundation:
     :branch: master
     :commit: e606361127550aaa7644c4e9bca7b75c9eb31152
     :git: https://github.com/royhsu/swift-foundation.git
+  TWKit:
+    :git: https://github.com/royhsu/chocolate-touch.git
+    :tag: '0.1'
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   AlamofireImage: 87408b652e0f5ae5fe364035f15aea8b9b24c77e
   TWFoundation: 3bc9f0c1f97d749f094f6dc1e9284c1ef05b2100
+  TWKit: 834bc7c40308cf462fd867f2f1eab5e2e88b59a4
 
 COCOAPODS: 0.39.0
