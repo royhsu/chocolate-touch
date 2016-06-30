@@ -78,16 +78,29 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     // MARK: UITableViewDataSource
     
-    public final override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat { return 44.0 }
+    public final override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
+        
+        switch cellHeight {
+        case .dynamic: tableView.estimatedRowHeight = 44.0
+        case .fixed: tableView.estimatedRowHeight = 0.0
+        }
+        
+        return tableView.estimatedRowHeight
+    
+    }
     
     public final override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
         let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
         
         switch cellHeight {
-        case .dynamic: return UITableViewAutomaticDimension
-        case .fixed(let height): return height
+        case .dynamic: tableView.rowHeight = UITableViewAutomaticDimension
+        case .fixed(let height): tableView.rowHeight = height
         }
+        
+        return tableView.rowHeight
         
     }
     
