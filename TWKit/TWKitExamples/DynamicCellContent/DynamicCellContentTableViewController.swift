@@ -9,7 +9,9 @@
 import AlamofireImage
 import TWKit
 
-public class DynamicCellContentTableViewController: TWTableViewController<TemplateTableViewCell> {
+public typealias ContentTableViewCell = TemplateTableViewCell
+
+public class DynamicCellContentTableViewController: TWTableViewController<ContentTableViewCell> {
     
     struct Content {
         
@@ -38,7 +40,7 @@ public class DynamicCellContentTableViewController: TWTableViewController<Templa
     
     // MARK: Init
     
-    init() { super.init(nibType: TemplateTableViewCell.self) }
+    init() { super.init(nibType: ContentTableViewCell.self) }
     
     required public init?(coder aDecoder: NSCoder) {
         
@@ -69,7 +71,7 @@ public class DynamicCellContentTableViewController: TWTableViewController<Templa
     
     // MARK: TWTableViewControllerProtocol
     
-    public override func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: TemplateTableViewCell, indexPath: NSIndexPath)) -> TemplateTableViewCell {
+    public override func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: ContentTableViewCell, indexPath: NSIndexPath)) -> ContentTableViewCell {
         
         let cell = cellAtIndexPath.cell
         let rowIndex = cellAtIndexPath.indexPath.row
