@@ -8,7 +8,7 @@
 
 import TWKit
 
-class TemplateTableViewCell: TWTableViewCell {
+public class TemplateTableViewCell: TWTableViewCell {
 
     @IBOutlet private(set) weak var mainImageView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: UILabel!

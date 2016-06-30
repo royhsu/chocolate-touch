@@ -9,7 +9,7 @@
 import AlamofireImage
 import TWKit
 
-class DynamicCellContentTableViewController: TWTableViewController<TemplateTableViewCell> {
+public class DynamicCellContentTableViewController: TWTableViewController<TemplateTableViewCell> {
     
     struct Content {
         
@@ -18,6 +18,9 @@ class DynamicCellContentTableViewController: TWTableViewController<TemplateTable
         let body: String
         
     }
+    
+    
+    // MARK: Property
     
     var contents: [Content] = [
         Content(imageURL: NSURL(string: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg")!, title: "Magna Pellentesque", body: "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Etiam porta sem malesuada magna mollis euismod. Aenean lacinia bibendum nulla sed consectetur. Donec id elit non mi porta gravida at eget metus. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor."),
@@ -35,26 +38,48 @@ class DynamicCellContentTableViewController: TWTableViewController<TemplateTable
     
     // MARK: Init
     
-    init() {
-        
-        super.init(nibType: TemplateTableViewCell.self)
-        
-        cellConfigurator = { cell, index in
-            
-            let content = self.contents[index]
-            
-            cell.mainImageView.af_setImageWithURL(content.imageURL)
-            cell.titleLabel.text = content.title
-            cell.bodyLabel.text = content.body
-            
-        }
-        numberOfRows = contents.count
+    init() { super.init(nibType: TemplateTableViewCell.self) }
     
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
+        
+    }
+    
+    
+    // MARK: View Life Cycle
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupInitially()
+        
+    }
+    
+    
+    // MARK: Setup
+    
+    private func setupInitially() { }
+    
+    
+    // MARK: UITableViewDataSource
+    
+    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return contents.count }
+    
+    
+    // MARK: TWTableViewControllerProtocol
+    
+    public override func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: TemplateTableViewCell, indexPath: NSIndexPath)) -> TemplateTableViewCell {
+        
+        let cell = cellAtIndexPath.cell
+        let rowIndex = cellAtIndexPath.indexPath.row
+        let content = contents[rowIndex]
+
+        cell.mainImageView.af_setImageWithURL(content.imageURL)
+        cell.titleLabel.text = content.title
+        cell.bodyLabel.text = content.body
+        
+        return cell
         
     }
     

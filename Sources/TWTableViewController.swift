@@ -8,19 +8,22 @@
 
 import UIKit
 
-public enum CellHeight {
+public enum HeightType {
     case dynamic
     case fixed(height: CGFloat)
 }
 
-public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiable>: BaseTableViewController {
+public protocol TWTableViewControllerProtocol {
     
+    associatedtype Cell: UITableViewCell
+
+    func tableView(tableView: UITableView, cellHeightTypeForRowAt: NSIndexPath) -> HeightType
     
-    // MARK: Property
+    func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: Cell, indexPath: NSIndexPath)) -> Cell
     
-    public var cellHeight: CellHeight = .dynamic { didSet { cellHeightDidSet() } }
-    public var cellConfigurator: (cell: Cell, index: Int) -> Void = { _, _ in }
-    public var numberOfRows = 0
+}
+
+public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiable>: BaseTableViewController, TWTableViewControllerProtocol {
     
     
     // MARK: Init
@@ -68,56 +71,39 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     }
     
     
+    // MARK: Setup
+    
+    private func setupInitially() { }
+    
+    
     // MARK: UITableViewDataSource
     
-    public final override func numberOfSectionsInTableView(tableView: UITableView) -> Int { return 1 }
+    public final override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat { return 44.0 }
     
-    public final override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return numberOfRows }
+    public final override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     
-    public final override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat { return tableView.estimatedRowHeight }
-    
-    public final override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat { return tableView.rowHeight }
+        let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
+        
+        switch cellHeight {
+        case .dynamic: return UITableViewAutomaticDimension
+        case .fixed(let height): return height
+        }
+        
+    }
     
     public final override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell: Cell = tableView.dequeueReusableCell(for: indexPath)
         
-        cellConfigurator(cell: cell, index: indexPath.row)
-        
-        return cell
-        
-    }
-
-}
-
-
-// MARK: - Setup
-
-private extension TWTableViewController {
-    
-    func setupInitially() { cellHeight = .dynamic }
-    
-}
-
-
-// MARK: - Observer
-
-private extension TWTableViewController {
-    
-    private func cellHeightDidSet() {
-        
-        switch cellHeight {
-        case .dynamic:
-            
-            tableView.estimatedRowHeight = 44.0
-            tableView.rowHeight = UITableViewAutomaticDimension
-            
-        case .fixed(let height):
-            
-            tableView.estimatedRowHeight = 44.0
-            tableView.rowHeight = height
-        }
+        return self.tableView(tableView, configurationFor: (cell: cell, indexPath: indexPath))
         
     }
     
+    
+    // MARK: TWTableViewControllerProtocol
+    
+    public func tableView(tableView: UITableView, cellHeightTypeForRowAt: NSIndexPath) -> HeightType { return .dynamic }
+    
+    public func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: Cell, indexPath: NSIndexPath)) -> Cell { return cellAtIndexPath.cell }
+
 }
