@@ -17,9 +17,9 @@ public protocol TWTableViewControllerProtocol {
     
     associatedtype Cell: UITableViewCell
 
-    func tableView(tableView: UITableView, cellHeightTypeForRowAt: NSIndexPath) -> HeightType
+    func tableView(_ tableView: UITableView, cellHeightTypeForRowAt: IndexPath) -> HeightType
     
-    func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: Cell, indexPath: NSIndexPath)) -> Cell
+    func tableView(_ tableView: UITableView, configurationFor cell: Cell, at indexPath: IndexPath) -> Cell
     
 }
 
@@ -30,18 +30,18 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     public init(cellType: Cell.Type) {
         
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
-        tableView.registerCellType(cellType)
+        tableView.registerCellType(cellType: cellType)
         setupInitially()
         
     }
     
-    public init(nibType: Cell.Type, bundle: NSBundle? = nil) {
+    public init(nibType: Cell.Type, bundle: Bundle? = nil) {
         
-        super.init(style: .Plain)
+        super.init(style: .plain)
         
-        tableView.registerCellNib(nibType, bundle: bundle)
+        tableView.registerCellNibType(nibType: nibType, bundle: bundle)
         setupInitially()
         
     }
@@ -52,7 +52,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     }
     
-    private convenience init() { self.init(style: .Plain) }
+    private init() { super.init(style: .plain) }
     
     private override init(style: UITableViewStyle) {
         
@@ -62,7 +62,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
     }
     
-    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -78,7 +78,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     // MARK: UITableViewDataSource
     
-    public final override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    public override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
         
@@ -88,11 +88,11 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         }
         
         return tableView.estimatedRowHeight
-    
+        
     }
     
-    public final override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    
+    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
         
         switch cellHeight {
@@ -104,19 +104,19 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
     }
     
-    public final override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: Cell = tableView.dequeueReusableCell(for: indexPath)
         
-        return self.tableView(tableView, configurationFor: (cell: cell, indexPath: indexPath))
+        return self.tableView(tableView, configurationFor: cell, at: indexPath)
         
     }
     
     
     // MARK: TWTableViewControllerProtocol
     
-    public func tableView(tableView: UITableView, cellHeightTypeForRowAt: NSIndexPath) -> HeightType { return .dynamic }
+    public func tableView(_ tableView: UITableView, cellHeightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
     
-    public func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: Cell, indexPath: NSIndexPath)) -> Cell { return cellAtIndexPath.cell }
+    public func tableView(_ tableView: UITableView, configurationFor cell: Cell, at indexPath: IndexPath) -> Cell { return cell }
 
 }

@@ -20,12 +20,12 @@ class AppDelegate: UIResponder {
 
 extension AppDelegate: UIApplicationDelegate {
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         let catalogueTableViewController = CatalogueTableViewController()
         let navigationController = UINavigationController(rootViewController: catalogueTableViewController)
         
-        let window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let window = UIWindow(frame: UIScreen.main().bounds)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         

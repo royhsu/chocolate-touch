@@ -6,7 +6,6 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import AlamofireImage
 import TWKit
 
 public typealias ContentTableViewCell = TemplateTableViewCell
@@ -66,18 +65,15 @@ public class DynamicCellContentTableViewController: TWTableViewController<Conten
     
     // MARK: UITableViewDataSource
     
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return contents.count }
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return contents.count }
     
     
     // MARK: TWTableViewControllerProtocol
     
-    public override func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: ContentTableViewCell, indexPath: NSIndexPath)) -> ContentTableViewCell {
+    public override func tableView(_ tableView: UITableView, configurationFor cell: ContentTableViewCell, at indexPath: IndexPath) -> ContentTableViewCell {
         
-        let cell = cellAtIndexPath.cell
-        let rowIndex = cellAtIndexPath.indexPath.row
-        let content = contents[rowIndex]
+        let content = contents[indexPath.row]
 
-        cell.mainImageView.af_setImageWithURL(content.imageURL)
         cell.titleLabel.text = content.title
         cell.bodyLabel.text = content.body
         

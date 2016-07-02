@@ -12,26 +12,26 @@ public extension UITableView {
     
     func registerCellType<Cell: UITableViewCell where Cell: Identifiable>(cellType: Cell.Type) {
         
-        registerClass(cellType, forCellReuseIdentifier: cellType.identifier)
+        register(cellType, forCellReuseIdentifier: cellType.identifier)
         
     }
     
-    func registerCellNib<Cell: UITableViewCell where Cell: Identifiable>(nibType: Cell.Type, bundle: NSBundle? = nil) {
+    func registerCellNibType<Cell: UITableViewCell where Cell: Identifiable>(nibType: Cell.Type, bundle: Bundle? = nil) {
         
-        registerNib(nibType.identifier, bundle: bundle)
+        registerNib(nibName: nibType.identifier, bundle: bundle)
         
     }
     
-    func registerNib(nibName: String, bundle: NSBundle? = nil) {
+    func registerNib(nibName: String, bundle: Bundle? = nil) {
         
         let nib = UINib(nibName: nibName, bundle: bundle)
-        registerNib(nib, forCellReuseIdentifier: nibName)
+        register(nib, forCellReuseIdentifier: nibName)
         
     }
     
-    func dequeueReusableCell<Cell: UITableViewCell where Cell: Identifiable>(for indexPath: NSIndexPath) -> Cell {
+    func dequeueReusableCell<Cell: UITableViewCell where Cell: Identifiable>(for indexPath: IndexPath) -> Cell {
         
-        return dequeueReusableCellWithIdentifier(Cell.identifier, forIndexPath: indexPath) as! Cell
+        return dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as! Cell
         
     }
     

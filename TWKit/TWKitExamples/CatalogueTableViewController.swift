@@ -58,19 +58,16 @@ public class CatalogueTableViewController: TWTableViewController<TWTableViewCell
     
     // MARK: UITableViewDataSource
     
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return rows.count }
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return rows.count }
     
     
     // MARK: TWTableViewControllerProtocol
     
-    public override func tableView(tableView: UITableView, cellHeightTypeForRowAt: NSIndexPath) -> HeightType { return .fixed(height: 44.0) }
+    public override func tableView(_ tableView: UITableView, cellHeightTypeForRowAt: IndexPath) -> HeightType { return .fixed(height: 44.0) }
     
-    public override func tableView(tableView: UITableView, configurationFor cellAtIndexPath: (cell: TWTableViewCell, indexPath: NSIndexPath)) -> TWTableViewCell {
+    public override func tableView(_ tableView: UITableView, configurationFor cell: TWTableViewCell, at indexPath: IndexPath) -> TWTableViewCell {
         
-        let cell = cellAtIndexPath.cell
-        let rowIndex = cellAtIndexPath.indexPath.row
-        
-        cell.textLabel?.text = rows[rowIndex].title
+        cell.textLabel?.text = rows[indexPath.row].title
         
         return cell
         
@@ -79,17 +76,17 @@ public class CatalogueTableViewController: TWTableViewController<TWTableViewCell
     
     // MARK: UITableViewDelegate
     
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let row = rows[indexPath.row]
-
+        
         switch row {
         case .DynamicCellContent:
-
+            
             let controller = DynamicCellContentTableViewController()
             controller.navigationItem.title = row.title
-
-            showViewController(controller, sender: nil)
+            
+            show(controller, sender: nil)
             
         }
         
