@@ -66,10 +66,10 @@
 		B0971CF71D280536005BBEE8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0971CF91D280536005BBEE8 /* Identifiable.swift */,
-				B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */,
+				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */,
+				B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */,
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 			);
 			name = Source;
