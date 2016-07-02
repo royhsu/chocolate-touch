@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		8C45DFC95908E1BBBB8704B8 /* Pods_TWKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84010063CF52E84330A11FFE /* Pods_TWKit.framework */; };
+		B041AA571D24B59D00F71884 /* CatalogueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041AA561D24B59D00F71884 /* CatalogueTableViewController.swift */; };
+		B041AA591D24D21800F71884 /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041AA581D24D21800F71884 /* TestTableViewCell.swift */; };
+		B041AA5B1D24D22900F71884 /* TestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B041AA5A1D24D22900F71884 /* TestTableViewCell.xib */; };
 		B0C0A4391D22C430009728DC /* TWKit.h in Headers */ = {isa = PBXBuildFile; fileRef = B0C0A4381D22C430009728DC /* TWKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0C0A4471D22C47B009728DC /* TWKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A4461D22C47B009728DC /* TWKitTests.swift */; };
+		B0C0A4471D22C47B009728DC /* TWTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A4461D22C47B009728DC /* TWTableViewControllerTests.swift */; };
 		B0C0A4571D22C686009728DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C0A4561D22C686009728DC /* AppDelegate.swift */; };
 		B0C0A45E1D22C686009728DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0C0A45D1D22C686009728DC /* Assets.xcassets */; };
 		B0C0A4611D22C686009728DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0C0A45F1D22C686009728DC /* LaunchScreen.storyboard */; };
@@ -46,11 +49,14 @@
 		84010063CF52E84330A11FFE /* Pods_TWKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TWKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0B125705540A7786384893 /* Pods-TWKitExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWKitExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TWKitExamples/Pods-TWKitExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		A0D717D793B4E3A5FBA1283B /* Pods-TWKitExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TWKitExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-TWKitExamples/Pods-TWKitExamples.release.xcconfig"; sourceTree = "<group>"; };
+		B041AA561D24B59D00F71884 /* CatalogueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogueTableViewController.swift; sourceTree = "<group>"; };
+		B041AA581D24D21800F71884 /* TestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		B041AA5A1D24D22900F71884 /* TestTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestTableViewCell.xib; sourceTree = "<group>"; };
 		B0C0A4351D22C430009728DC /* TWKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TWKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C0A4381D22C430009728DC /* TWKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TWKit.h; sourceTree = "<group>"; };
 		B0C0A43A1D22C430009728DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0C0A4441D22C47B009728DC /* TWKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TWKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0C0A4461D22C47B009728DC /* TWKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWKitTests.swift; sourceTree = "<group>"; };
+		B0C0A4461D22C47B009728DC /* TWTableViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWTableViewControllerTests.swift; sourceTree = "<group>"; };
 		B0C0A4481D22C47B009728DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0C0A4541D22C686009728DC /* TWKitExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TWKitExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0C0A4561D22C686009728DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -142,7 +148,9 @@
 		B0C0A4451D22C47B009728DC /* TWKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				B0C0A4461D22C47B009728DC /* TWKitTests.swift */,
+				B0C0A4461D22C47B009728DC /* TWTableViewControllerTests.swift */,
+				B041AA581D24D21800F71884 /* TestTableViewCell.swift */,
+				B041AA5A1D24D22900F71884 /* TestTableViewCell.xib */,
 				B0C0A4481D22C47B009728DC /* Info.plist */,
 			);
 			path = TWKitTests;
@@ -165,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				B0C0A4871D237C3F009728DC /* DynamicCellContent */,
+				B041AA561D24B59D00F71884 /* CatalogueTableViewController.swift */,
 				B0C0A4561D22C686009728DC /* AppDelegate.swift */,
 				B0C0A45D1D22C686009728DC /* Assets.xcassets */,
 				B0C0A45F1D22C686009728DC /* LaunchScreen.storyboard */,
@@ -319,6 +328,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B041AA5B1D24D22900F71884 /* TestTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +439,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0C0A4471D22C47B009728DC /* TWKitTests.swift in Sources */,
+				B0C0A4471D22C47B009728DC /* TWTableViewControllerTests.swift in Sources */,
+				B041AA591D24D21800F71884 /* TestTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +456,7 @@
 				B0C0A4E51D23B3D9009728DC /* Identifiable.swift in Sources */,
 				B0C0A4E11D23B3D9009728DC /* BaseTableViewController.swift in Sources */,
 				B0C0A4891D237C72009728DC /* TemplateTableViewCell.swift in Sources */,
+				B041AA571D24B59D00F71884 /* CatalogueTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

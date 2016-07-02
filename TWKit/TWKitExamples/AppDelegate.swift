@@ -12,40 +12,6 @@ import UIKit
 class AppDelegate: UIResponder {
 
     var window: UIWindow?
-    
-    enum Row: Int {
-        
-        case DynamicCellContent
-        
-        var title: String {
-        
-            switch self {
-            case .DynamicCellContent: return "Dynamic Cell Content"
-            }
-        
-        }
-    
-    }
-    
-    let rows: [Row] = [ .DynamicCellContent ]
-    
-    lazy var listTableViewController: TWTableViewController<TWTableViewCell> = { [unowned self] in
-    
-        let controller = TWTableViewController(cellType: TWTableViewCell.self)
-        
-        controller.navigationItem.title = "TWKit"
-        controller.cellHeight = .fixed(height: 44.0)
-        controller.cellConfigurator = { cell, index in
-            
-            cell.textLabel?.text = self.rows[index].title
-            
-        }
-        controller.numberOfRows = self.rows.count
-        controller.tableView.delegate = self
-        
-        return controller
-        
-    }()
 
 }
 
@@ -56,34 +22,16 @@ extension AppDelegate: UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = UINavigationController(rootViewController: listTableViewController)
-        window?.makeKeyAndVisible()
+        let catalogueTableViewController = CatalogueTableViewController()
+        let navigationController = UINavigationController(rootViewController: catalogueTableViewController)
+        
+        let window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+        
+        self.window = window
         
         return true
-        
-    }
-    
-}
-
-
-// MARK: - UITableViewDelegate
-
-extension AppDelegate: UITableViewDelegate {
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let row = rows[indexPath.row]
-        
-        switch row {
-        case .DynamicCellContent:
-            
-            let controller = DynamicCellContentTableViewController()
-            controller.navigationItem.title = row.title
-            
-            window?.rootViewController?.showViewController(controller, sender: nil)
-            
-        }
         
     }
     

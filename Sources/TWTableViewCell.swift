@@ -8,13 +8,13 @@
 
 import UIKit
 
-class TWTableViewCell: UITableViewCell { }
+public class TWTableViewCell: UITableViewCell { }
 
 
 // MARK: - Identifiable
 
 extension TWTableViewCell: Identifiable {
     
-    class var identifier: String { return String(self) }
+    public class var identifier: String { return String(self) }
     
 }
