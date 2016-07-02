@@ -1,6 +1,6 @@
 //
-//  TWTableViewController.swift
-//  TWKit
+//  CHSingleCellTypeTableViewController.swift
+//  Chocolate
 //
 //  Created by 許郁棋 on 2016/6/28.
 //  Copyright © 2016年 Tiny World. All rights reserved.
@@ -13,17 +13,17 @@ public enum HeightType {
     case fixed(height: CGFloat)
 }
 
-public protocol TWTableViewControllerProtocol {
+public protocol CHSingleCellTypeTableViewControllerProtocol {
     
     associatedtype Cell: UITableViewCell
 
-    func tableView(_ tableView: UITableView, cellHeightTypeForRowAt: IndexPath) -> HeightType
+    func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType
     
     func tableView(_ tableView: UITableView, configurationFor cell: Cell, at indexPath: IndexPath) -> Cell
     
 }
 
-public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiable>: BaseTableViewController, TWTableViewControllerProtocol {
+public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cell: Identifiable>: CHTableViewController, CHSingleCellTypeTableViewControllerProtocol {
     
     
     // MARK: Init
@@ -32,7 +32,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
         super.init(style: .plain)
         
-        tableView.registerCellType(cellType: cellType)
+        tableView.registerCellType(cellType)
         setupInitially()
         
     }
@@ -41,7 +41,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
         super.init(style: .plain)
         
-        tableView.registerCellNibType(nibType: nibType, bundle: bundle)
+        tableView.registerCellNibType(nibType, bundle: bundle)
         setupInitially()
         
     }
@@ -78,9 +78,9 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     
     // MARK: UITableViewDataSource
     
-    public override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    public final override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
+        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
         
         switch cellHeight {
         case .dynamic: tableView.estimatedRowHeight = 44.0
@@ -91,9 +91,9 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
     }
     
-    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public final override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let cellHeight = self.tableView(tableView, cellHeightTypeForRowAt: indexPath)
+        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
         
         switch cellHeight {
         case .dynamic: tableView.rowHeight = UITableViewAutomaticDimension
@@ -104,7 +104,7 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
         
     }
     
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell: Cell = tableView.dequeueReusableCell(for: indexPath)
         
@@ -113,9 +113,9 @@ public class TWTableViewController<Cell: UITableViewCell where Cell: Identifiabl
     }
     
     
-    // MARK: TWTableViewControllerProtocol
+    // MARK: CHSingleCellTypeTableViewControllerProtocol
     
-    public func tableView(_ tableView: UITableView, cellHeightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
+    public func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
     
     public func tableView(_ tableView: UITableView, configurationFor cell: Cell, at indexPath: IndexPath) -> Cell { return cell }
 

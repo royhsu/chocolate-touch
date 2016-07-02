@@ -1,6 +1,6 @@
 //
 //  UITableView+Extensions.swift
-//  TWKit
+//  Chocolate
 //
 //  Created by 許郁棋 on 2016/6/28.
 //  Copyright © 2016年 Tiny World. All rights reserved.
@@ -10,13 +10,13 @@ import UIKit
 
 public extension UITableView {
     
-    func registerCellType<Cell: UITableViewCell where Cell: Identifiable>(cellType: Cell.Type) {
+    func registerCellType<Cell: UITableViewCell where Cell: Identifiable>(_ cellType: Cell.Type) {
         
         register(cellType, forCellReuseIdentifier: cellType.identifier)
         
     }
     
-    func registerCellNibType<Cell: UITableViewCell where Cell: Identifiable>(nibType: Cell.Type, bundle: Bundle? = nil) {
+    func registerCellNibType<Cell: UITableViewCell where Cell: Identifiable>(_ nibType: Cell.Type, bundle: Bundle? = nil) {
         
         registerNib(nibName: nibType.identifier, bundle: bundle)
         
