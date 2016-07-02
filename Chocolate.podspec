@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-  spec.name             = 'TWKit'
+  spec.name             = 'Chocolate'
   spec.version          = '0.1'
   spec.license          = 'MIT'
   spec.homepage         = 'https://github.com/royhsu/chocolate-touch'
