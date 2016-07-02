@@ -1,6 +1,0 @@
-framework module Pods_TWKitExamples {
-  umbrella header "Pods-TWKitExamples-umbrella.h"
-
-  export *
-  module * { export * }
-}

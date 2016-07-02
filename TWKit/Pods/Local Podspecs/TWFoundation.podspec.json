@@ -1,1 +1,0 @@
-{"name":"TWFoundation","version":"0.1","license":"MIT","homepage":"https://github.com/royhsu/swift-foundation","authors":{"Tiny World":"roy.hsu@tinyworld.cc"},"summary":"A personalized foundation framework for Swift.","source":{"git":"https://github.com/royhsu/swift-foundation.git","tag":"0.1"},"platforms":{"ios":"8.0"},"source_files":"Sources/*.swift"}
