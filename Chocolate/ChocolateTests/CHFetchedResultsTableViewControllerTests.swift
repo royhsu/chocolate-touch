@@ -40,12 +40,17 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
     
     override func tearDown() {
         
+        bundle = nil
+        modelURL = nil
+        model = nil
+        persistentStoreCoordinator = nil
+        managedObjectContext = nil
+        
         super.tearDown()
         
     }
     
-    
-    func testInitWithFetchResultsController() {
+    func testInitWithCellTypeAndFetchResultsController() {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "City")
         fetchRequest.sortDescriptors = [
@@ -64,7 +69,31 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
             fetchedResultsController: fetchedResultsController
         )
         
-        XCTAssertNotNil(controller, "Cannot initialize with cell type and fetched result controller")
+        XCTAssertNotNil(controller, "Cannot initialize with custom table view cell and fetched result controller")
+        
+    }
+    
+    func testInitWithNibTypeAndFetchResultsController() {
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "City")
+        fetchRequest.sortDescriptors = [
+            SortDescriptor(key: "name", ascending: true)
+        ]
+        
+        let fetchedResultsController = NSFetchedResultsController<NSManagedObject>(
+            fetchRequest: fetchRequest,
+            managedObjectContext: managedObjectContext!,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        
+        let controller: CHFetchedResultsTableViewController<TestTableViewCell, NSManagedObject>? = CHFetchedResultsTableViewController(
+            nibType: TestTableViewCell.self,
+            bundle: bundle!,
+            fetchedResultsController: fetchedResultsController
+        )
+        
+        XCTAssertNotNil(controller, "Cannot initialize with custom table view cell from nib and fetched result controller")
         
     }
     
