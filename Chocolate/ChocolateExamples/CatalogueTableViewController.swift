@@ -92,7 +92,10 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
         case .CoreDataIntegration:
             
-            print("CoreDataIntegration")
+            let controller = CoreDataIntegrationTableViewController()
+            controller.navigationItem.title = row.title
+            
+            show(controller, sender: nil)
             
         }
         
