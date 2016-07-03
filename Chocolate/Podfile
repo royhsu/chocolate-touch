@@ -1,0 +1,9 @@
+source 'https://github.com/royhsu/chocolate-specs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, "8.0"
+use_frameworks!
+
+target 'Chocolate' do
+	pod 'CHFoundation', '0.1'
+end
