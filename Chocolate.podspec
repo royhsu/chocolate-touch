@@ -7,5 +7,7 @@ Pod::Spec.new do |spec|
   spec.summary          = 'The more advanced framework built upon cocoa touch.'
   spec.source           = { :git => 'https://github.com/royhsu/chocolate-touch.git', :tag => spec.version }
   spec.source_files     = 'Source/*.swift'
-  spec.ios.deployment_target = '8.0'  
+  spec.ios.deployment_target = '8.0'
+  
+  spec.dependency 'CHFoundation', '0.1' 
 end
