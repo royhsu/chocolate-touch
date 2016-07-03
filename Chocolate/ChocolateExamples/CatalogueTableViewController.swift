@@ -7,6 +7,7 @@
 //
 
 import Chocolate
+import CoreData
 
 public class CatalogueTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell> {
 

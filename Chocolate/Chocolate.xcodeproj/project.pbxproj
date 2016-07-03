@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		38C6AE610FECC734E67C49FD /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1781B8ED070E5E5D7FB14C01 /* Pods_ChocolateExamples.framework */; };
 		B066EF9C1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066EF9B1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift */; };
+		B066EF9F1D28B37000B0AF29 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B066EF9D1D28B37000B0AF29 /* Main.xcdatamodeld */; };
 		B0971CF01D2804E3005BBEE8 /* Chocolate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0971CEF1D2804E3005BBEE8 /* Chocolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF81D280536005BBEE8 /* CHTableViewController.swift */; };
 		B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF91D280536005BBEE8 /* Identifiable.swift */; };
@@ -47,6 +48,7 @@
 		966BD1020331A7EB0727167C /* Pods-ChocolateExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		9ED07AB182590A1D4A73CD0B /* Pods-Chocolate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.release.xcconfig"; sourceTree = "<group>"; };
 		B066EF9B1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataIntegrationTableViewController.swift; sourceTree = "<group>"; };
+		B066EF9E1D28B37000B0AF29 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0971CEF1D2804E3005BBEE8 /* Chocolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chocolate.h; sourceTree = "<group>"; };
 		B0971CF11D2804E3005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				B0971D241D280D3F005BBEE8 /* Assets.xcassets */,
 				B0971D261D280D3F005BBEE8 /* LaunchScreen.storyboard */,
 				B0971D291D280D3F005BBEE8 /* Info.plist */,
+				B066EF9D1D28B37000B0AF29 /* Main.xcdatamodeld */,
 			);
 			path = ChocolateExamples;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B066EF9F1D28B37000B0AF29 /* Main.xcdatamodeld in Sources */,
 				B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */,
 				B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */,
 				B0971D331D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift in Sources */,
@@ -716,6 +720,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B066EF9D1D28B37000B0AF29 /* Main.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B066EF9E1D28B37000B0AF29 /* Main.xcdatamodel */,
+			);
+			currentVersion = B066EF9E1D28B37000B0AF29 /* Main.xcdatamodel */;
+			path = Main.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B0971CE31D2804E3005BBEE8 /* Project object */;
 }

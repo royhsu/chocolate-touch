@@ -6,11 +6,25 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
+import CoreData
 import Chocolate
 
 public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell> {
+    
+    lazy var contextContainer: NSPersistentContainer = { NSPersistentContainer(name: "Main") }()
+    lazy var fetchedResultsController: NSFetchedResultsController<CityEntity> = { [unowned self] in
+        
+        let fetchRequest = NSFetchRequest<CityEntity>()
+        fetchRequest.sortDescriptors = []
 
-    let rows = [ "A", "B" ]
+        return NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: self.contextContainer.viewContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
+        
+    }()
     
     
     // MARK: Init
@@ -41,14 +55,20 @@ public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewCo
     
     // MARK: UITableViewDataSource
     
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return rows.count }
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return fetchedResultsController.fetchedObjects?.count ?? 0
+    
+    }
     
     
     // MARK: TWTableViewControllerProtocol
     
     public override func tableView(_ tableView: UITableView, configurationFor cell: CHTableViewCell, at indexPath: IndexPath) -> CHTableViewCell {
         
-        cell.textLabel?.text = rows[indexPath.row]
+        let city = fetchedResultsController.object(at: indexPath)
+         
+        cell.textLabel?.text = city.name
         
         return cell
         
