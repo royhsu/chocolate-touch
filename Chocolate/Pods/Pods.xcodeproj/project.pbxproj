@@ -17,6 +17,19 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>04B06A91621C09910D5B9E2A9FEC35E6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Chocolate-resources.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>099966B8D6E84592ADA53D30AA9E083E</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -28,20 +41,101 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>12382351111759005B26B8357740884C</key>
+		<key>0ABBD70F8C9D2A6DF455F698220F1B2A</key>
 		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
 			<key>includeInIndex</key>
-			<string>0</string>
+			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>Pods_Chocolate.framework</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>Pods-Chocolate.framework</string>
+			<string>Pods-Chocolate-acknowledgements.plist</string>
 			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>0D5958A746B22AB230033E27F83D59D3</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>6EC1A684C11A66171F9CBD093F4C6AC6</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-ChocolateExamples/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>org.cocoapods.${PRODUCT_NAME:rfc1034identifier}</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_ChocolateExamples</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>1324C531B7D0C2C1471996D7359DE3DE</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>5B6933D57B946DDD722E96C5CE5E36E4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>15734B730F90566886544FBCBEB5F312</key>
 		<dict>
@@ -70,6 +164,45 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>1C53F46791C93BB3BB77B866DA997CF6</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>232A7DDA87BE4AECCA227F4A7D827BC3</string>
+				<string>F62A557F0D2BA948200AB45F27C09469</string>
+				<string>FBF235BB7683CC658561DBB501C9EB0F</string>
+				<string>68613F16AA1BAA56C0050B4CB7D7F7AB</string>
+				<string>4C6C521D676CF0D77EEA10EFE7787A32</string>
+				<string>B277A03E4911ED76853AB62E886E21F3</string>
+				<string>B3C403C7FD7435E3300B032FACFCDF41</string>
+				<string>94D9A4CC49C01E1D8B7B4FA021C399DD</string>
+				<string>6EC1A684C11A66171F9CBD093F4C6AC6</string>
+				<string>9AEC3C52893AE03C70CC67F2BF82A986</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-ChocolateExamples</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-ChocolateExamples</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>1E904C2378156F7F220352FE3A0BAFC1</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>CHFoundation.framework</string>
+			<key>path</key>
+			<string>CHFoundation.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>1EB37BA22A4363D03708ACCA01D368E4</key>
 		<dict>
 			<key>includeInIndex</key>
@@ -83,18 +216,31 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>2081B3A06ACAD77C5CA57449FEED9291</key>
+		<key>232A7DDA87BE4AECCA227F4A7D827BC3</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>Pods-Chocolate-umbrella.h</string>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>24E76953C99CD50C73AADFDEB7E3F6B7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>DDA14C615861DD87E11E4C740D8DAEAC</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>270CDEAAFFD0D54E3E118EDB7B96CCD8</key>
 		<dict>
@@ -123,6 +269,19 @@
 			<string>Release</string>
 			<key>isa</key>
 			<string>XCConfigurationList</string>
+		</dict>
+		<key>35BA6B0FB66370A82D4CDFD0CBB2E6A9</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>Pods-Chocolate-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>37DC131EB356C0E849EC86A08E90448A</key>
 		<dict>
@@ -289,16 +448,29 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>43E6C2EC583C548FD565212DB1939A17</key>
+		<key>40F088808F52302F5046AD31A9B6AE2E</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
+			<string>text.xcconfig</string>
 			<key>path</key>
-			<string>Pods-Chocolate-resources.sh</string>
+			<string>Pods-Chocolate.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>43E5C70B7E6902C13CCE296049954F37</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-Chocolate.release.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -387,27 +559,29 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>484B2BE9444226FB8D4C90297750228F</key>
+		<key>48DF63412672223CEA2E0A781FD17CE2</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>DD44259C14AFDD32D66E8ACD65A7F6F6</string>
-				<string>586C9D9158D1C18B5A41FF63AE170E3B</string>
-				<string>4A0E58DF4AD6A7B9C59D1EC3B9B49F5B</string>
-				<string>4EE9CA92BC0CA1732450FBA42D55EE30</string>
-				<string>4E6D8A1144C002A0238C1CA1019B0B73</string>
-				<string>5D2C9C5D4662926AB4E89291A29145C2</string>
-				<string>43E6C2EC583C548FD565212DB1939A17</string>
-				<string>2081B3A06ACAD77C5CA57449FEED9291</string>
-				<string>BAB64F3D9412B67E24D6C16F7ED762E5</string>
-				<string>B4CA283D236657D27FC3AE4295BA38CB</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods-Chocolate</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>Target Support Files/Pods-Chocolate</string>
+			<string>Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>48ECD0732054B113B935D4B32E439464</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-Chocolate-frameworks.sh</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -424,20 +598,18 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4A0E58DF4AD6A7B9C59D1EC3B9B49F5B</key>
+		<key>4B49E3FF2EBAB6265174EDBCAE5B169B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text</string>
 			<key>path</key>
-			<string>Pods-Chocolate-acknowledgements.markdown</string>
+			<string>Pods-Chocolate.modulemap</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4E6D8A1144C002A0238C1CA1019B0B73</key>
+		<key>4C6C521D676CF0D77EEA10EFE7787A32</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -446,29 +618,55 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.c.objc</string>
 			<key>path</key>
-			<string>Pods-Chocolate-dummy.m</string>
+			<string>Pods-ChocolateExamples-dummy.m</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>4EE9CA92BC0CA1732450FBA42D55EE30</key>
+		<key>4F88AC17102DDB9C3555A4AA749F7A9A</key>
 		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
 			<key>includeInIndex</key>
-			<string>1</string>
+			<string>0</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
+			<key>name</key>
+			<string>Pods_ChocolateExamples.framework</string>
 			<key>path</key>
-			<string>Pods-Chocolate-acknowledgements.plist</string>
+			<string>Pods-ChocolateExamples.framework</string>
 			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>4F92EEE8466CF7D9DA0E9155AED0DDC7</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4E6D8A1144C002A0238C1CA1019B0B73</string>
+			<string>35BA6B0FB66370A82D4CDFD0CBB2E6A9</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>5200697A26AEC4DA2C3C324109F33FBA</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>48DF63412672223CEA2E0A781FD17CE2</string>
+				<string>4B49E3FF2EBAB6265174EDBCAE5B169B</string>
+				<string>B9B61C02539E2F1239CA027E7C0F3691</string>
+				<string>0ABBD70F8C9D2A6DF455F698220F1B2A</string>
+				<string>35BA6B0FB66370A82D4CDFD0CBB2E6A9</string>
+				<string>48ECD0732054B113B935D4B32E439464</string>
+				<string>04B06A91621C09910D5B9E2A9FEC35E6</string>
+				<string>F9DE3379D3CFC07175EEE7E3DA43947D</string>
+				<string>40F088808F52302F5046AD31A9B6AE2E</string>
+				<string>43E5C70B7E6902C13CCE296049954F37</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods-Chocolate</string>
+			<key>path</key>
+			<string>Target Support Files/Pods-Chocolate</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>53AB26C120FA2C209D2B74C1892D1E07</key>
 		<dict>
@@ -484,21 +682,10 @@
 			<key>isa</key>
 			<string>XCConfigurationList</string>
 		</dict>
-		<key>586C9D9158D1C18B5A41FF63AE170E3B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods-Chocolate.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>5A2357F8585DEDAAE4DA0D52D1BE2C62</key>
 		<dict>
 			<key>fileRef</key>
-			<string>2081B3A06ACAD77C5CA57449FEED9291</string>
+			<string>F9DE3379D3CFC07175EEE7E3DA43947D</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 			<key>settings</key>
@@ -509,18 +696,26 @@
 				</array>
 			</dict>
 		</dict>
-		<key>5D2C9C5D4662926AB4E89291A29145C2</key>
+		<key>5B6933D57B946DDD722E96C5CE5E36E4</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>fileRef</key>
+			<string>4C6C521D676CF0D77EEA10EFE7787A32</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.script.sh</string>
-			<key>path</key>
-			<string>Pods-Chocolate-frameworks.sh</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>5BA2BE58D70DFF80086534CBECA7C7FA</key>
+		<dict>
+			<key>fileRef</key>
+			<string>94D9A4CC49C01E1D8B7B4FA021C399DD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
 		</dict>
 		<key>5E65BE0061466C34621D4186AAA6ACFF</key>
 		<dict>
@@ -535,16 +730,111 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>622A5D4A3A2602D22B5C176728AE4F87</key>
+		<key>65B94821E3EC03373FF035AE8EEC226A</key>
 		<dict>
-			<key>children</key>
+			<key>buildConfigurations</key>
 			<array>
-				<string>484B2BE9444226FB8D4C90297750228F</string>
+				<string>0D5958A746B22AB230033E27F83D59D3</string>
+				<string>67E70C2C553BB954D2B7B199B87A6C88</string>
 			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>67E70C2C553BB954D2B7B199B87A6C88</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>9AEC3C52893AE03C70CC67F2BF82A986</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_NO_COMMON_BLOCKS</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods-ChocolateExamples/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>org.cocoapods.${PRODUCT_NAME:rfc1034identifier}</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods_ChocolateExamples</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>Targets Support Files</string>
+			<string>Release</string>
+		</dict>
+		<key>68613F16AA1BAA56C0050B4CB7D7F7AB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples-acknowledgements.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6EC1A684C11A66171F9CBD093F4C6AC6</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples.debug.xcconfig</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -560,6 +850,21 @@
 			<string>CHFoundation-prefix.pch</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7454CA04267457310E0D79D00589BCAF</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>Pods_Chocolate.framework</string>
+			<key>path</key>
+			<string>Pods-Chocolate.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>745965479DA972D1E88CD70B89E96A61</key>
 		<dict>
@@ -595,8 +900,8 @@
 				<string>93A4A3777CF96A4AAC1D13BA6DCCEA73</string>
 				<string>BC3CA7F9E30CC8F7E2DD044DD34432FC</string>
 				<string>17A60678E75EE672C3342FEF21CC79E5</string>
-				<string>EBA05B5C14AB598EC2C80AB3A27B3768</string>
-				<string>622A5D4A3A2602D22B5C176728AE4F87</string>
+				<string>9E67BD7646398CC5C5D5D1058131DE6B</string>
+				<string>BCC75921856402924BC43F7EE5B4125C</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -619,6 +924,17 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
+		<key>8C0B4547230551686E8AFF4C9CAC96B9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>CHFoundation</string>
+			<key>target</key>
+			<string>9DBE86A9C7E1542FF2061B2342CE5AA8</string>
+			<key>targetProxy</key>
+			<string>A2F4636FC37264AD130FF15D7938F19D</string>
+		</dict>
 		<key>93A4A3777CF96A4AAC1D13BA6DCCEA73</key>
 		<dict>
 			<key>explicitFileType</key>
@@ -637,6 +953,19 @@
 			<string>SOURCE_ROOT</string>
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
+		</dict>
+		<key>94D9A4CC49C01E1D8B7B4FA021C399DD</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>9634853AFD6B0843291445BC950BF8FA</key>
 		<dict>
@@ -661,7 +990,7 @@
 			<key>productName</key>
 			<string>Pods-Chocolate</string>
 			<key>productReference</key>
-			<string>12382351111759005B26B8357740884C</string>
+			<string>7454CA04267457310E0D79D00589BCAF</string>
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
 		</dict>
@@ -675,6 +1004,19 @@
 			<string>9DBE86A9C7E1542FF2061B2342CE5AA8</string>
 			<key>targetProxy</key>
 			<string>EAF045B3760BC42CABCEAD62274C157B</string>
+		</dict>
+		<key>9AEC3C52893AE03C70CC67F2BF82A986</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
 		<key>9B83F280D08134B3F811AAE5A168595A</key>
 		<dict>
@@ -710,9 +1052,37 @@
 			<key>productName</key>
 			<string>CHFoundation</string>
 			<key>productReference</key>
-			<string>AF551C4380F8AE271592B759F71025E8</string>
+			<string>1E904C2378156F7F220352FE3A0BAFC1</string>
 			<key>productType</key>
 			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>9E67BD7646398CC5C5D5D1058131DE6B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>1E904C2378156F7F220352FE3A0BAFC1</string>
+				<string>7454CA04267457310E0D79D00589BCAF</string>
+				<string>4F88AC17102DDB9C3555A4AA749F7A9A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>A2F4636FC37264AD130FF15D7938F19D</key>
+		<dict>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
+			<key>isa</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
+			<string>1</string>
+			<key>remoteGlobalIDString</key>
+			<string>9DBE86A9C7E1542FF2061B2342CE5AA8</string>
+			<key>remoteInfo</key>
+			<string>CHFoundation</string>
 		</dict>
 		<key>AAF678CED40D3499169D10F63CA0719E</key>
 		<dict>
@@ -785,21 +1155,6 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>AF551C4380F8AE271592B759F71025E8</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>CHFoundation.framework</string>
-			<key>path</key>
-			<string>CHFoundation.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
 		<key>B1F3FEB743E0602C6428E49C8F18FF01</key>
 		<dict>
 			<key>children</key>
@@ -818,10 +1173,23 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>B277A03E4911ED76853AB62E886E21F3</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.script.sh</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples-frameworks.sh</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
 		<key>B33DC9467744F3CF87B43D01B7927F21</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>BAB64F3D9412B67E24D6C16F7ED762E5</string>
+			<string>40F088808F52302F5046AD31A9B6AE2E</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -888,16 +1256,16 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>B4CA283D236657D27FC3AE4295BA38CB</key>
+		<key>B3C403C7FD7435E3300B032FACFCDF41</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>text.script.sh</string>
 			<key>path</key>
-			<string>Pods-Chocolate.release.xcconfig</string>
+			<string>Pods-ChocolateExamples-resources.sh</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -914,16 +1282,16 @@
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>BAB64F3D9412B67E24D6C16F7ED762E5</key>
+		<key>B9B61C02539E2F1239CA027E7C0F3691</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
+			<string>text</string>
 			<key>path</key>
-			<string>Pods-Chocolate.debug.xcconfig</string>
+			<string>Pods-Chocolate-acknowledgements.markdown</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -937,6 +1305,20 @@
 			<string>PBXGroup</string>
 			<key>name</key>
 			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>BCC75921856402924BC43F7EE5B4125C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>5200697A26AEC4DA2C3C324109F33FBA</string>
+				<string>1C53F46791C93BB3BB77B866DA997CF6</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Targets Support Files</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
@@ -1024,7 +1406,7 @@
 		<key>D3B844517495FFC84C9F68D0D1FCB7CA</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>B4CA283D236657D27FC3AE4295BA38CB</string>
+			<string>43E5C70B7E6902C13CCE296049954F37</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1115,7 +1497,7 @@
 			<key>mainGroup</key>
 			<string>7DB346D0F39D3F0E887471402A8071AB</string>
 			<key>productRefGroup</key>
-			<string>EBA05B5C14AB598EC2C80AB3A27B3768</string>
+			<string>9E67BD7646398CC5C5D5D1058131DE6B</string>
 			<key>projectDirPath</key>
 			<string></string>
 			<key>projectReferences</key>
@@ -1126,20 +1508,28 @@
 			<array>
 				<string>9DBE86A9C7E1542FF2061B2342CE5AA8</string>
 				<string>9634853AFD6B0843291445BC950BF8FA</string>
+				<string>E5E24F51C8DF2EDDC8E3EF8A123C09DC</string>
 			</array>
 		</dict>
-		<key>DD44259C14AFDD32D66E8ACD65A7F6F6</key>
+		<key>D4F267CDEF0335F60AA93E89CDF36AAD</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>5BA2BE58D70DFF80086534CBECA7C7FA</string>
+			</array>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>DDA14C615861DD87E11E4C740D8DAEAC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>CEC22C73C1608DFA5D5D78BDCB218219</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>E41F873AABF727E8ADB9401836F577BF</key>
 		<dict>
@@ -1154,6 +1544,33 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>E5E24F51C8DF2EDDC8E3EF8A123C09DC</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>65B94821E3EC03373FF035AE8EEC226A</string>
+			<key>buildPhases</key>
+			<array>
+				<string>1324C531B7D0C2C1471996D7359DE3DE</string>
+				<string>24E76953C99CD50C73AADFDEB7E3F6B7</string>
+				<string>D4F267CDEF0335F60AA93E89CDF36AAD</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>8C0B4547230551686E8AFF4C9CAC96B9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods-ChocolateExamples</string>
+			<key>productName</key>
+			<string>Pods-ChocolateExamples</string>
+			<key>productReference</key>
+			<string>4F88AC17102DDB9C3555A4AA749F7A9A</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
 		<key>EAF045B3760BC42CABCEAD62274C157B</key>
 		<dict>
 			<key>containerPortal</key>
@@ -1167,17 +1584,40 @@
 			<key>remoteInfo</key>
 			<string>CHFoundation</string>
 		</dict>
-		<key>EBA05B5C14AB598EC2C80AB3A27B3768</key>
+		<key>F62A557F0D2BA948200AB45F27C09469</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>AF551C4380F8AE271592B759F71025E8</string>
-				<string>12382351111759005B26B8357740884C</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>F9DE3379D3CFC07175EEE7E3DA43947D</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-Chocolate-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>FBF235BB7683CC658561DBB501C9EB0F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
+			<key>path</key>
+			<string>Pods-ChocolateExamples-acknowledgements.markdown</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>

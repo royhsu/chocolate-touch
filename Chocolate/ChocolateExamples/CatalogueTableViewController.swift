@@ -13,11 +13,13 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     enum Row: Int {
         
         case DynamicCellContent
+        case CoreDataIntegration
         
         var title: String {
             
             switch self {
             case .DynamicCellContent: return "Dynamic Cell Content"
+            case .CoreDataIntegration: return "Core Data Integration"
             }
             
         }
@@ -27,7 +29,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     // MARK: Property
     
-    let rows: [Row] = [ .DynamicCellContent ]
+    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration ]
     
     
     // MARK: Init
@@ -87,6 +89,10 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             controller.navigationItem.title = row.title
             
             show(controller, sender: nil)
+            
+        case .CoreDataIntegration:
+            
+            print("CoreDataIntegration")
             
         }
         
