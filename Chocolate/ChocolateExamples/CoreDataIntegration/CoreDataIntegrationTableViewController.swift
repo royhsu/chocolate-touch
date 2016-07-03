@@ -6,81 +6,67 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
+import CHFoundation
 import Chocolate
 import CoreData
 
-public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell>, NSFetchedResultsControllerDelegate {
-    
-    lazy var model: NSManagedObjectModel = {
-        
-        let modelURL = Bundle.main().urlForResource("Main", withExtension: "momd")!
-        
-        return NSManagedObjectModel(contentsOf: modelURL)!
-    
-    }()
-    
-    let storeURL = try! URL(filename: "Main", withExtension: "sqlite", in: .document(mask: .userDomainMask))
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = { [unowned self] in
-    
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
-        
-        try! coordinator.addPersistentStore(
-            ofType: NSSQLiteStoreType,
-            configurationName: nil,
-            at: self.storeURL,
-            options: [
-                NSMigratePersistentStoresAutomaticallyOption: true,
-                NSInferMappingModelAutomaticallyOption: true
-            ]
-        )
-        
-        return coordinator
-    
-    }()
-    
-    lazy var managedObjectContext: NSManagedObjectContext = { [unowned self] in
-        
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.persistentStoreCoordinator = self.persistentStoreCoordinator
-        
-        return context
-        
-    }()
-    
-    lazy var fetchedResultsController: NSFetchedResultsController<NSManagedObject> = { [unowned self] in
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "City")
-        fetchRequest.sortDescriptors = [
-            SortDescriptor(key: "name", ascending: true)
-        ]
-        
-        let controller = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: self.managedObjectContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil
-        )
-    
-        controller.delegate = self
-        
-        return controller
-    
-    }()
+public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewController<CHTableViewCell, CityEntity> {
     
     
     // MARK: Init
     
-    public init() { super.init(cellType: CHTableViewCell.self) }
+    public init(modelName: String, in bundle: Bundle? = .main(), at directory: Directory) {
+        
+        guard let modelURL = bundle?.urlForResource(modelName, withExtension: "momd") else { fatalError("Invalid model url.") }
+        
+        do {
+            
+            guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
+                
+                fatalError("Cannot find model.")
+                
+            }
+            
+            let storeURL = try URL(filename: modelName, withExtension: "sqlite", in: directory)
+            let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+            
+            try persistentStoreCoordinator.addPersistentStore(
+                ofType: NSSQLiteStoreType,
+                configurationName: nil,
+                at: storeURL,
+                options: [
+                    NSMigratePersistentStoresAutomaticallyOption: true,
+                    NSInferMappingModelAutomaticallyOption: true
+                ]
+            )
+            
+            let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+            
+            let fetchRequest = NSFetchRequest<CityEntity>(entityName: "City")
+            fetchRequest.sortDescriptors = [
+                SortDescriptor(key: "name", ascending: true)
+            ]
+            
+            let fetchedResultsController = NSFetchedResultsController(
+                fetchRequest: fetchRequest,
+                managedObjectContext: managedObjectContext,
+                sectionNameKeyPath: nil,
+                cacheName: nil
+            )
+            
+            super.init(cellType: CHTableViewCell.self, fetchedResultsController: fetchedResultsController)
+            
+        }
+        catch { fatalError("Initialization error: \(error)") }
+    
+    }
     
     required public init?(coder aDecoder: NSCoder) {
         
         fatalError("init(coder:) has not been implemented")
         
     }
-    
-    
-    // MARK: View Life Cycle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,71 +87,45 @@ public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewCo
             action: .loadData
         )
         
-        try! fetchedResultsController.performFetch()
-        
-        tableView.reloadData()
-        
     }
     
     
     // MARK: Action
     
     @objc public func loadData(barButtonItem: UIBarButtonItem) {
-        
+    
         let city = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! CityEntity
+        
         city.name = "Taipei"
         
-        managedObjectContext.perform { 
-            
-            try! self.managedObjectContext.save()
-            
+        managedObjectContext.perform {
+        
+            do { try self.managedObjectContext.save() }
+            catch { fatalError("Cannot save: \(error)") }
+    
         }
-        
-        print("store url: \(storeURL)")
-        
-    }
     
-    typealias ClearDatabaseCompletion = (error: ErrorProtocol?) -> Void
-    
-    @available(iOS 10.0, *)
-    private func clearDatabase(contextContainer: NSPersistentContainer, completion: ClearDatabaseCompletion?) {
-        
-
-        
-        completion?(error: nil)
-        
     }
     
     
     // MARK: UITableViewDataSource
     
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
         
-        return fetchedResultsController.fetchedObjects?.count ?? 0
-    
+        return .fixed(height: 44.0)
+        
     }
     
     
-    // MARK: TWTableViewControllerProtocol
+    // MARK: CHSingleCellTypeTableViewControllerProtocol
     
     public override func tableView(_ tableView: UITableView, configurationFor cell: CHTableViewCell, at indexPath: IndexPath) -> CHTableViewCell {
         
-        if let city = fetchedResultsController.object(at: indexPath) as? CityEntity {
+        let city = fetchedResultsController.object(at: indexPath)
         
-            cell.textLabel?.text = city.name
-            
-        }
+        cell.textLabel?.text = city.name ?? "Unknown"
         
         return cell
-        
-    }
-    
-    
-    // MARK: NSFetchedResultsControllerDelegate
-    
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
-        tableView.reloadData()
         
     }
     

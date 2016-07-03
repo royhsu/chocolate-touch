@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension CityEntity {
+public extension CityEntity {
 
     @NSManaged var name: String?
 
