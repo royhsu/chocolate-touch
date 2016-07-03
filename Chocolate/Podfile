@@ -8,6 +8,10 @@ target 'Chocolate' do
 	pod 'CHFoundation', '0.1'
 end
 
+target 'ChocolateTests' do
+	pod 'CHFoundation', '0.1'
+end
+
 target 'ChocolateExamples' do
 	pod 'CHFoundation', '0.1'
 end

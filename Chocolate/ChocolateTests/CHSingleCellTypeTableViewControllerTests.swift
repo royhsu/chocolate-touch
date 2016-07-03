@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import XCTest
 @testable import Chocolate
+import XCTest
 
 class CHSingleCellTypeTableViewControllerTests: XCTestCase {
     

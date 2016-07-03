@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import CoreData
 import Chocolate
+import CoreData
 
 public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell>, NSFetchedResultsControllerDelegate {
     
