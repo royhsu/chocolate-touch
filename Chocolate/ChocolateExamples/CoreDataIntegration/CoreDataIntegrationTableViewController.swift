@@ -9,21 +9,63 @@
 import CoreData
 import Chocolate
 
-public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell> {
+public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell>, NSFetchedResultsControllerDelegate {
     
-    lazy var contextContainer: NSPersistentContainer = { NSPersistentContainer(name: "Main") }()
-    lazy var fetchedResultsController: NSFetchedResultsController<CityEntity> = { [unowned self] in
+    lazy var model: NSManagedObjectModel = {
         
-        let fetchRequest = NSFetchRequest<CityEntity>()
-        fetchRequest.sortDescriptors = []
-
-        return NSFetchedResultsController(
+        let modelURL = Bundle.main().urlForResource("Main", withExtension: "momd")!
+        
+        return NSManagedObjectModel(contentsOf: modelURL)!
+    
+    }()
+    
+    let storeURL = try! URL(filename: "Main", withExtension: "sqlite", in: .document(mask: .userDomainMask))
+    
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = { [unowned self] in
+    
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
+        
+        try! coordinator.addPersistentStore(
+            ofType: NSSQLiteStoreType,
+            configurationName: nil,
+            at: self.storeURL,
+            options: [
+                NSMigratePersistentStoresAutomaticallyOption: true,
+                NSInferMappingModelAutomaticallyOption: true
+            ]
+        )
+        
+        return coordinator
+    
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = { [unowned self] in
+        
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        context.persistentStoreCoordinator = self.persistentStoreCoordinator
+        
+        return context
+        
+    }()
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<NSManagedObject> = { [unowned self] in
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "City")
+        fetchRequest.sortDescriptors = [
+            SortDescriptor(key: "name", ascending: true)
+        ]
+        
+        let controller = NSFetchedResultsController(
             fetchRequest: fetchRequest,
-            managedObjectContext: self.contextContainer.viewContext,
+            managedObjectContext: self.managedObjectContext,
             sectionNameKeyPath: nil,
             cacheName: nil
         )
+    
+        controller.delegate = self
         
+        return controller
+    
     }()
     
     
@@ -50,7 +92,49 @@ public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewCo
     
     // MARK: Setup
     
-    private func setupInitially() { }
+    private func setupInitially() {
+    
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Load Data",
+            style: .plain,
+            target: self,
+            action: .loadData
+        )
+        
+        try! fetchedResultsController.performFetch()
+        
+        tableView.reloadData()
+        
+    }
+    
+    
+    // MARK: Action
+    
+    @objc public func loadData(barButtonItem: UIBarButtonItem) {
+        
+        let city = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! CityEntity
+        city.name = "Taipei"
+        
+        managedObjectContext.perform { 
+            
+            try! self.managedObjectContext.save()
+            
+        }
+        
+        print("store url: \(storeURL)")
+        
+    }
+    
+    typealias ClearDatabaseCompletion = (error: ErrorProtocol?) -> Void
+    
+    @available(iOS 10.0, *)
+    private func clearDatabase(contextContainer: NSPersistentContainer, completion: ClearDatabaseCompletion?) {
+        
+
+        
+        completion?(error: nil)
+        
+    }
     
     
     // MARK: UITableViewDataSource
@@ -66,12 +150,32 @@ public class CoreDataIntegrationTableViewController: CHSingleCellTypeTableViewCo
     
     public override func tableView(_ tableView: UITableView, configurationFor cell: CHTableViewCell, at indexPath: IndexPath) -> CHTableViewCell {
         
-        let city = fetchedResultsController.object(at: indexPath)
-         
-        cell.textLabel?.text = city.name
+        if let city = fetchedResultsController.object(at: indexPath) as? CityEntity {
+        
+            cell.textLabel?.text = city.name
+            
+        }
         
         return cell
         
     }
+    
+    
+    // MARK: NSFetchedResultsControllerDelegate
+    
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        tableView.reloadData()
+        
+    }
+    
+}
+
+
+// MARK: - Selector
+
+private extension Selector {
+    
+    static let loadData = #selector(CoreDataIntegrationTableViewController.loadData(barButtonItem:))
     
 }
