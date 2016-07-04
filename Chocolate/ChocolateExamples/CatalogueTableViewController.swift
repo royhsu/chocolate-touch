@@ -7,17 +7,20 @@
 //
 
 import Chocolate
+import CoreData
 
 public class CatalogueTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell> {
 
     enum Row: Int {
         
         case DynamicCellContent
+        case CoreDataIntegration
         
         var title: String {
             
             switch self {
             case .DynamicCellContent: return "Dynamic Cell Content"
+            case .CoreDataIntegration: return "Core Data Integration"
             }
             
         }
@@ -27,18 +30,12 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     // MARK: Property
     
-    let rows: [Row] = [ .DynamicCellContent ]
+    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration ]
     
     
     // MARK: Init
     
     init() { super.init(cellType: CHTableViewCell.self) }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        
-        fatalError("init(coder:) has not been implemented")
-        
-    }
     
     
     // MARK: View Life Cycle
@@ -46,14 +43,9 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupInitially()
+        navigationItem.title = "Chocolate"
         
     }
-    
-    
-    // MARK: Setup
-    
-    private func setupInitially() { navigationItem.title = "Chocolate" }
     
     
     // MARK: UITableViewDataSource
@@ -84,6 +76,13 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         case .DynamicCellContent:
             
             let controller = DynamicCellContentTableViewController()
+            controller.navigationItem.title = row.title
+            
+            show(controller, sender: nil)
+            
+        case .CoreDataIntegration:
+            
+            let controller = CoreDataIntegrationTableViewController(modelName: "Main", at: .document(mask: .userDomainMask))
             controller.navigationItem.title = row.title
             
             show(controller, sender: nil)

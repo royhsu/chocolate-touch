@@ -6,10 +6,28 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import XCTest
 @testable import Chocolate
+import XCTest
 
 class CHSingleCellTypeTableViewControllerTests: XCTestCase {
+    
+    var bundle: Bundle?
+    
+    override func setUp() {
+        
+        super.setUp()
+        
+        bundle = Bundle(for: self.dynamicType)
+        
+    }
+    
+    override func tearDown() {
+        
+        bundle = nil
+        
+        super.tearDown()
+        
+    }
     
     func testInitWithCellType() {
         
@@ -20,20 +38,20 @@ class CHSingleCellTypeTableViewControllerTests: XCTestCase {
         let indexPath = IndexPath(row: 0, section: 0)
         let registeredCell = controller!.tableView.dequeueReusableCell(withIdentifier: CHTableViewCell.identifier, for: indexPath) as? CHTableViewCell
         
-        XCTAssertNotNil(registeredCell, "Cannot retrieve the custom cell after initialization.")
+        XCTAssertNotNil(registeredCell, "Cannot retrieve the custom table view cell after initialization.")
         
     }
     
     func testInitWithNibType() {
         
-        let controller: CHSingleCellTypeTableViewController<TestTableViewCell>? = CHSingleCellTypeTableViewController(cellType: TestTableViewCell.self)
+        let controller: CHSingleCellTypeTableViewController<TestTableViewCell>? = CHSingleCellTypeTableViewController(nibType: TestTableViewCell.self, bundle: bundle!)
         
         XCTAssertNotNil(controller, "Cannot initialize with custom table view cell from nib.")
         
         let indexPath = IndexPath(row: 0, section: 0)
         let registeredCell = controller!.tableView.dequeueReusableCell(withIdentifier: TestTableViewCell.identifier, for: indexPath) as? TestTableViewCell
         
-        XCTAssertNotNil(registeredCell, "Cannot retrieve the custom nib cell after initialization.")
+        XCTAssertNotNil(registeredCell, "Cannot retrieve the custom nib table view cell after initialization.")
         
     }
     
@@ -60,7 +78,7 @@ class CHSingleCellTypeTableViewControllerTests: XCTestCase {
         let indexPath = IndexPath(row: 0, section: 0)
         let registeredCell = testTableViewController?.tableView.dequeueReusableCell(withIdentifier: CHTableViewCell.identifier, for: indexPath) as? CHTableViewCell
         
-        XCTAssertNotNil(registeredCell, "Cannot retrieve the custom cell after initialization.")
+        XCTAssertNotNil(registeredCell, "Cannot retrieve the custom table view cell after initialization.")
         
         XCTAssertEqual(testTableViewController?.tableView.numberOfSections, 1, "Number of sections should be default number one.")
         

@@ -33,7 +33,6 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
         super.init(style: .plain)
         
         tableView.registerCellType(cellType)
-        setupInitially()
         
     }
     
@@ -42,39 +41,26 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
         super.init(style: .plain)
         
         tableView.registerCellNibType(nibType, bundle: bundle)
-        setupInitially()
         
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        
-        fatalError("init(coder:) has not been implemented")
-    
-    }
+    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     private init() { super.init(style: .plain) }
     
-    private override init(style: UITableViewStyle) {
-        
-        super.init(style: style)
-        
-        setupInitially()
-        
-    }
+    private override init(style: UITableViewStyle) { super.init(style: style) }
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        setupInitially()
-        
+    
     }
     
     
-    // MARK: Setup
+    // MARK: View Life Cycle
     
-    private func setupInitially() { }
-    
+    public override func viewDidLoad() { super.viewDidLoad() }
+
     
     // MARK: UITableViewDataSource
     

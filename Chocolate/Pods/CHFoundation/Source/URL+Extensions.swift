@@ -23,7 +23,7 @@ public extension URL {
      
      - Important: If you need to get the file path from the returned URL, please access self.path instead of self.absoluteString.
     */
-    // See details: http://stackoverflow.com/questions/32716895/error-the-file-doesnt-exist-when-calling-writetofile-on-imagedata
+    // Reference: http://stackoverflow.com/questions/32716895/error-the-file-doesnt-exist-when-calling-writetofile-on-imagedata
     
     init(filename: String, withExtension `extension`: String, `in` directory: Directory) throws {
         

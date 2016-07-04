@@ -35,4 +35,10 @@ public extension UITableView {
         
     }
     
+    func cellForRow<Cell: UITableViewCell where Cell: Identifiable>(at indexPath: IndexPath) -> Cell? {
+        
+        return cellForRow(at: indexPath) as? Cell
+        
+    }
+    
 }

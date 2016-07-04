@@ -68,7 +68,7 @@ public class DynamicCellContentTableViewController: CHSingleCellTypeTableViewCon
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return contents.count }
     
     
-    // MARK: TWTableViewControllerProtocol
+    // MARK: CHSingleCellTypeTableViewControllerProtocol
     
     public override func tableView(_ tableView: UITableView, configurationFor cell: ContentTableViewCell, at indexPath: IndexPath) -> ContentTableViewCell {
         
