@@ -13,6 +13,19 @@ import CoreData
 public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewController<CHTableViewCell, CityEntity> {
     
     
+    // MARK: Property
+    
+    private var randomCityName: String {
+        
+        let cityNames = [ "Taipei", "Tinan", "Taichung" ]
+        
+        let randomIndex = Int.random(in: 0..<cityNames.count)
+        
+        return cityNames[randomIndex]
+        
+    }
+    
+    
     // MARK: Init
     
     public init(modelName: String, in bundle: Bundle? = .main(), at directory: Directory) {
@@ -83,10 +96,9 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: "Load Data",
-            style: .plain,
+            barButtonSystemItem: .add,
             target: self,
-            action: .loadData
+            action: .add
         )
         
     }
@@ -94,11 +106,11 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     // MARK: Action
     
-    @objc public func loadData(barButtonItem: UIBarButtonItem) {
+    @objc public func add(barButtonItem: UIBarButtonItem) {
     
         let city = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! CityEntity
         
-        city.name = "Taipei"
+        city.name = randomCityName
         
         managedObjectContext.perform {
         
@@ -138,6 +150,26 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
 
 private extension Selector {
     
-    static let loadData = #selector(CoreDataIntegrationTableViewController.loadData(barButtonItem:))
+    static let add = #selector(CoreDataIntegrationTableViewController.add(barButtonItem:))
+    
+}
+
+// Todo: CHFoundation
+
+extension Int {
+    
+    // Reference: http://stackoverflow.com/questions/24132399/how-does-one-make-random-number-between-range-for-arc4random-uniform
+    static func random(in range: Range<Int>) -> Int {
+        
+        var offset = 0
+        
+        if range.lowerBound < 0 { offset = abs(range.lowerBound) }
+        
+        let min = UInt32(range.lowerBound + offset)
+        let max = UInt32(range.upperBound + offset)
+        
+        return Int(min + arc4random_uniform(max - min)) - offset
+        
+    }
     
 }

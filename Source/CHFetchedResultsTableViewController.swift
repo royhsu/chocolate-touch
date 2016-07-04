@@ -78,9 +78,54 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
     
     // MARK: NSFetchedResultsControllerDelegate
     
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    public final func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        tableView.reloadData()
+        tableView.beginUpdates()
+        
+    }
+    
+    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case .insert:
+            
+            tableView.insertSections(IndexSet(index: sectionIndex), with: .automatic )
+            
+        case .delete:
+            
+            tableView.deleteSections(IndexSet(index: sectionIndex), with: .automatic)
+            
+        case .move, .update: break
+        }
+        
+    }
+    
+    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+        case .delete:
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+        case .move:
+            
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+        case .update:
+            
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+    }
+    
+    public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        tableView.endUpdates()
         
     }
     
