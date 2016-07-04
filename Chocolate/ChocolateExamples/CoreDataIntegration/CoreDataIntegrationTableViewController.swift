@@ -204,24 +204,3 @@ private extension UITableViewRowAction {
     }
     
 }
-
-
-// Todo: CHFoundation
-
-extension Int {
-    
-    // Reference: http://stackoverflow.com/questions/24132399/how-does-one-make-random-number-between-range-for-arc4random-uniform
-    static func random(in range: Range<Int>) -> Int {
-        
-        var offset = 0
-        
-        if range.lowerBound < 0 { offset = abs(range.lowerBound) }
-        
-        let min = UInt32(range.lowerBound + offset)
-        let max = UInt32(range.upperBound + offset)
-        
-        return Int(min + arc4random_uniform(max - min)) - offset
-        
-    }
-    
-}
