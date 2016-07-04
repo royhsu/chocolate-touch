@@ -31,7 +31,7 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
     public init(cellType: Cell.Type) {
         
         super.init(style: .plain)
-        print("CHSingleCellTypeTableViewController init(cellType:)")
+        
         tableView.registerCellType(cellType)
         
     }
@@ -39,7 +39,7 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
     public init(nibType: Cell.Type, bundle: Bundle? = nil) {
         
         super.init(style: .plain)
-        print("CHSingleCellTypeTableViewController init(nibType:bundle:)")
+        
         tableView.registerCellNibType(nibType, bundle: bundle)
         
     }
@@ -59,12 +59,7 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
     
     // MARK: View Life Cycle
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print("CHSingleCellTypeTableViewController viewDidLoad")
-        
-    }
+    public override func viewDidLoad() { super.viewDidLoad() }
 
     
     // MARK: UITableViewDataSource

@@ -57,8 +57,6 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
             
             super.init(cellType: CHTableViewCell.self, fetchedResultsController: fetchedResultsController)
             
-            print("CoreDataIntegrationTableViewController init(modelName:in:at:)")
-            
         }
         catch { fatalError("Initialization error: \(error)") }
     
@@ -83,8 +81,6 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("CoreDataIntegrationTableViewController viewDidLoad")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Load Data",

@@ -24,7 +24,6 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         self.fetchedResultsController = fetchedResultsController
         
         super.init(cellType: cellType)
-        print("CHFetchedResultsTableViewController init(cellType:fetchedResultsController:)")
         
     }
     
@@ -33,7 +32,6 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         self.fetchedResultsController = fetchedResultsController
         
         super.init(nibType: nibType, bundle: bundle)
-        print("CHFetchedResultsTableViewController init(nibType:bundle:fetchedResultsController:)")
         
     }
     
@@ -48,8 +46,6 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("CHFetchedResultsTableViewController viewDidLoad")
         
         fetchedResultsController.delegate = self
         
