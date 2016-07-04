@@ -57,29 +57,35 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
             
             super.init(cellType: CHTableViewCell.self, fetchedResultsController: fetchedResultsController)
             
+            print("CoreDataIntegrationTableViewController init(modelName:in:at:)")
+            
         }
         catch { fatalError("Initialization error: \(error)") }
     
     }
     
-    required public init?(coder aDecoder: NSCoder) {
+    private init() { fatalError("init() has not been implemented") }
+    
+    private override init(cellType: Cell.Type, fetchedResultsController: NSFetchedResultsController<CityEntity>) {
         
-        fatalError("init(coder:) has not been implemented")
-        
+        super.init(cellType: cellType, fetchedResultsController: fetchedResultsController)
+    
     }
+    
+    private override init(nibType: Cell.Type, bundle: Bundle? = nil, fetchedResultsController: NSFetchedResultsController<CityEntity>) {
+    
+        super.init(nibType: nibType, bundle: bundle, fetchedResultsController: fetchedResultsController)
+    
+    }
+    
+    
+    // MARK: View Life Cycle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupInitially()
+        print("CoreDataIntegrationTableViewController viewDidLoad")
         
-    }
-    
-    
-    // MARK: Setup
-    
-    private func setupInitially() {
-    
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: "Load Data",
             style: .plain,

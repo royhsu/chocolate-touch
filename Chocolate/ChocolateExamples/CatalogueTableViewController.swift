@@ -37,26 +37,15 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     init() { super.init(cellType: CHTableViewCell.self) }
     
-    public required init?(coder aDecoder: NSCoder) {
-        
-        fatalError("init(coder:) has not been implemented")
-        
-    }
-    
     
     // MARK: View Life Cycle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupInitially()
+        navigationItem.title = "Chocolate"
         
     }
-    
-    
-    // MARK: Setup
-    
-    private func setupInitially() { navigationItem.title = "Chocolate" }
     
     
     // MARK: UITableViewDataSource

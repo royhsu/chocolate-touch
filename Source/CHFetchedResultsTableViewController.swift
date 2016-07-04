@@ -23,7 +23,8 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         
         self.fetchedResultsController = fetchedResultsController
         
-        self.init(cellType: cellType)
+        super.init(cellType: cellType)
+        print("CHFetchedResultsTableViewController init(cellType:fetchedResultsController:)")
         
     }
     
@@ -31,9 +32,12 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         
         self.fetchedResultsController = fetchedResultsController
         
-        self.init(nibType: nibType, bundle: bundle)
+        super.init(nibType: nibType, bundle: bundle)
+        print("CHFetchedResultsTableViewController init(nibType:bundle:fetchedResultsController:)")
         
     }
+    
+    private init() { fatalError("init() has not been implemented") }
     
     private override init(cellType: Cell.Type) { super.init(cellType: cellType) }
     
@@ -44,15 +48,8 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupInitially()
         
-    }
-    
-    
-    // MARK: Setup
-    
-    private func setupInitially() {
+        print("CHFetchedResultsTableViewController viewDidLoad")
         
         fetchedResultsController.delegate = self
         
@@ -61,7 +58,7 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
             try fetchedResultsController.performFetch()
             
             tableView.reloadData()
-        
+            
         }
         catch { fatalError("Cannot perform fetch: \(error)") }
         

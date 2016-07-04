@@ -31,50 +31,41 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
     public init(cellType: Cell.Type) {
         
         super.init(style: .plain)
-        
+        print("CHSingleCellTypeTableViewController init(cellType:)")
         tableView.registerCellType(cellType)
-        setupInitially()
         
     }
     
     public init(nibType: Cell.Type, bundle: Bundle? = nil) {
         
         super.init(style: .plain)
-        
+        print("CHSingleCellTypeTableViewController init(nibType:bundle:)")
         tableView.registerCellNibType(nibType, bundle: bundle)
-        setupInitially()
         
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        
-        fatalError("init(coder:) has not been implemented")
-    
-    }
+    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     private init() { super.init(style: .plain) }
     
-    private override init(style: UITableViewStyle) {
-        
-        super.init(style: style)
-        
-        setupInitially()
-        
-    }
+    private override init(style: UITableViewStyle) { super.init(style: style) }
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        setupInitially()
-        
+    
     }
     
     
-    // MARK: Setup
+    // MARK: View Life Cycle
     
-    private func setupInitially() { }
-    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        print("CHSingleCellTypeTableViewController viewDidLoad")
+        
+    }
+
     
     // MARK: UITableViewDataSource
     
