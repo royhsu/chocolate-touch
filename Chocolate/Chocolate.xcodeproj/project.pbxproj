@@ -19,6 +19,7 @@
 		B0956AE21D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AE01D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift */; };
 		B0956B071D2A2730000BC8D0 /* Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; };
 		B0956B081D2A2730000BC8D0 /* Chocolate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0956B0F1D2A32D4000BC8D0 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956B0E1D2A32D4000BC8D0 /* City.swift */; };
 		B0971CF01D2804E3005BBEE8 /* Chocolate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0971CEF1D2804E3005BBEE8 /* Chocolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF81D280536005BBEE8 /* CHTableViewController.swift */; };
 		B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF91D280536005BBEE8 /* Identifiable.swift */; };
@@ -90,6 +91,7 @@
 		B0956ADD1D293D0A000BC8D0 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		B0956ADF1D293D21000BC8D0 /* CityEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityEntity.swift; sourceTree = "<group>"; };
 		B0956AE01D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CityEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B0956B0E1D2A32D4000BC8D0 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0971CEF1D2804E3005BBEE8 /* Chocolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chocolate.h; sourceTree = "<group>"; };
 		B0971CF11D2804E3005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			children = (
 				B0956AC71D2916C7000BC8D0 /* CityEntity.swift */,
 				B0956AC81D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift */,
+				B0956B0E1D2A32D4000BC8D0 /* City.swift */,
 				B066EF9B1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift */,
 			);
 			path = CoreDataIntegration;
@@ -574,6 +577,7 @@
 			files = (
 				B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */,
 				B0956AC91D2916C7000BC8D0 /* CityEntity.swift in Sources */,
+				B0956B0F1D2A32D4000BC8D0 /* City.swift in Sources */,
 				B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */,
 				B0956ACA1D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */,
 				B0971D331D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift in Sources */,

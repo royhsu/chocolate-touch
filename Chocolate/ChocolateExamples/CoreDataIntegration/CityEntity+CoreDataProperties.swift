@@ -14,6 +14,7 @@ import CoreData
 
 public extension CityEntity {
 
-    @NSManaged var name: String?
-
+    @NSManaged var cityName: String?
+    @NSManaged var countryName: String?
+    
 }

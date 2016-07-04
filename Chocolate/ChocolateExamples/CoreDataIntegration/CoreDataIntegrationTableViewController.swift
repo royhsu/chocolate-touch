@@ -15,15 +15,14 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     // MARK: Property
     
-    private var randomCityName: String {
-        
-        let cityNames = [ "Taipei", "Tinan", "Taichung" ]
-        
-        let randomIndex = Int.random(in: 0..<cityNames.count)
-        
-        return cityNames[randomIndex]
-        
-    }
+    private let cities = [
+        City(cityName: "Taipei", countryName: "Taiwan"),
+        City(cityName: "Taichung", countryName: "Taiwan"),
+        City(cityName: "Tinan", countryName: "Taiwan"),
+        City(cityName: "Tokyo", countryName: "Japan"),
+        City(cityName: "Nagoya", countryName: "Japan"),
+        City(cityName: "Chiba", countryName: "Japan")
+    ]
     
     
     // MARK: Init
@@ -58,13 +57,13 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
             
             let fetchRequest = NSFetchRequest<CityEntity>(entityName: "City")
             fetchRequest.sortDescriptors = [
-                SortDescriptor(key: "name", ascending: true)
+                SortDescriptor(key: "cityName", ascending: true)
             ]
             
             let fetchedResultsController = NSFetchedResultsController(
                 fetchRequest: fetchRequest,
                 managedObjectContext: managedObjectContext,
-                sectionNameKeyPath: nil,
+                sectionNameKeyPath: "countryName",
                 cacheName: nil
             )
             
@@ -108,9 +107,11 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     @objc public func add(barButtonItem: UIBarButtonItem) {
     
-        let city = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! CityEntity
+        let city = cities[Int.random(in: 0..<cities.count)]
+        let cityEntity = NSEntityDescription.insertNewObject(forEntityName: "City", into: managedObjectContext) as! CityEntity
         
-        city.name = randomCityName
+        cityEntity.cityName = city.cityName
+        cityEntity.countryName = city.countryName
         
         managedObjectContext.perform {
         
@@ -121,7 +122,7 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     }
     
-    private func deleteAt(_ indexPath: IndexPath) {
+    private func delete(at indexPath: IndexPath) {
         
         isEditing = false
         
@@ -141,6 +142,12 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     // MARK: UITableViewDataSource
     
+    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return fetchedResultsController.sections?[section].name
+        
+    }
+    
     public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
         
         return .fixed(height: 44.0)
@@ -152,7 +159,7 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     public override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        return [ .delete(handler: deleteAt) ]
+        return [ .delete(handler: delete) ]
         
     }
     
@@ -163,7 +170,8 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
         
         let city = fetchedResultsController.object(at: indexPath)
         
-        cell.textLabel?.text = city.name ?? "Unknown"
+        cell.textLabel?.text = city.cityName ?? "Unknown"
+        cell.selectionStyle = .none
         
         return cell
         

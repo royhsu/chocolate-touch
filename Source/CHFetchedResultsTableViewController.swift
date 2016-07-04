@@ -42,7 +42,7 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
     private override init(nibType: Cell.Type, bundle: Bundle? = nil) { super.init(nibType: nibType, bundle: bundle) }
     
     
-    // MARK: - View Life Cycle
+    // MARK: View Life Cycle
     
     public override func viewDidLoad() {
         super.viewDidLoad()
