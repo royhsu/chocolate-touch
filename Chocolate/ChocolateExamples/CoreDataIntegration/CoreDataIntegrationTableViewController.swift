@@ -121,12 +121,38 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     }
     
+    private func deleteAt(_ indexPath: IndexPath) {
+        
+        isEditing = false
+        
+        let city = fetchedResultsController.object(at: indexPath)
+        
+        managedObjectContext.perform {
+            
+            self.managedObjectContext.delete(city)
+            
+            do { try self.managedObjectContext.save() }
+            catch { print("Deletion error: \(error)") }
+            
+        }
+        
+    }
+    
     
     // MARK: UITableViewDataSource
     
     public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
         
         return .fixed(height: 44.0)
+        
+    }
+    
+    
+    // MARK: UITableViewDelegate
+    
+    public override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        return [ .delete(handler: deleteAt) ]
         
     }
     
@@ -153,6 +179,24 @@ private extension Selector {
     static let add = #selector(CoreDataIntegrationTableViewController.add(barButtonItem:))
     
 }
+
+
+// MARK: - UITableViewRowAction
+
+private extension UITableViewRowAction {
+    
+    static func delete(handler: (IndexPath) -> Void) -> UITableViewRowAction {
+    
+        return UITableViewRowAction(
+            style: .default,
+            title: "Delete",
+            handler: { _, indexPath in handler(indexPath) }
+        )
+        
+    }
+    
+}
+
 
 // Todo: CHFoundation
 

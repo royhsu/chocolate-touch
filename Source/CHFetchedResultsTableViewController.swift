@@ -89,11 +89,11 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         switch type {
         case .insert:
             
-            tableView.insertSections(IndexSet(index: sectionIndex), with: .automatic )
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic )
             
         case .delete:
             
-            tableView.deleteSections(IndexSet(index: sectionIndex), with: .automatic)
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
             
         case .move, .update: break
         }
@@ -105,18 +105,27 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         switch type {
         case .insert:
             
+            guard let newIndexPath = newIndexPath else { break }
+            
             tableView.insertRows(at: [newIndexPath], with: .automatic)
             
         case .delete:
+            
+            guard let indexPath = indexPath else { break }
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
             
         case .move:
             
+            guard let indexPath = indexPath else { break }
+            guard let newIndexPath = newIndexPath else { break }
+            
             tableView.deleteRows(at: [indexPath], with: .automatic)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
             
         case .update:
+            
+            guard let indexPath = indexPath else { break }
             
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
