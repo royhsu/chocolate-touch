@@ -8,14 +8,16 @@
 
 import Foundation
 
-public struct UserModel {
+public struct SongModel {
     
     public let identifier: String
+    public let artist: String
     public let name: String
     
-    public init(identifier: String, name: String) {
+    public init(identifier: String, artist: String, name: String) {
     
         self.identifier = identifier
+        self.artist = artist
         self.name = name
     
     }

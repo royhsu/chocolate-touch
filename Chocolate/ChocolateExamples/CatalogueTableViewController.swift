@@ -92,38 +92,41 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
         case .WebServiceIntegration:
             
-            let url = URL(string: "http://localhost:3000/users")!
+            let url = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
             let urlRequest = URLRequest(url: url)
-            let webResource = WebResource<[UserModel]>(urlRequest: urlRequest) { json in
+            let webResource = WebResource<[SongModel]>(urlRequest: urlRequest) { json in
                 
                 typealias Object = [NSObject: AnyObject]
                 
                 guard let json = json as? Object,
-                    userObjects = json["data"] as? [Object]
+                    songObjects = json["results"] as? [Object]
                     else { return nil }
                 
-                var users: [UserModel] = []
+                var songs: [SongModel] = []
                 
-                for userObject in userObjects {
+                for songObject in songObjects {
                     
-                    guard let identifier = userObject["id"] as? String,
-                        name = userObject["name"] as? String
+                    guard let identifier = songObject["trackId"] as? Int,
+                        artist = songObject["artistName"] as? String,
+                        name = songObject["trackName"] as? String
                         else { continue }
                     
-                    let user = UserModel(
-                        identifier: identifier,
+                    let song = SongModel(
+                        identifier: "\(identifier)",
+                        artist: artist,
                         name: name
                     )
                     
-                    users.append(user)
+                    songs.append(song)
                     
                 }
                         
-                return users
+                return songs
             
             }
             let webService = WebService(webResource: webResource)
             let controller = CHWebServiceIntegrationTableViewController(webService: webService)
+            controller.navigationItem.title = row.title
             
             show(controller, sender: nil)
             

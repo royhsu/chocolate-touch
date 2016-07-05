@@ -40,8 +40,6 @@ public struct WebService<Model> {
             
             guard let response = response as? HTTPURLResponse else {
                 
-//                assert(false, "The response should be a HTTPURLResponse.")
-                
                 failHandler?(statusCode: nil, error: WebServiceError.invalidResponse)
                 
                 return
