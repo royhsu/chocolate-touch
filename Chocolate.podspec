@@ -9,5 +9,5 @@ Pod::Spec.new do |spec|
   spec.source_files     = 'Source/*.swift'
   spec.ios.deployment_target = '8.0'
   
-  spec.dependency 'CHFoundation', '0.1.1' 
+  spec.dependency 'CHFoundation', '0.2' 
 end

@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
+import CHFoundation
 import Chocolate
 import CoreData
 
@@ -91,8 +92,38 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
         case .WebServiceIntegration:
             
-            let controller = UIViewController()
-            controller.view.backgroundColor = .red()
+            let url = URL(string: "http://localhost:3000/users")!
+            let urlRequest = URLRequest(url: url)
+            let webResource = WebResource<[UserModel]>(urlRequest: urlRequest) { json in
+                
+                typealias Object = [NSObject: AnyObject]
+                
+                guard let json = json as? Object,
+                    userObjects = json["data"] as? [Object]
+                    else { return nil }
+                
+                var users: [UserModel] = []
+                
+                for userObject in userObjects {
+                    
+                    guard let identifier = userObject["id"] as? String,
+                        name = userObject["name"] as? String
+                        else { continue }
+                    
+                    let user = UserModel(
+                        identifier: identifier,
+                        name: name
+                    )
+                    
+                    users.append(user)
+                    
+                }
+                        
+                return users
+            
+            }
+            let webService = WebService(webResource: webResource)
+            let controller = CHWebServiceIntegrationTableViewController(webService: webService)
             
             show(controller, sender: nil)
             

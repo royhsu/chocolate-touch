@@ -37,6 +37,8 @@
 		B0971D331D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D301D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift */; };
 		B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */; };
 		B0971D351D280DC4005BBEE8 /* TemplateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */; };
+		B0EFC42B1D2BDBD300054A3A /* CHWebServiceIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42A1D2BDBD300054A3A /* CHWebServiceIntegrationTableViewController.swift */; };
+		B0EFC42D1D2BDC6500054A3A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42C1D2BDC6500054A3A /* UserModel.swift */; };
 		B4CFF3ED8A4C6D9540EE8F57 /* Pods_ChocolateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AD428ECFC8B1C33C81F6CC4 /* Pods_ChocolateTests.framework */; };
 		C6074CB8CCCF2F467D49AF68 /* Pods_Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B302192AAA4972DE59234E9 /* Pods_Chocolate.framework */; };
 /* End PBXBuildFile section */
@@ -114,6 +116,8 @@
 		B0971D301D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCellContentTableViewController.swift; sourceTree = "<group>"; };
 		B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTableViewCell.swift; sourceTree = "<group>"; };
 		B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateTableViewCell.xib; sourceTree = "<group>"; };
+		B0EFC42A1D2BDBD300054A3A /* CHWebServiceIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceIntegrationTableViewController.swift; sourceTree = "<group>"; };
+		B0EFC42C1D2BDC6500054A3A /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,8 @@
 		B04466001D2B47E4004CB0E9 /* WebServiceIntegration */ = {
 			isa = PBXGroup;
 			children = (
+				B0EFC42A1D2BDBD300054A3A /* CHWebServiceIntegrationTableViewController.swift */,
+				B0EFC42C1D2BDC6500054A3A /* UserModel.swift */,
 			);
 			path = WebServiceIntegration;
 			sourceTree = "<group>";
@@ -589,9 +595,11 @@
 				B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */,
 				B0956ACA1D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */,
 				B0971D331D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift in Sources */,
+				B0EFC42B1D2BDBD300054A3A /* CHWebServiceIntegrationTableViewController.swift in Sources */,
 				B0971D2E1D280D9D005BBEE8 /* CatalogueTableViewController.swift in Sources */,
 				B0956ACD1D2916D6000BC8D0 /* Main.xcdatamodeld in Sources */,
 				B066EF9C1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift in Sources */,
+				B0EFC42D1D2BDC6500054A3A /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
