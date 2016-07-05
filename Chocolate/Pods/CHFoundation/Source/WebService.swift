@@ -34,6 +34,10 @@ public struct WebService<Model> {
     
     // MARK: Request
     
+    // TODO:
+    // 1. Option for go back to main queue automatically.
+    // 2. Option for errorParser.
+    
     public func request(with urlSession: URLSession, errorParser: ErrorParser? = nil, successHandler: SuccessHandler, failHandler: FailHandler? = nil) -> URLSessionTask {
         
         let sessionTask = urlSession.dataTask(with: webResource.urlRequest) { data, response, error in

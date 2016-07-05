@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Reference: https://talk.objc.io/episodes/S01E01-networking
+
 public struct WebResource<Model> {
     
     // MARK: Property
