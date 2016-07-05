@@ -159,6 +159,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B04466001D2B47E4004CB0E9 /* WebServiceIntegration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WebServiceIntegration;
+			sourceTree = "<group>";
+		};
 		B066EF9A1D28B1EE00B0AF29 /* CoreDataIntegration */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +245,7 @@
 				B0971D2D1D280D9D005BBEE8 /* CatalogueTableViewController.swift */,
 				B066EF9A1D28B1EE00B0AF29 /* CoreDataIntegration */,
 				B0971D2F1D280DC4005BBEE8 /* DynamicCellContent */,
+				B04466001D2B47E4004CB0E9 /* WebServiceIntegration */,
 				B0971D241D280D3F005BBEE8 /* Assets.xcassets */,
 				B0956ACB1D2916D6000BC8D0 /* Main.xcdatamodeld */,
 				B0971D261D280D3F005BBEE8 /* LaunchScreen.storyboard */,

@@ -15,12 +15,14 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         
         case DynamicCellContent
         case CoreDataIntegration
+        case WebServiceIntegration
         
         var title: String {
             
             switch self {
             case .DynamicCellContent: return "Dynamic Cell Content"
             case .CoreDataIntegration: return "Core Data Integration"
+            case .WebServiceIntegration: return "Web Service Integration"
             }
             
         }
@@ -30,7 +32,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     // MARK: Property
     
-    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration ]
+    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration, .WebServiceIntegration ]
     
     
     // MARK: Init
@@ -84,6 +86,13 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
             let controller = CoreDataIntegrationTableViewController(modelName: "Main", at: .document(mask: .userDomainMask))
             controller.navigationItem.title = row.title
+            
+            show(controller, sender: nil)
+            
+        case .WebServiceIntegration:
+            
+            let controller = UIViewController()
+            controller.view.backgroundColor = .red()
             
             show(controller, sender: nil)
             
