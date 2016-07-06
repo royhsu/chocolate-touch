@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		38C6AE610FECC734E67C49FD /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1781B8ED070E5E5D7FB14C01 /* Pods_ChocolateExamples.framework */; };
+		B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */; };
+		B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */; };
+		B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0651D2C893800A194FA /* CHWebServiceController.swift */; };
+		B060B0681D2CCA1100A194FA /* CHWebServiceControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0671D2CCA1100A194FA /* CHWebServiceControllerTests.swift */; };
+		B060B06A1D2CD0D100A194FA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0691D2CD0D100A194FA /* UserModel.swift */; };
 		B066EF9C1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B066EF9B1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift */; };
 		B0956AC91D2916C7000BC8D0 /* CityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AC71D2916C7000BC8D0 /* CityEntity.swift */; };
 		B0956ACA1D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AC81D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift */; };
@@ -84,6 +89,11 @@
 		966BD1020331A7EB0727167C /* Pods-ChocolateExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.debug.xcconfig"; sourceTree = "<group>"; };
 		9ED07AB182590A1D4A73CD0B /* Pods-Chocolate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.release.xcconfig"; sourceTree = "<group>"; };
 		9F46707412F46E65122B0E18 /* Pods-ChocolateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceTableViewController.swift; sourceTree = "<group>"; };
+		B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceSectionInfo.swift; sourceTree = "<group>"; };
+		B060B0651D2C893800A194FA /* CHWebServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceController.swift; sourceTree = "<group>"; };
+		B060B0671D2CCA1100A194FA /* CHWebServiceControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceControllerTests.swift; sourceTree = "<group>"; };
+		B060B0691D2CD0D100A194FA /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		B066EF9B1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0956AC71D2916C7000BC8D0 /* CityEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityEntity.swift; sourceTree = "<group>"; };
 		B0956AC81D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CityEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -222,6 +232,9 @@
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */,
 				B0956ACE1D292858000BC8D0 /* CHFetchedResultsTableViewController.swift */,
+				B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */,
+				B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */,
+				B060B0651D2C893800A194FA /* CHWebServiceController.swift */,
 				B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */,
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 			);
@@ -234,6 +247,8 @@
 			children = (
 				B0971D111D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift */,
 				B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */,
+				B060B0671D2CCA1100A194FA /* CHWebServiceControllerTests.swift */,
+				B060B0691D2CD0D100A194FA /* UserModel.swift */,
 				B0971D131D280C44005BBEE8 /* TestTableViewCell.swift */,
 				B0971D141D280C44005BBEE8 /* TestTableViewCell.xib */,
 				B0956ADF1D293D21000BC8D0 /* CityEntity.swift */,
@@ -565,10 +580,13 @@
 			files = (
 				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
 				B0971D001D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift in Sources */,
+				B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */,
+				B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B0956AD21D292A0B000BC8D0 /* CHFetchedResultsTableViewController.swift in Sources */,
 				B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */,
 				B0971CFF1D280536005BBEE8 /* CHTableViewCell.swift in Sources */,
+				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,7 +594,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B060B0681D2CCA1100A194FA /* CHWebServiceControllerTests.swift in Sources */,
 				B0956AD11D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift in Sources */,
+				B060B06A1D2CD0D100A194FA /* UserModel.swift in Sources */,
 				B0956AE11D293D21000BC8D0 /* CityEntity.swift in Sources */,
 				B0956ADE1D293D0A000BC8D0 /* Test.xcdatamodeld in Sources */,
 				B0971D121D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift in Sources */,
