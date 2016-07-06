@@ -12,8 +12,6 @@ import Chocolate
 public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewController<CHTableViewCell, SongModel> {
 
     
-    
-    
     // MARK: Init
     
     public init() { super.init(cellType: CHTableViewCell.self) }

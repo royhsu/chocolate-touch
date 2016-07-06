@@ -42,27 +42,6 @@ public class DynamicCellContentTableViewController: CHSingleCellTypeTableViewCon
     
     public init() { super.init(nibType: ContentTableViewCell.self) }
     
-    required public init?(coder aDecoder: NSCoder) {
-        
-        fatalError("init(coder:) has not been implemented")
-        
-    }
-    
-    
-    // MARK: View Life Cycle
-    
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupInitially()
-        
-    }
-    
-    
-    // MARK: Setup
-    
-    private func setupInitially() { }
-    
     
     // MARK: UITableViewDataSource
     
