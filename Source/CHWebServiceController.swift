@@ -60,6 +60,7 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
     
     /// The sections that is pending to request.
     internal var pendingQueue: [UUID] = []
+    /// The sections that is currently requesting.
     internal var requestingQueue: [Request] = []
     
     public var sesstion = URLSession.shared()
@@ -89,6 +90,8 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
         
         pendingQueue.remove(at: pendingSectionIndex)
         
+        removeFromRequestingQueue(for: section)
+        
     }
     
     
@@ -96,18 +99,18 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
     
     public func performReqeust() {
         
-//        for index in 0..<pendingQueue.count {
-//            
-//            let requestID = pendingQueue.remove(at: index)
-//            
-//            guard let sectionIndex = sections
-//                .index(where: { $0.identifier == requestID })
-//                else { continue }
-//            
-//            request(for: sections[sectionIndex])
-//            
-//        }
-//        
+        for index in 0..<pendingQueue.count {
+            
+            let sectionID = pendingQueue.remove(at: index)
+            
+            guard let sectionIndex = sections
+                .index(where: { $0.identifier == sectionID })
+                else { continue }
+            
+            request(for: sections[sectionIndex])
+            
+        }
+        
     }
     
     internal func request(for section: CHWebServiceSectionInfo<Objects>, completionHandler: (() -> Void)? = nil) {

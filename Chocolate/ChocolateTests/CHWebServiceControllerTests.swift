@@ -74,6 +74,10 @@ class CHWebServiceControllerTests: XCTestCase {
         
         controller!.append(section: section1)
         
+        let request1 = Request(identifier: section1.identifier, urlSessionTask: URLSessionTask())
+        
+        controller!.requestingQueue.append(request1)
+        
         let section2 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 2", webService: templateWebService!)
         
         controller!.append(section: section2)
@@ -86,11 +90,12 @@ class CHWebServiceControllerTests: XCTestCase {
         
         controller!.append(section: section4)
         
+        controller!.remove(section: section1)
         controller!.remove(section: section2)
         
-        XCTAssertEqual(controller!.sections.count, 3, "The count of appened sections doesn't match.")
+        XCTAssertEqual(controller!.sections.count, 2, "The count of appened sections doesn't match.")
         
-        XCTAssertEqual(controller!.pendingQueue, [ section1.identifier, section3.identifier, section4.identifier ], "The sections inside pending queue doesn't match.")
+        XCTAssertEqual(controller!.pendingQueue, [ section3.identifier, section4.identifier ], "The sections inside pending queue doesn't match.")
         
         XCTAssertEqual(controller!.requestingQueue.count, 0, "The count of requesting queue doesn't match.")
         
