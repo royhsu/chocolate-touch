@@ -10,7 +10,7 @@ import Foundation
 
 // Reference: https://talk.objc.io/episodes/S01E01-networking
 
-public struct WebResource<Model> {
+public struct WebResource<Model>: Equatable {
     
     // MARK: Property
     
@@ -23,5 +23,14 @@ public struct WebResource<Model> {
         self.parse = parse
         
     }
+    
+}
+
+
+// MARK: Equatable
+
+public func == <Model>(lhs: WebResource<Model>, rhs: WebResource<Model>) -> Bool {
+    
+    return lhs.urlRequest == rhs.urlRequest
     
 }

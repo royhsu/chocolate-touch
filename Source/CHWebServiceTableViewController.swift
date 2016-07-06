@@ -8,72 +8,65 @@
 
 import CHFoundation
 
-public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel where Cell: Identifiable>: CHSingleCellTypeTableViewController<Cell> {
+public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel where Cell: Identifiable>: CHSingleCellTypeTableViewController<Cell>, CHWebServiceControllerDelegate {
 
     
     // MARK: Property
     
-    public var webService: WebService<[ObjectModel]>
-//    public private(set) var sections: [CHWebServiceSectionInfo<ObjectModel>] = []
-    
-    private class var emptyWebService: WebService<[ObjectModel]> {
-        
-        let url = URL(string: "")!
-        let urlRequest = URLRequest(url: url)
-        let webResource = WebResource<[ObjectModel]>(urlRequest: urlRequest) { _ in return nil }
-        
-        return WebService(webResource: webResource)
-        
-    }
+    public let webServiceController = CHWebServiceController<[ObjectModel]>()
     
     
     // MARK: Init
     
-    public init(cellType: Cell.Type, webService: WebService<[ObjectModel]>) {
-        
-        self.webService = webService
-        
-        super.init(cellType: cellType)
-        
-    }
+    public override init(cellType: Cell.Type) { super.init(cellType: cellType) }
     
-    public init(nibType: Cell.Type, bundle: Bundle? = nil, webService: WebService<[ObjectModel]>) {
+    public override init(nibType: Cell.Type, bundle: Bundle?) { super.init(nibType: nibType, bundle: bundle) }
+    
+    
+    // MARK: View Life Cycle
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
         
-        self.webService = webService
+        webServiceController.delegate = self
         
-        super.init(nibType: nibType, bundle: bundle)
-    
-    }
-    
-    private override init(cellType: Cell.Type) {
-        
-        self.webService = self.dynamicType.emptyWebService
-        
-        super.init(cellType: cellType)
-    
-    }
-    
-    private override init(nibType: Cell.Type, bundle: Bundle? = nil) {
-    
-        self.webService = self.dynamicType.emptyWebService
-        
-        super.init(nibType: nibType, bundle: bundle)
-    
     }
     
     
     // MARK: UITableViewDataSource
     
-//    public final override func numberOfSections(in tableView: UITableView) -> Int {
-//        
-//        return sections.count
-//        
-//    }
-//    
-//    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        
-//        return sections[section].objects.count
-//        
-//    }
+    public final override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return webServiceController.sections.count
+        
+    }
+    
+    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let section = webServiceController.sections[section]
+        
+        return section.objects.count
+        
+    }
+    
+    
+    // MARK: CHWebServiceControllerDelegate
+    
+    public func webServiceController<Objects : ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
+        
+        guard let sectionIndex = controller.index(of: section) else { return }
+        
+        tableView.reloadSections(
+            IndexSet(integer: sectionIndex),
+            with: .automatic
+        )
+        
+    }
+    
+    public func webServiceController<Objects : ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
+        
+        // TODO: Error handling.
+        
+    }
     
 }

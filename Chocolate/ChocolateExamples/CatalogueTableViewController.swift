@@ -92,46 +92,10 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
         case .WebServiceIntegration:
             
-            break
+            let controller = CHWebServiceIntegrationTableViewController()
+            controller.navigationItem.title = row.title
             
-//            let url = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
-//            let urlRequest = URLRequest(url: url)
-//            let webResource = WebResource<[SongModel]>(urlRequest: urlRequest) { json in
-//                
-//                typealias Object = [NSObject: AnyObject]
-//                
-//                guard let json = json as? Object,
-//                    songObjects = json["results"] as? [Object]
-//                    else { return nil }
-//                
-//                var songs: [SongModel] = []
-//                
-//                for songObject in songObjects {
-//                    
-//                    guard let identifier = songObject["trackId"] as? Int,
-//                        artist = songObject["artistName"] as? String,
-//                        name = songObject["trackName"] as? String
-//                        else { continue }
-//                    
-//                    let song = SongModel(
-//                        identifier: "\(identifier)",
-//                        artist: artist,
-//                        name: name
-//                    )
-//                    
-//                    songs.append(song)
-//                    
-//                }
-//                        
-//                return songs
-//            
-//            }
-//            let webService = WebService(webResource: webResource)
-//            let controller = CHWebServiceIntegrationTableViewController(webService: webService)
-//            controller.navigationItem.title = row.title
-//            
-//            show(controller, sender: nil)
-            
+            show(controller, sender: nil)
         }
         
     }

@@ -56,18 +56,33 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
     
     // MARK: Property
     
-    internal private(set) var sections: [CHWebServiceSectionInfo<Objects>] = []
+    public private(set) var sections: [CHWebServiceSectionInfo<Objects>] = []
     
     /// The sections that is pending to request.
     internal var pendingQueue: [UUID] = []
     /// The sections that is currently requesting.
     internal var requestingQueue: [Request] = []
     
-    public var sesstion = URLSession.shared()
+    public var session = URLSession.shared()
     public weak var delegate: CHWebServiceControllerDelegate?
     
     
+    // MARK: Init
+    
+    public init() { }
+    
+    
     // MARK: Section
+    
+    public func index(of section: CHWebServiceSectionInfo<Objects>) -> Int? {
+        
+        guard let sectionIndex = sections
+            .index(where: { $0 == section })
+            else { return nil }
+        
+        return sectionIndex
+        
+    }
     
     public func append(section: CHWebServiceSectionInfo<Objects>) {
         
@@ -94,6 +109,16 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
         
     }
     
+    internal func removeFromRequestingQueue(for section: CHWebServiceSectionInfo<Objects>) {
+        
+        guard let index = requestingQueue
+            .index(where: { $0.identifier == section.identifier })
+            else { return }
+        
+        requestingQueue.remove(at: index)
+        
+    }
+    
     
     // MARK: Request
     
@@ -116,7 +141,7 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
     internal func request(for section: CHWebServiceSectionInfo<Objects>, completionHandler: (() -> Void)? = nil) {
         
         let urlSessionTask = section.webService.request(
-            with: sesstion,
+            with: session,
             errorParser: section.errorParser,
             successHandler: { [weak self] objects in
             
@@ -171,16 +196,6 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
             )
         )
         
-    }
-    
-    internal func removeFromRequestingQueue(for section: CHWebServiceSectionInfo<Objects>) {
-    
-        guard let index = requestingQueue
-            .index(where: { $0.identifier == section.identifier })
-            else { return }
-        
-        requestingQueue.remove(at: index)
-    
     }
     
 }

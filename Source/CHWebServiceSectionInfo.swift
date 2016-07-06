@@ -8,7 +8,7 @@
 
 import CHFoundation
 
-public struct CHWebServiceSectionInfo<Objects: ArrayLiteralConvertible> {
+public struct CHWebServiceSectionInfo<Objects: ArrayLiteralConvertible>: Equatable {
     
     
     // MARK: Property
@@ -18,7 +18,7 @@ public struct CHWebServiceSectionInfo<Objects: ArrayLiteralConvertible> {
     public let webService: WebService<Objects>
     public var errorParser: WebService<Objects>.ErrorParser?
     public var objects: Objects = []
-    
+
     
     // MARK: Init
     
@@ -30,4 +30,13 @@ public struct CHWebServiceSectionInfo<Objects: ArrayLiteralConvertible> {
     
     }
     
+}
+
+
+// MARK: Equatable
+
+public func ==<Objects: ArrayLiteralConvertible>(lhs: CHWebServiceSectionInfo<Objects>, rhs: CHWebServiceSectionInfo<Objects>) -> Bool {
+    
+    return lhs.identifier == rhs.identifier
+
 }

@@ -15,7 +15,7 @@ public enum WebServiceError: ErrorProtocol {
     case modelParsing
 }
 
-public struct WebService<Model> {
+public struct WebService<Model>: Equatable {
     
     public typealias ErrorParser = (data: Data?, urlResponse: URLResponse?, error: NSError?) -> ErrorProtocol
     public typealias SuccessHandler = (model: Model) -> Void
@@ -119,5 +119,14 @@ public struct WebService<Model> {
         }
         
     }
+    
+}
+
+
+// MARK: Equatable
+
+public func ==<Model>(lhs: WebService<Model>, rhs: WebService<Model>) -> Bool {
+    
+    return lhs.webResource == rhs.webResource
     
 }
