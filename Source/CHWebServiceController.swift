@@ -126,15 +126,17 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
         
         for index in 0..<pendingQueue.count {
             
-            let sectionID = pendingQueue.remove(at: index)
+            let section = sections[index]
             
             guard let sectionIndex = sections
-                .index(where: { $0.identifier == sectionID })
+                .index(where: { $0.identifier == section.identifier })
                 else { continue }
             
             request(for: sections[sectionIndex])
             
         }
+        
+        pendingQueue = []
         
     }
     

@@ -53,13 +53,15 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
     // MARK: CHWebServiceControllerDelegate
     
     public func webServiceController<Objects : ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
-        
-        guard let sectionIndex = controller.index(of: section) else { return }
+
+        tableView.beginUpdates()
         
         tableView.reloadSections(
-            IndexSet(integer: sectionIndex),
+            IndexSet(integersIn: 0..<webServiceController.sections.count),
             with: .automatic
         )
+        
+        tableView.endUpdates()
         
     }
     

@@ -22,13 +22,21 @@ public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewCo
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
-        let urlRequest = URLRequest(url: url)
-        let webResource = WebResource<[SongModel]>(urlRequest: urlRequest, parse: self.dynamicType.parseSongs)
-        let webService = WebService(webResource: webResource)
-        let section = CHWebServiceSectionInfo(name: "Section 1", webService: webService)
+        let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
+        let urlRequest1 = URLRequest(url: url1)
+        let webResource1 = WebResource<[SongModel]>(urlRequest: urlRequest1, parse: self.dynamicType.parseSongs)
+        let webService1 = WebService(webResource: webResource1)
+        let section1 = CHWebServiceSectionInfo(name: "Section 1", webService: webService1)
         
-        webServiceController.append(section: section)
+        webServiceController.append(section: section1)
+        
+        let url2 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false")!
+        let urlRequest2 = URLRequest(url: url2)
+        let webResource2 = WebResource<[SongModel]>(urlRequest: urlRequest2, parse: self.dynamicType.parseSongs)
+        let webService2 = WebService(webResource: webResource2)
+        let section2 = CHWebServiceSectionInfo(name: "Section 2", webService: webService2)
+        
+        webServiceController.append(section: section2)
         
     }
     
