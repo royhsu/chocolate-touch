@@ -101,8 +101,8 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
         case .CacheIntegration:
             
-            let controller = UIViewController()
-            controller.view.backgroundColor = .blue()
+            let controller = CacheIntegrationTableViewController()
+            controller.navigationItem.title = row.title
             
             show(controller, sender: nil)
             

@@ -52,7 +52,7 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
     
     // MARK: CHWebServiceControllerDelegate
     
-    public func webServiceController<Objects : ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
+    public func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
 
         tableView.beginUpdates()
         
@@ -65,7 +65,7 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
         
     }
     
-    public func webServiceController<Objects : ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
+    public func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
         
         // TODO: Error handling.
         

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11147.23" systemVersion="15F34" minimumToolsVersion="Xcode 7.0" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11147.23" systemVersion="15F34" minimumToolsVersion="Xcode 7.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="City" representedClassName="CityEntity" syncable="YES">
         <attribute name="cityName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countryName" optional="YES" attributeType="String" syncable="YES"/>
@@ -7,11 +7,12 @@
     <entity name="Song" representedClassName="SongEntity" syncable="YES">
         <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trackName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="City" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="Song" positionX="-63" positionY="0" width="128" height="105"/>
+        <element name="Song" positionX="-63" positionY="0" width="128" height="120"/>
     </elements>
 </model>

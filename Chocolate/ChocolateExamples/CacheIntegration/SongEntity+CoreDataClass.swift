@@ -1,5 +1,5 @@
 //
-//  SongEntity.swift
+//  SongEntity+CoreDataClass.swift
 //  Chocolate
 //
 //  Created by 許郁棋 on 2016/7/7.
@@ -10,8 +10,6 @@ import Foundation
 import CoreData
 
 @objc(SongEntity)
-public class SongEntity: NSManagedObject {
-    
-    // Insert code here to add functionality to your managed object subclass
-    
+class SongEntity: NSManagedObject {
+
 }

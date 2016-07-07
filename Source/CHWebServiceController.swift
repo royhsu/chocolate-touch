@@ -42,16 +42,16 @@ internal func ==(lhs: Request, rhs: Request) -> Bool {
 
 public protocol CHWebServiceControllerDelegate: class {
     
-    func webServiceController<Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects)
+    func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects)
     
-    func webServiceController<Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?))
+    func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?))
     
 }
 
 
 // MARK: CHWebServiceController
 
-public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
+public class CHWebServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible> {
     
     
     // MARK: Property

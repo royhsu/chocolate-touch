@@ -9,11 +9,16 @@
 import Foundation
 import CoreData
 
-public extension SongEntity {
-    
+extension SongEntity {
+
+    @nonobjc class func fetchRequest() -> NSFetchRequest<SongEntity> {
+        return NSFetchRequest<SongEntity>(entityName: "Song");
+    }
+
     @NSManaged var trackId: String?
     @NSManaged var artistName: String?
     @NSManaged var trackName: String?
-    @NSManaged var lastUpdated: Date?
-    
+    @NSManaged var lastUpdated: NSDate?
+    @NSManaged var sectionName: String?
+
 }
