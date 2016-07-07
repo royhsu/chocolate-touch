@@ -74,45 +74,35 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
     
     // MARK: Section
     
-    public func index(of section: CHWebServiceSectionInfo<Objects>) -> Int? {
-        
-        guard let sectionIndex = sections
-            .index(where: { $0 == section })
-            else { return nil }
-        
-        return sectionIndex
-        
-    }
-    
-    public func append(section: CHWebServiceSectionInfo<Objects>) {
+    public func appendSection(_ section: CHWebServiceSectionInfo<Objects>) {
         
         sections.append(section)
         pendingQueue.append(section.identifier)
         
     }
     
-    public func remove(section: CHWebServiceSectionInfo<Objects>) {
+    public func removeSection(with identifier: UUID) {
         
         guard let sectionIndex = sections
-            .index(where: { $0.identifier == section.identifier })
+            .index(where: { $0.identifier == identifier })
             else { return }
         
         sections.remove(at: sectionIndex)
         
         guard let pendingSectionIndex = pendingQueue
-            .index(where: { $0 == section.identifier })
+            .index(where: { $0 == identifier })
             else { return }
         
         pendingQueue.remove(at: pendingSectionIndex)
         
-        removeFromRequestingQueue(for: section)
-        
+        removeSectionFromRequestingQueue(with: identifier)
+    
     }
     
-    internal func removeFromRequestingQueue(for section: CHWebServiceSectionInfo<Objects>) {
+    internal func removeSectionFromRequestingQueue(with identifier: UUID) {
         
         guard let index = requestingQueue
-            .index(where: { $0.identifier == section.identifier })
+            .index(where: { $0.identifier == identifier })
             else { return }
         
         requestingQueue.remove(at: index)
@@ -151,7 +141,7 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
                 
                 DispatchQueue.main.async {
                     
-                    weakSelf.removeFromRequestingQueue(for: section)
+                    weakSelf.removeSectionFromRequestingQueue(with: section.identifier)
                     
                     guard let sectionIndex = weakSelf.sections
                         .index(where: { $0.identifier == section.identifier })
@@ -176,7 +166,7 @@ public class CHWebServiceController<Objects: ArrayLiteralConvertible> {
                 
                 DispatchQueue.main.async {
                     
-                    weakSelf.removeFromRequestingQueue(for: section)
+                    weakSelf.removeSectionFromRequestingQueue(with: section.identifier)
                     
                     weakSelf.delegate?.webServiceController(
                         weakSelf,

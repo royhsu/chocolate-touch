@@ -28,7 +28,7 @@ public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewCo
         let webService1 = WebService(webResource: webResource1)
         let section1 = CHWebServiceSectionInfo(name: "Section 1", webService: webService1)
         
-        webServiceController.append(section: section1)
+        webServiceController.appendSection(section1)
         
         let url2 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false")!
         let urlRequest2 = URLRequest(url: url2)
@@ -36,7 +36,7 @@ public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewCo
         let webService2 = WebService(webResource: webResource2)
         let section2 = CHWebServiceSectionInfo(name: "Section 2", webService: webService2)
         
-        webServiceController.append(section: section2)
+        webServiceController.appendSection(section2)
         
     }
     

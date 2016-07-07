@@ -54,11 +54,11 @@ class CHWebServiceControllerTests: XCTestCase {
         
         let section1 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 1", webService: templateWebService!)
         
-        controller!.append(section: section1)
+        controller!.appendSection(section1)
         
         let section2 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 2", webService: templateWebService!)
         
-        controller!.append(section: section2)
+        controller!.appendSection(section2)
         
         XCTAssertEqual(controller!.sections.count, 2, "The count of appened sections doesn't match.")
         
@@ -72,7 +72,7 @@ class CHWebServiceControllerTests: XCTestCase {
         
         let section1 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 1", webService: templateWebService!)
         
-        controller!.append(section: section1)
+        controller!.appendSection(section1)
         
         let request1 = Request(identifier: section1.identifier, urlSessionTask: URLSessionTask())
         
@@ -80,18 +80,18 @@ class CHWebServiceControllerTests: XCTestCase {
         
         let section2 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 2", webService: templateWebService!)
         
-        controller!.append(section: section2)
+        controller!.appendSection(section2)
         
         let section3 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 3", webService: templateWebService!)
         
-        controller!.append(section: section3)
+        controller!.appendSection(section3)
         
         let section4 = CHWebServiceSectionInfo<[UserModel]>(name: "Section 4", webService: templateWebService!)
         
-        controller!.append(section: section4)
+        controller!.appendSection(section4)
         
-        controller!.remove(section: section1)
-        controller!.remove(section: section2)
+        controller!.removeSection(with: section1.identifier)
+        controller!.removeSection(with: section2.identifier)
         
         XCTAssertEqual(controller!.sections.count, 2, "The count of appened sections doesn't match.")
         
@@ -111,7 +111,7 @@ class CHWebServiceControllerTests: XCTestCase {
         
         controller!.requestingQueue = [ request1, request2 ]
         
-        controller!.removeFromRequestingQueue(for: section1)
+        controller!.removeSectionFromRequestingQueue(with: section1.identifier)
         
         XCTAssertEqual(controller!.requestingQueue, [ request2 ], "The request count of requesting queue doesn't match.")
         
