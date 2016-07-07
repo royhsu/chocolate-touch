@@ -35,8 +35,6 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         
     }
     
-    private init() { fatalError("init() has not been implemented") }
-    
     private override init(cellType: Cell.Type) { super.init(cellType: cellType) }
     
     private override init(nibType: Cell.Type, bundle: Bundle? = nil) { super.init(nibType: nibType, bundle: bundle) }

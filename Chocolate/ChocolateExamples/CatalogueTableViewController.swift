@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
+import CHFoundation
 import Chocolate
 import CoreData
 
@@ -15,12 +16,14 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         
         case DynamicCellContent
         case CoreDataIntegration
+        case WebServiceIntegration
         
         var title: String {
             
             switch self {
             case .DynamicCellContent: return "Dynamic Cell Content"
             case .CoreDataIntegration: return "Core Data Integration"
+            case .WebServiceIntegration: return "Web Service Integration"
             }
             
         }
@@ -30,7 +33,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     // MARK: Property
     
-    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration ]
+    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration, .WebServiceIntegration ]
     
     
     // MARK: Init
@@ -87,6 +90,12 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
             show(controller, sender: nil)
             
+        case .WebServiceIntegration:
+            
+            let controller = CHWebServiceIntegrationTableViewController()
+            controller.navigationItem.title = row.title
+            
+            show(controller, sender: nil)
         }
         
     }

@@ -5,13 +5,14 @@ platform :ios, "8.0"
 use_frameworks!
 
 target 'Chocolate' do
-	pod 'CHFoundation', '0.1.1'
+	pod 'CHFoundation', '0.2'
 end
 
 target 'ChocolateTests' do
-	pod 'CHFoundation', '0.1.1'
+	pod 'CHFoundation', '0.2'
 end
 
 target 'ChocolateExamples' do
-	pod 'CHFoundation', '0.1.1'
+	pod 'CHFoundation', '0.2'
+	pod 'moa', '4.0.0'
 end
