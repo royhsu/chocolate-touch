@@ -11,7 +11,11 @@ import Chocolate
 import CoreData
 
 public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell>, CHWebServiceControllerDelegate, NSFetchedResultsControllerDelegate {
-
+    
+    struct UserDefaultsKey {
+        static let lastUpdated = "CacheIntegrationTableViewController.UserDefaultsKey.lastUpdated"
+    }
+    
     var managedObjectContext: NSManagedObjectContext!
     var fetchedResultsController: NSFetchedResultsController<SongEntity>!
     
@@ -69,14 +73,7 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
     
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        tableView.beginUpdates()
-        
-        tableView.reloadSections(
-            IndexSet(integersIn: 0..<webServiceController.sections.count),
-            with: .automatic
-        )
-        
-        tableView.endUpdates()
+        tableView.reloadData()
         
     }
     
@@ -90,6 +87,12 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .refresh,
+            target: self,
+            action: .refresh
+        )
         
         let modelURL = Bundle.main().urlForResource("Cache", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
@@ -127,25 +130,71 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
         
-        let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
-        let urlRequest1 = URLRequest(url: url1)
-        let webResource1 = WebResource<[SongModel]>(urlRequest: urlRequest1, parse: self.dynamicType.parseSongs)
-        let webService1 = WebService(webResource: webResource1)
-        let section1 = CHWebServiceSectionInfo(name: "Section 1", webService: webService1)
-        
-        webServiceController.appendSection(section1)
-        
-//        let url2 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false")!
-//        let urlRequest2 = URLRequest(url: url2)
-//        let webResource2 = WebResource<[SongModel]>(urlRequest: urlRequest2, parse: self.dynamicType.parseSongs)
-//        let webService2 = WebService(webResource: webResource2)
-//        let section2 = CHWebServiceSectionInfo(name: "Section 2", webService: webService2)
-//        
-//        webServiceController.appendSection(section2)
-        
-        webServiceController.performReqeust()
+        if UserDefaults.standard()
+            .object(forKey: UserDefaultsKey.lastUpdated) == nil {
+            
+            fetchData()
+            
+        }
         
     }
+    
+    private func deleteCachedData(completionHandler: (() -> Void)?) {
+        
+        guard let objects = fetchedResultsController.fetchedObjects else { return }
+        
+        let context = fetchedResultsController.managedObjectContext
+        
+        DispatchQueue.global(attributes: .qosBackground).async { 
+            
+            context.perform {
+                
+                objects.forEach { context.delete($0) }
+                
+                do { try context.save() }
+                catch { print("Error: \(error)") }
+                
+                DispatchQueue.main.async { completionHandler?() }
+        
+            }
+            
+        }
+        
+    }
+    
+    private func fetchData() {
+        
+        deleteCachedData {
+        
+            UserDefaults.standard().set(Date(), forKey: UserDefaultsKey.lastUpdated)
+            UserDefaults.standard().synchronize()
+            
+            let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
+            let urlRequest1 = URLRequest(url: url1)
+            let webResource1 = WebResource<[SongModel]>(urlRequest: urlRequest1, parse: self.dynamicType.parseSongs)
+            let webService1 = WebService(webResource: webResource1)
+            let section1 = CHWebServiceSectionInfo(name: "Section 1", webService: webService1)
+            
+            self.webServiceController.appendSection(section1)
+            
+            let url2 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false")!
+            let urlRequest2 = URLRequest(url: url2)
+            let webResource2 = WebResource<[SongModel]>(urlRequest: urlRequest2, parse: self.dynamicType.parseSongs)
+            let webService2 = WebService(webResource: webResource2)
+            let section2 = CHWebServiceSectionInfo(name: "Section 2", webService: webService2)
+
+            self.webServiceController.appendSection(section2)
+            
+            self.webServiceController.performReqeust()
+            
+        }
+        
+    }
+    
+    
+    // MARK: Action
+    
+    @objc public func refresh(barButtonItem: UIBarButtonItem) { fetchData() }
     
     
     // MARK: Parsing
@@ -223,4 +272,13 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         
     }
 
+}
+
+
+// MARK: - Selector
+
+private extension Selector {
+    
+    static let refresh = #selector(CacheIntegrationTableViewController.refresh(barButtonItem:))
+    
 }
