@@ -1,6 +1,6 @@
 //
 //  CityEntity+CoreDataProperties.swift
-//  TestCoreData
+//  Chocolate
 //
 //  Created by 許郁棋 on 2016/7/3.
 //  Copyright © 2016年 Tiny World. All rights reserved.

@@ -1,16 +1,53 @@
 //
-//  CHWebServiceIntegrationTableViewController.swift
+//  CacheIntegrationTableViewController.swift
 //  Chocolate
 //
-//  Created by 許郁棋 on 2016/7/5.
+//  Created by 許郁棋 on 2016/7/7.
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
 import CHFoundation
 import Chocolate
+import CoreData
 
-public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewController<CHTableViewCell, SongModel> {
+public class CacheIntegrationTableViewController: CHWebServiceTableViewController<CHTableViewCell, SongModel> {
 
+    lazy var fetchedResultsController: NSFetchedResultsController<SongEntity> = {
+        
+        let modelURL = Bundle.main().urlForResource("Main", withExtension: "momd")!
+        let model = NSManagedObjectModel(contentsOf: modelURL)!
+        let storeURL = try! URL(filename: "Main", withExtension: "sqlite", in: .document(mask: .userDomainMask))
+        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+        
+        try! persistentStoreCoordinator.addPersistentStore(
+            ofType: NSSQLiteStoreType,
+            configurationName: nil,
+            at: storeURL,
+            options: [
+                NSMigratePersistentStoresAutomaticallyOption: true,
+                NSInferMappingModelAutomaticallyOption: true
+            ]
+        )
+        
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
+        
+        let fetchRequest = NSFetchRequest<SongEntity>(entityName: "Song")
+        fetchRequest.sortDescriptors = [
+            SortDescriptor(key: "lastUpdated", ascending: true)
+        ]
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: managedObjectContext,
+            sectionNameKeyPath: "countryName",
+            cacheName: nil
+        )
+        
+        return fetchedResultsController
+    
+    }()
+    
     
     // MARK: Init
     
@@ -40,33 +77,26 @@ public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewCo
         
     }
     
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        webServiceController.performReqeust()
-        
-    }
-    
     
     // MARK: Parsing
     
     private class func parseSongs(with json: AnyObject) -> [SongModel]? {
         
         typealias Object = [NSObject: AnyObject]
-
+        
         guard let json = json as? Object,
             songObjects = json["results"] as? [Object]
             else { return nil }
-
+        
         var songs: [SongModel] = []
-
+        
         for songObject in songObjects {
-
+            
             guard let identifier = songObject["trackId"] as? Int,
                 artist = songObject["artistName"] as? String,
                 name = songObject["trackName"] as? String
                 else { continue }
-
+            
             let song = SongModel(
                 identifier: "\(identifier)",
                 artist: artist,
@@ -80,33 +110,5 @@ public class CHWebServiceIntegrationTableViewController: CHWebServiceTableViewCo
         return songs
         
     }
-    
-    
-    // MARK: UITableViewDataSource
-    
-    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        let section = webServiceController.sections[section]
-        
-        return section.name
-        
-    }
-    
-    public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
-        
-        return .fixed(height: 44.0)
-    
-    }
-    
-    public override func tableView(_ tableView: UITableView, configurationFor cell: CHTableViewCell, at indexPath: IndexPath) -> CHTableViewCell {
-        
-        let section = webServiceController.sections[indexPath.section]
-        let song = section.objects[indexPath.row]
-        
-        cell.textLabel?.text = "\(song.artist) - \(song.name)"
-        
-        return cell
-        
-    }
-    
+
 }

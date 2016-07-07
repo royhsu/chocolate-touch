@@ -4,7 +4,14 @@
         <attribute name="cityName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countryName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Song" representedClassName="SongEntity" syncable="YES">
+        <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastUpdated" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="trackId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trackName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="City" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Song" positionX="-63" positionY="0" width="128" height="105"/>
     </elements>
 </model>

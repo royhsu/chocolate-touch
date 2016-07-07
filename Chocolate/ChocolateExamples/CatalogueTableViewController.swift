@@ -94,7 +94,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
         case .WebServiceIntegration:
             
-            let controller = CHWebServiceIntegrationTableViewController()
+            let controller = WebServiceIntegrationTableViewController()
             controller.navigationItem.title = row.title
             
             show(controller, sender: nil)
