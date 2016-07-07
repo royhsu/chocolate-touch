@@ -91,9 +91,9 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        let modelURL = Bundle.main().urlForResource("Main", withExtension: "momd")!
+        let modelURL = Bundle.main().urlForResource("Cache", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
-        let storeURL = try! URL(filename: "Main", withExtension: "sqlite", in: .document(mask: .userDomainMask))
+        let storeURL = try! URL(filename: "Cache", withExtension: "sqlite", in: .document(mask: .userDomainMask))
         
         print("storeURL: \(storeURL)")
         
@@ -125,6 +125,7 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         )
         
         fetchedResultsController.delegate = self
+        try! fetchedResultsController.performFetch()
         
         let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
         let urlRequest1 = URLRequest(url: url1)
@@ -144,33 +145,6 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         
         webServiceController.performReqeust()
         
-    }
-    
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        let context = fetchedResultsController.managedObjectContext
-//        let songEntity = NSEntityDescription.insertNewObject(forEntityName: "Song", into: context) as! SongEntity
-//        
-//        songEntity.sectionName = "Test Section"
-//        songEntity.lastUpdated = Date()
-//        
-//        songEntity.trackId = "123"
-//        songEntity.trackName = "Hello"
-//        songEntity.artistName = "World"
-//        
-//        context.perform {
-//            
-//            do {
-//                
-//                try context.save()
-//                self.tableView.reloadData()
-//            
-//            }
-//            catch { fatalError("Cannot save: \(error)") }
-//            
-//        }
-//        
     }
     
     
@@ -243,7 +217,7 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         
         let song = fetchedResultsController.object(at: indexPath)
         
-        cell.textLabel?.text = "\(song.artistName!) - \(song.trackName)"
+        cell.textLabel?.text = "\(song.artistName!) - \(song.trackName!)"
         
         return cell
         

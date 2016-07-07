@@ -10,6 +10,7 @@
 		38C6AE610FECC734E67C49FD /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1781B8ED070E5E5D7FB14C01 /* Pods_ChocolateExamples.framework */; };
 		B06072E61D2E3B710044A13E /* SongEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */; };
 		B06072E71D2E3B710044A13E /* SongEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */; };
+		B06072EA1D2E405F0044A13E /* Cache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */; };
 		B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */; };
 		B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */; };
 		B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0651D2C893800A194FA /* CHWebServiceController.swift */; };
@@ -94,6 +95,7 @@
 		9F46707412F46E65122B0E18 /* Pods-ChocolateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SongEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SongEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B06072E91D2E405F0044A13E /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
 		B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceTableViewController.swift; sourceTree = "<group>"; };
 		B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceSectionInfo.swift; sourceTree = "<group>"; };
 		B060B0651D2C893800A194FA /* CHWebServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceController.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */,
 				B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */,
 				B060B06E1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift */,
+				B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */,
 			);
 			path = CacheIntegration;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 			files = (
 				B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */,
 				B06072E71D2E3B710044A13E /* SongEntity+CoreDataProperties.swift in Sources */,
+				B06072EA1D2E405F0044A13E /* Cache.xcdatamodeld in Sources */,
 				B0956AC91D2916C7000BC8D0 /* CityEntity.swift in Sources */,
 				B0956B0F1D2A32D4000BC8D0 /* City.swift in Sources */,
 				B060B06F1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift in Sources */,
@@ -907,6 +911,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B06072E91D2E405F0044A13E /* Cache.xcdatamodel */,
+			);
+			currentVersion = B06072E91D2E405F0044A13E /* Cache.xcdatamodel */;
+			path = Cache.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		B0956ACB1D2916D6000BC8D0 /* Main.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
