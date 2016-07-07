@@ -1,15 +1,15 @@
 PODS:
-  - CHFoundation (0.2)
+  - CHFoundation (0.2.1)
   - moa (4.0.0)
 
 DEPENDENCIES:
-  - CHFoundation (= 0.2)
+  - CHFoundation (= 0.2.1)
   - moa (= 4.0.0)
 
 SPEC CHECKSUMS:
-  CHFoundation: 7e46fe1550742f1e88397e80e271d5b6530ded07
+  CHFoundation: 3d1f62331a60a609ad74b7d70e0e18d930c4d7ab
   moa: 5958c6282743c95eda68d2344fea7c196bfb1313
 
-PODFILE CHECKSUM: 51897980d801238c3504aa7b8b4646b9c6fb3ba1
+PODFILE CHECKSUM: d688311f325628aac6a6d3ece51b5721740d8920
 
 COCOAPODS: 1.0.1

@@ -12,10 +12,14 @@ import Foundation
 
 public struct WebResource<Model>: Equatable {
     
+    
     // MARK: Property
     
     public let urlRequest: URLRequest
     public let parse: (json: AnyObject) -> Model?
+    
+    
+    // MARK: Init
     
     public init(urlRequest: URLRequest, parse: (json: AnyObject) -> Model?) {
         
