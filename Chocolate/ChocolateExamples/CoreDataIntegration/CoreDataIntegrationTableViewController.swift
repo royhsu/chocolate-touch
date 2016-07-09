@@ -27,7 +27,7 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
     
     // MARK: Init
     
-    public init(modelName: String, in bundle: Bundle? = .main(), at directory: Directory) {
+    public init(modelName: String, in bundle: Bundle? = .main, at directory: Directory) {
         
         guard let modelURL = bundle?.urlForResource(modelName, withExtension: "momd") else { fatalError("Invalid model url.") }
         
@@ -87,6 +87,8 @@ public class CoreDataIntegrationTableViewController: CHFetchedResultsTableViewCo
         super.init(nibType: nibType, bundle: bundle, fetchedResultsController: fetchedResultsController)
     
     }
+    
+    required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
     // MARK: View Life Cycle

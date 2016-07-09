@@ -22,6 +22,8 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
     
     public override init(nibType: Cell.Type, bundle: Bundle?) { super.init(nibType: nibType, bundle: bundle) }
     
+    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     
     // MARK: View Life Cycle
     

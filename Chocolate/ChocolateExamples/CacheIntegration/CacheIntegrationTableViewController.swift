@@ -82,6 +82,8 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
     
     public init() { super.init(cellType: CHTableViewCell.self) }
     
+    required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     
     // MARK: View Life Cycle
     
@@ -94,7 +96,7 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
             action: .refresh
         )
         
-        let modelURL = Bundle.main().urlForResource("Cache", withExtension: "momd")!
+        let modelURL = Bundle.main.urlForResource("Cache", withExtension: "momd")!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         let storeURL = try! URL(filename: "Cache", withExtension: "sqlite", in: .document(mask: .userDomainMask))
         
@@ -130,7 +132,7 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         fetchedResultsController.delegate = self
         try! fetchedResultsController.performFetch()
         
-        if UserDefaults.standard()
+        if UserDefaults.standard
             .object(forKey: UserDefaultsKey.lastUpdated) == nil {
             
             fetchData()
@@ -166,8 +168,8 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         
         deleteCachedData {
         
-            UserDefaults.standard().set(Date(), forKey: UserDefaultsKey.lastUpdated)
-            UserDefaults.standard().synchronize()
+            UserDefaults.standard.set(Date(), forKey: UserDefaultsKey.lastUpdated)
+            UserDefaults.standard.synchronize()
             
             let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
             let urlRequest1 = URLRequest(url: url1)

@@ -63,7 +63,7 @@ public class CHWebServiceController<Objects: Sequence where Objects: ArrayLitera
     /// The sections that is currently requesting.
     internal var requestingQueue: [Request] = []
     
-    public var session = URLSession.shared()
+    public var session = URLSession.shared
     public weak var delegate: CHWebServiceControllerDelegate?
     
     

@@ -39,6 +39,8 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
     
     private override init(nibType: Cell.Type, bundle: Bundle? = nil) { super.init(nibType: nibType, bundle: bundle) }
     
+    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     
     // MARK: View Life Cycle
     

@@ -107,6 +107,8 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
                 
             }
             
+            required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+            
             override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
                 
                 return .fixed(height: 44.0)

@@ -16,6 +16,8 @@ public class WebServiceIntegrationTableViewController: CHWebServiceTableViewCont
     
     public init() { super.init(cellType: CHTableViewCell.self) }
     
+    required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     
     // MARK: View Life Cycle
     

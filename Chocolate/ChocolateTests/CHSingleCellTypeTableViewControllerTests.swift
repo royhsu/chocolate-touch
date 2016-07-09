@@ -63,6 +63,8 @@ class CHSingleCellTypeTableViewControllerTests: XCTestCase {
             
             init() { super.init(cellType: CHTableViewCell.self) }
             
+            required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+            
             override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return rows.count }
             
             override func tableView(_ tableView: UITableView, heightTypeForRowAt cellHeightTypeForRowAt: IndexPath) -> HeightType { return .fixed(height: 150.0) }
