@@ -14,5 +14,5 @@ end
 
 target 'ChocolateExamples' do
 	pod 'CHFoundation', '0.2.1'
-	pod 'moa', '4.0.0'
+	pod 'moa', '5.0.0'
 end

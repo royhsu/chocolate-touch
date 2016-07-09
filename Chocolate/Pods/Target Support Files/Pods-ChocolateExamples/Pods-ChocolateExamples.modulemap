@@ -1,6 +1,0 @@
-framework module Pods_ChocolateExamples {
-  umbrella header "Pods-ChocolateExamples-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -21,7 +21,7 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
     
     lazy var webServiceController: CHWebServiceController<[SongModel]> = { [unowned self] in
     
-        let controller =  CHWebServiceController<[SongModel]>()
+        let controller = CHWebServiceController<[SongModel]>()
     
         controller.delegate = self
         
