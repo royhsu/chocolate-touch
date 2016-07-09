@@ -23,6 +23,7 @@
 		B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */; };
 		B06989291D3099EB00EA6123 /* CHWebServiceCachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06989281D3099EB00EA6123 /* CHWebServiceCachable.swift */; };
 		B069892B1D30D41900EA6123 /* CHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892A1D30D41900EA6123 /* CHCache.swift */; };
+		B069892D1D310F8E00EA6123 /* CHCacheTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892C1D310F8E00EA6123 /* CHCacheTableViewControllerTests.swift */; };
 		B0956AC91D2916C7000BC8D0 /* CityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AC71D2916C7000BC8D0 /* CityEntity.swift */; };
 		B0956ACA1D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AC81D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift */; };
 		B0956ACD1D2916D6000BC8D0 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0956ACB1D2916D6000BC8D0 /* Main.xcdatamodeld */; };
@@ -107,6 +108,7 @@
 		B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTableViewController.swift; sourceTree = "<group>"; };
 		B06989281D3099EB00EA6123 /* CHWebServiceCachable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceCachable.swift; sourceTree = "<group>"; };
 		B069892A1D30D41900EA6123 /* CHCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCache.swift; sourceTree = "<group>"; };
+		B069892C1D310F8E00EA6123 /* CHCacheTableViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTableViewControllerTests.swift; sourceTree = "<group>"; };
 		B0956AC71D2916C7000BC8D0 /* CityEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityEntity.swift; sourceTree = "<group>"; };
 		B0956AC81D2916C7000BC8D0 /* CityEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CityEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B0956ACC1D2916D6000BC8D0 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				B0971D111D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift */,
 				B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */,
 				B060B0671D2CCA1100A194FA /* CHWebServiceControllerTests.swift */,
+				B069892C1D310F8E00EA6123 /* CHCacheTableViewControllerTests.swift */,
 				B060B0691D2CD0D100A194FA /* UserModel.swift */,
 				B0971D131D280C44005BBEE8 /* TestTableViewCell.swift */,
 				B0971D141D280C44005BBEE8 /* TestTableViewCell.xib */,
@@ -632,6 +635,7 @@
 				B060B06A1D2CD0D100A194FA /* UserModel.swift in Sources */,
 				B0956AE11D293D21000BC8D0 /* CityEntity.swift in Sources */,
 				B0956ADE1D293D0A000BC8D0 /* Test.xcdatamodeld in Sources */,
+				B069892D1D310F8E00EA6123 /* CHCacheTableViewControllerTests.swift in Sources */,
 				B0971D121D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift in Sources */,
 				B0971D151D280C44005BBEE8 /* TestTableViewCell.swift in Sources */,
 				B0956AE21D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */,

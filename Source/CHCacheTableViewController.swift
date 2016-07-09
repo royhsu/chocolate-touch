@@ -17,7 +17,7 @@ public class CHCacheTableViewController<
     
     // MARK: Property
     
-    private var fetchedResultsController: NSFetchedResultsController<Entity>!
+    internal var fetchedResultsController: NSFetchedResultsController<Entity>!
     public private(set) var webServiceController = CHWebServiceController<Objects>()
     
     
@@ -117,7 +117,7 @@ public class CHCacheTableViewController<
     // MARK: NSFetchedResultsControllerDelegate
     
     public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("controllerDidChangeContent")
+        
         tableView.reloadData()
 
     }
@@ -145,7 +145,16 @@ public class CHCacheTableViewController<
                     
                 }
                 
-                let _ = try? context.save()
+                do { try context.save() }
+                catch {
+                
+                    weakSelf.webServiceController(
+                        controller,
+                        didRequest: section,
+                        withFail: (statusCode: nil, error: error)
+                    )
+                
+                }
                 
             }
             
