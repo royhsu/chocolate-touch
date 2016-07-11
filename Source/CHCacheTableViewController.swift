@@ -19,21 +19,41 @@ public class CHCacheTableViewController<
     
     private let cacheSchema = CHCacheSchema()
     private var cacheStack: CoreDataStack?
+    public let cacheIdentifier: String
+    
     private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
     public private(set) var webServiceController = CHWebServiceController<Objects>()
     
     
     // MARK: Init
     
-    public init() { super.init(style: .plain) }
+    public init(cacheIdentifier: String) {
+        
+        self.cacheIdentifier = cacheIdentifier
+    
+        super.init(style: .plain)
+        
+    }
+    
+    private init() {
+        
+        self.cacheIdentifier = ""
+        
+        super.init(style: .plain)
+    
+    }
     
     private override init(style: UITableViewStyle) {
+        
+        self.cacheIdentifier = ""
         
         super.init(style: style)
     
     }
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        
+        self.cacheIdentifier = ""
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -83,6 +103,9 @@ public class CHCacheTableViewController<
             )
             
             let fetchRequest = CHCacheSchema.fetchRequest
+            
+            fetchRequest.predicate = Predicate(format: "id == %@", cacheIdentifier)
+            
             fetchRequest.sortDescriptors = [
                 SortDescriptor(key: "createdAt", ascending: true)
             ]
@@ -136,16 +159,7 @@ public class CHCacheTableViewController<
             where childStoreCoordinator === fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
             else { return }
         
-        DispatchQueue.main.async {
-            
-            if childContext.hasChanges {
-                
-                childContext.mergeChanges(fromContextDidSave: notification)
-                
-            }
-            else { self.tableView.reloadData() }
-            
-        }
+        fetchedResultsController?.managedObjectContext.mergeChanges(fromContextDidSave: notification)
         
     }
     
@@ -166,6 +180,13 @@ public class CHCacheTableViewController<
         
     }
     
+    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        guard let sections = fetchedResultsController?.sections else { return nil }
+        
+        return sections[section].name
+        
+    }
     
     public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -219,9 +240,10 @@ public class CHCacheTableViewController<
                         
                         let _ = try weakSelf.cacheSchema.insertObject(
                             with: [
+                                "id": weakSelf.cacheIdentifier,
                                 "data": "Hello",
                                 "createdAt": Date(),
-                                "section": "itunesSearching"
+                                "section": section.name
                             ],
                             into: context
                         )

@@ -111,12 +111,9 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             show(controller, sender: nil)
             
         case .AutomaticallyCaching:
-            
-            let controller = CHCacheTableViewController<[SongModel]>()
-            controller.navigationItem.title = row.title
-            
-            let url = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
-            let urlRequest = URLRequest(url: url)
+
+            let urlString = "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false"
+            let urlRequest = URLRequest(url: URL(string: urlString)!)
             let webResource = WebResource<[SongModel]>(urlRequest: urlRequest) { json in
                 
                 typealias Object = [NSObject: AnyObject]
@@ -149,6 +146,9 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             }
             let webService = WebService(webResource: webResource)
             let section = CHWebServiceSectionInfo(name: "Request 1", webService: webService)
+            
+            let controller = CHCacheTableViewController<[SongModel]>(cacheIdentifier: "GET_\(urlString)")
+            controller.navigationItem.title = row.title
             
             controller.webServiceController.appendSection(section)
             

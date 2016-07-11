@@ -11,6 +11,7 @@ import Foundation
 class CHCacheSchema: CoreDataSchema {
 
     static var template: Template = [
+        "id": .string,
         "data": .string,
         "createdAt": .date,
         "section": .string
