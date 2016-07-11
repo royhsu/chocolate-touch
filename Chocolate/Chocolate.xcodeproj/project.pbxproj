@@ -10,6 +10,10 @@
 		3860B4A3CAC16D389168B00C /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43660BDDA9539C854081EF /* Pods_ChocolateExamples.framework */; };
 		5C948F99904203145E06361C /* Pods_ChocolateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755462D45EF1C7DE44BF44B7 /* Pods_ChocolateTests.framework */; };
 		619666D08F0D2ABC6863006B /* Pods_Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */; };
+		B04385201D332941008DABAC /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851D1D332941008DABAC /* CoreDataModel.swift */; };
+		B04385211D332941008DABAC /* CoreDataSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851E1D332941008DABAC /* CoreDataSchema.swift */; };
+		B04385221D332941008DABAC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851F1D332941008DABAC /* CoreDataStack.swift */; };
+		B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04385231D332F69008DABAC /* CHCacheSchema.swift */; };
 		B06072E61D2E3B710044A13E /* SongEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */; };
 		B06072E71D2E3B710044A13E /* SongEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */; };
 		B06072EA1D2E405F0044A13E /* Cache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */; };
@@ -95,6 +99,10 @@
 		755462D45EF1C7DE44BF44B7 /* Pods_ChocolateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChocolateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7765E0B2099F51548F99B86C /* Pods-ChocolateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9760C9EB116DEFADF50E95DE /* Pods-ChocolateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.release.xcconfig"; sourceTree = "<group>"; };
+		B043851D1D332941008DABAC /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
+		B043851E1D332941008DABAC /* CoreDataSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSchema.swift; sourceTree = "<group>"; };
+		B043851F1D332941008DABAC /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		B04385231D332F69008DABAC /* CHCacheSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheSchema.swift; sourceTree = "<group>"; };
 		B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SongEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SongEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B06072E91D2E405F0044A13E /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
@@ -275,8 +283,12 @@
 				B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */,
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
+				B04385231D332F69008DABAC /* CHCacheSchema.swift */,
 				B069892A1D30D41900EA6123 /* CHCache.swift */,
 				B06989281D3099EB00EA6123 /* CHWebServiceCachable.swift */,
+				B043851D1D332941008DABAC /* CoreDataModel.swift */,
+				B043851E1D332941008DABAC /* CoreDataSchema.swift */,
+				B043851F1D332941008DABAC /* CoreDataStack.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -611,17 +623,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B04385221D332941008DABAC /* CoreDataStack.swift in Sources */,
 				B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */,
 				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
 				B0971D001D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift in Sources */,
+				B04385211D332941008DABAC /* CoreDataSchema.swift in Sources */,
 				B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */,
 				B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */,
+				B04385201D332941008DABAC /* CoreDataModel.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B0956AD21D292A0B000BC8D0 /* CHFetchedResultsTableViewController.swift in Sources */,
 				B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */,
 				B0971CFF1D280536005BBEE8 /* CHTableViewCell.swift in Sources */,
 				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
 				B06989291D3099EB00EA6123 /* CHWebServiceCachable.swift in Sources */,
+				B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */,
 				B069892B1D30D41900EA6123 /* CHCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

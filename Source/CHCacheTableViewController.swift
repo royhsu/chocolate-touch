@@ -7,9 +7,9 @@
 //
 
 import CoreData
+import CHFoundation
 
 public class CHCacheTableViewController<
-    Entity: NSManagedObject,
     Objects: Sequence
     where Objects: ArrayLiteralConvertible
 >: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
@@ -17,21 +17,15 @@ public class CHCacheTableViewController<
     
     // MARK: Property
     
-    internal var fetchedResultsController: NSFetchedResultsController<Entity>!
+    private let cacheSchema = CHCacheSchema()
+    private var cacheStack: CoreDataStack?
+    private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
     public private(set) var webServiceController = CHWebServiceController<Objects>()
     
     
     // MARK: Init
     
-    public init(fetchedResultsController: NSFetchedResultsController<Entity>) {
-        
-        self.fetchedResultsController = fetchedResultsController
-        
-        super.init(style: .plain)
-        
-    }
-    
-    private init() { super.init(style: .plain) }
+    public init() { super.init(style: .plain) }
     
     private override init(style: UITableViewStyle) {
         
@@ -60,7 +54,7 @@ public class CHCacheTableViewController<
             else { return }
         
         guard let childStoreCoordinator = childContext.persistentStoreCoordinator
-            where childStoreCoordinator === fetchedResultsController.managedObjectContext.persistentStoreCoordinator
+            where childStoreCoordinator === fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
             else { return }
         
         DispatchQueue.main.async {
@@ -77,22 +71,68 @@ public class CHCacheTableViewController<
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(contextDidSave),
+            selector: .contextDidSave,
             name: .NSManagedObjectContextDidSave,
             object: nil
         )
-
-        fetchedResultsController.delegate = self
+        
         webServiceController.delegate = self
-
+        
         do {
-
-            try fetchedResultsController.performFetch()
-
-            tableView.reloadData()
-
+            
+            let name = "Cache"
+            let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            let storeURL = try Directory.document(mask: .userDomainMask).url
+                .appendingPathComponent(name)
+                .appendingPathExtension("sqlite")
+            
+            print("Debug: \(storeURL)")
+            
+            let model = CoreDataModel()
+            model.add(entity: cacheSchema.entity, of: CHCacheSchema.self)
+            
+            cacheStack = try CoreDataStack(
+                name: name,
+                model: model,
+                context: context,
+                options: nil,
+                storeType: .local(storeURL: storeURL)
+            )
+            
+            let fetchRequest = CHCacheSchema.fetchRequest
+            fetchRequest.sortDescriptors = [
+                SortDescriptor(key: "createdAt", ascending: true)
+            ]
+            
+            fetchedResultsController = NSFetchedResultsController(
+                fetchRequest: fetchRequest,
+                managedObjectContext: context,
+                sectionNameKeyPath: "section",
+                cacheName: nil
+            )
+            
+            fetchedResultsController?.delegate = self
+            
+            context.perform {
+                
+                do {
+                    
+                    let _ = try self.fetchedResultsController?.performFetch()
+                    
+                }
+                catch { /* TODO: error handling */ print("Error: \(error)") }
+                
+            }
+            
         }
-        catch { fatalError("Cannot perform fetch: \(error)") }
+        catch { /* TODO: error handling */ print("Error: \(error)") }
+        
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        webServiceController.performReqeust()
         
     }
     
@@ -101,13 +141,13 @@ public class CHCacheTableViewController<
     
     public final override func numberOfSections(in tableView: UITableView) -> Int {
 
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController?.sections?.count ?? 0
 
     }
 
     public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        guard let sections = fetchedResultsController.sections else { return 0 }
+        guard let sections = fetchedResultsController?.sections else { return 0 }
 
         return sections[section].numberOfObjects
         
@@ -131,7 +171,7 @@ public class CHCacheTableViewController<
             
             guard let weakSelf = self else { return }
             
-            guard let storeCoordinate = weakSelf.fetchedResultsController.managedObjectContext.persistentStoreCoordinator
+            guard let storeCoordinate = weakSelf.fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
                 else { return }
             
             let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -139,13 +179,24 @@ public class CHCacheTableViewController<
             
             context.performAndWait {
                 
-                for object in objects {
+                do {
                     
-                    let _ = NSEntityDescription.insertNewObject(forEntityName: String(object.dynamicType), into: context)
+                    for _ in objects {
+                        
+                        let _ = try weakSelf.cacheSchema.insertObject(
+                            with: [
+                                "data": "Hello",
+                                "createdAt": Date(),
+                                "section": "itunesSearching"
+                            ],
+                            into: context
+                        )
+                        
+                    }
                     
-                }
+                    try context.save()
                 
-                do { try context.save() }
+                }
                 catch {
                 
                     weakSelf.webServiceController(
@@ -164,6 +215,17 @@ public class CHCacheTableViewController<
     
     public func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
         
+        print("Error: \(result.error)")
+        
     }
+    
+}
+
+
+// MARK: Selector
+
+private extension Selector {
+    
+    static let contextDidSave = #selector(CHCacheTableViewController.contextDidSave)
     
 }
