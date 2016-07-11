@@ -46,25 +46,6 @@ public class CHCacheTableViewController<
     }
     
     
-    @objc public func contextDidSave(notification: Notification) {
-        
-        print("NSManagedObjectContextDidSaveNotification")
-        
-        guard let childContext = notification.object as? NSManagedObjectContext
-            else { return }
-        
-        guard let childStoreCoordinator = childContext.persistentStoreCoordinator
-            where childStoreCoordinator === fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
-            else { return }
-        
-        DispatchQueue.main.async {
-            
-            childContext.mergeChanges(fromContextDidSave: notification)
-            
-        }
-        
-    }
-    
     // MARK: View Life Cycle
     
     public override func viewDidLoad() {
@@ -75,6 +56,8 @@ public class CHCacheTableViewController<
             name: .NSManagedObjectContextDidSave,
             object: nil
         )
+        
+        tableView.registerCellType(CHTableViewCell.self)
         
         webServiceController.delegate = self
         
@@ -119,6 +102,18 @@ public class CHCacheTableViewController<
                     
                     let _ = try self.fetchedResultsController?.performFetch()
                     
+                    DispatchQueue.main.async {
+                        
+                        self.tableView.reloadData()
+                        
+                        if let fetchedObjects = self.fetchedResultsController?.fetchedObjects where fetchedObjects.isEmpty {
+                            
+                            self.webServiceController.performReqeust()
+                            
+                        }
+                        
+                    }
+                    
                 }
                 catch { /* TODO: error handling */ print("Error: \(error)") }
                 
@@ -129,10 +124,28 @@ public class CHCacheTableViewController<
         
     }
     
-    public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    
+    // MARK: Notification
+    
+    @objc public func contextDidSave(notification: Notification) {
         
-        webServiceController.performReqeust()
+        guard let childContext = notification.object as? NSManagedObjectContext
+            else { return }
+        
+        guard let childStoreCoordinator = childContext.persistentStoreCoordinator
+            where childStoreCoordinator === fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
+            else { return }
+        
+        DispatchQueue.main.async {
+            
+            if childContext.hasChanges {
+                
+                childContext.mergeChanges(fromContextDidSave: notification)
+                
+            }
+            else { self.tableView.reloadData() }
+            
+        }
         
     }
     
@@ -150,6 +163,27 @@ public class CHCacheTableViewController<
         guard let sections = fetchedResultsController?.sections else { return 0 }
 
         return sections[section].numberOfObjects
+        
+    }
+    
+    
+    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 44.0
+        
+    }
+    
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CHTableViewCell.identifier, for: indexPath) as! CHTableViewCell
+        
+        if let object = fetchedResultsController?.object(at: indexPath) {
+            
+            cell.textLabel?.text = object.value(forKey: "data") as? String
+            
+        }
+        
+        return cell
         
     }
     
