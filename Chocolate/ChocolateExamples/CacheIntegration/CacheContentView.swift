@@ -10,7 +10,21 @@ import UIKit
 
 public class CacheContentView: UIView {
 
-    @IBOutlet public private(set) weak var titleLabel: UILabel!
+    static let height: CGFloat = 44.0
     
+    @IBOutlet public private(set) weak var titleLabel: UILabel!
 
+}
+
+
+// MARK: Init
+
+extension CacheContentView {
+    
+    public class func view() -> CacheContentView {
+        
+        return UIView.view(nibNamed: "CacheContentView") as! CacheContentView
+        
+    }
+    
 }

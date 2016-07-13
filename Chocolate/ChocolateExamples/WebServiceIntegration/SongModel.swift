@@ -10,9 +10,15 @@ import Foundation
 
 public struct SongModel {
     
+    
+    // MARK: Property
+    
     public let identifier: String
     public let artist: String
     public let name: String
+    
+    
+    // MARK: Init
     
     public init(identifier: String, artist: String, name: String) {
     

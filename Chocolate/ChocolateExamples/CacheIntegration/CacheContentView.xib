@@ -21,7 +21,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="eWT-z7-Yz6" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="W3q-MO-12K"/>
-                <constraint firstItem="eWT-z7-Yz6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="ioj-3A-jT3"/>
+                <constraint firstItem="eWT-z7-Yz6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ioj-3A-jT3"/>
                 <constraint firstAttribute="trailing" secondItem="eWT-z7-Yz6" secondAttribute="trailing" constant="8" id="lHj-Pf-oeI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

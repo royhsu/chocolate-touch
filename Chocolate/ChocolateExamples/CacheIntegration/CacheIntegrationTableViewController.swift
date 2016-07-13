@@ -86,40 +86,6 @@ public class CacheIntegrationTableViewController: CHCacheTableViewController {
     @objc public func refresh(barButtonItem: UIBarButtonItem) { refreshData() }
     
     
-    // MARK: Parsing
-    
-    private class func parseSongs(with json: AnyObject) -> [SongModel]? {
-        
-        typealias Object = [NSObject: AnyObject]
-        
-        guard let json = json as? Object,
-            songObjects = json["results"] as? [Object]
-            else { return nil }
-        
-        var songs: [SongModel] = []
-        
-        for songObject in songObjects {
-            
-            guard let identifier = songObject["trackId"] as? Int,
-                artist = songObject["artistName"] as? String,
-                name = songObject["trackName"] as? String
-                else { continue }
-            
-            let song = SongModel(
-                identifier: "\(identifier)",
-                artist: artist,
-                name: name
-            )
-            
-            songs.append(song)
-            
-        }
-        
-        return songs
-        
-    }
-    
-    
     // MARK: UITableViewDataSource
     
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -132,7 +98,7 @@ public class CacheIntegrationTableViewController: CHCacheTableViewController {
     
     public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
         
-        return .fixed(height: 44.0)
+        return .fixed(height: CacheContentView.height)
         
     }
     
@@ -140,10 +106,10 @@ public class CacheIntegrationTableViewController: CHCacheTableViewController {
         
         let jsonObject = self.tableView(tableView, jsonObjectForRowAt: indexPath) as? [NSObject: AnyObject]
         
-        let label = UILabel()
-        label.text = jsonObject?["trackName"] as? String
+        let contentView = CacheContentView.view()
+        contentView.titleLabel.text = jsonObject?["trackName"] as? String
         
-        return label
+        return contentView
         
     }
 

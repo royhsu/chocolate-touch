@@ -56,6 +56,7 @@
 		B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */; };
 		B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06D1D3639ED000B7429 /* CacheContentView.swift */; };
 		B09AF0701D3639F3000B7429 /* CacheContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09AF06F1D3639F3000B7429 /* CacheContentView.xib */; };
+		B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF0711D36439A000B7429 /* UIView+Extensions.swift */; };
 		B0EFC42B1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */; };
 		B0EFC42D1D2BDC6500054A3A /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42C1D2BDC6500054A3A /* SongModel.swift */; };
 /* End PBXBuildFile section */
@@ -148,6 +149,7 @@
 		B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewDataSource.swift; sourceTree = "<group>"; };
 		B09AF06D1D3639ED000B7429 /* CacheContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheContentView.swift; sourceTree = "<group>"; };
 		B09AF06F1D3639F3000B7429 /* CacheContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CacheContentView.xib; sourceTree = "<group>"; };
+		B09AF0711D36439A000B7429 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0EFC42C1D2BDC6500054A3A /* SongModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 		D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -282,6 +284,7 @@
 				B060B0651D2C893800A194FA /* CHWebServiceController.swift */,
 				B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */,
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
+				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
 				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
 				B04385231D332F69008DABAC /* CHCacheSchema.swift */,
 				B069892A1D30D41900EA6123 /* CHCache.swift */,
@@ -664,6 +667,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */,
 				B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */,
 				B0956AC91D2916C7000BC8D0 /* CityEntity.swift in Sources */,
 				B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */,
