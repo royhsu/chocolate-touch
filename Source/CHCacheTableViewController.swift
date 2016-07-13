@@ -6,11 +6,9 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import CoreData
 import CHFoundation
+import CoreData
 
-
-// MARK: CHCacheTableViewController
 
 public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
     
@@ -144,9 +142,12 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
             SortDescriptor(key: "createdAt", ascending: true)
         ]
         
+        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        backgroundContext.persistentStoreCoordinator = context.persistentStoreCoordinator
+        
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
-            managedObjectContext: context,
+            managedObjectContext: backgroundContext,
             sectionNameKeyPath: "section",
             cacheName: nil
         )
@@ -163,7 +164,7 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     private func fetchData(with fetchedResultsController: NSFetchedResultsController<NSManagedObject>, webServiceController: CHWebServiceController<[AnyObject]>, successHandler: FetchDataSuccessHandler? = nil, failHandler: FetchDataFailHandler? = nil) {
         
         let context = fetchedResultsController.managedObjectContext
-        // TODO: add background context to fetch.
+        
         context.perform {
             
             do {
@@ -225,14 +226,6 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         guard let sections = fetchedResultsController?.sections else { return 0 }
 
         return sections[section].numberOfObjects
-        
-    }
-    
-    public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        guard let sections = fetchedResultsController?.sections else { return nil }
-        
-        return sections[section].name
         
     }
     
@@ -331,11 +324,7 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         
     }
     
-    public func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
-        
-        print("Error: \(result.error)")
-        
-    }
+    public func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) { }
     
 }
 
