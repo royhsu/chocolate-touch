@@ -10,10 +10,12 @@ import UIKit
 
 public class CacheContentView: UIView {
 
-    static let height: CGFloat = 44.0
+    
+    // MARK: Property
     
     @IBOutlet public private(set) weak var titleLabel: UILabel!
-
+    @IBOutlet public private(set) weak var subtitleLabel: UILabel!
+    
 }
 
 

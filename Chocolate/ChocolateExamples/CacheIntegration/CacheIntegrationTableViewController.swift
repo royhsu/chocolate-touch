@@ -96,18 +96,13 @@ public class CacheIntegrationTableViewController: CHCacheTableViewController {
         
     }
     
-    public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType {
-        
-        return .fixed(height: CacheContentView.height)
-        
-    }
-    
     public override func tableView(_ tableView: UITableView, cellContentViewForRowAt indexPath: IndexPath) -> UIView? {
         
         let jsonObject = self.tableView(tableView, jsonObjectForRowAt: indexPath) as? [NSObject: AnyObject]
-        
         let contentView = CacheContentView.view()
+        
         contentView.titleLabel.text = jsonObject?["trackName"] as? String
+        contentView.subtitleLabel.text = jsonObject?["artistName"] as? String
         
         return contentView
         

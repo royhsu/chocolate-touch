@@ -9,7 +9,6 @@
 import CHFoundation
 import CoreData
 
-
 public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
     
     
@@ -212,6 +211,8 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
         return sections[section].numberOfObjects
         
     }
+    
+    public final override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat { return 44.0 }
     
     public final override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
