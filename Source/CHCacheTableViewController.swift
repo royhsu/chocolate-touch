@@ -229,7 +229,7 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     
     public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: CHTableViewCell.identifier, for: indexPath) as! CHTableViewCell
+        let cell: CHTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
         

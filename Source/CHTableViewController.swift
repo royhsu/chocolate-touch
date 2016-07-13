@@ -10,6 +10,9 @@ import UIKit
 
 public class CHTableViewController: UITableViewController, CHTableViewDataSource {
     
+    
+    // MARK: CHTableViewDataSource
+    
     public func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
     
     public func tableView(_ tableView: UITableView, cellContentViewForRowAt indexPath: IndexPath) -> UIView? { return nil }
