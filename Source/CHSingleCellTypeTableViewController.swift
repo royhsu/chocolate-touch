@@ -8,16 +8,9 @@
 
 import UIKit
 
-public enum HeightType {
-    case dynamic
-    case fixed(height: CGFloat)
-}
-
 public protocol CHSingleCellTypeTableViewControllerProtocol {
     
     associatedtype Cell: UITableViewCell
-
-    func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType
     
     func tableView(_ tableView: UITableView, configurationFor cell: Cell, at indexPath: IndexPath) -> Cell
     
@@ -100,8 +93,6 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cel
     
     
     // MARK: CHSingleCellTypeTableViewControllerProtocol
-    
-    public func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
     
     public func tableView(_ tableView: UITableView, configurationFor cell: Cell, at indexPath: IndexPath) -> Cell { return cell }
 

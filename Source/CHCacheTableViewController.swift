@@ -9,6 +9,9 @@
 import CoreData
 import CHFoundation
 
+
+// MARK: CHCacheTableViewController
+
 public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
     
     
@@ -233,21 +236,30 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         
     }
     
-    public override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public final override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return 44.0
+        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        
+        switch cellHeight {
+        case .dynamic: tableView.rowHeight = UITableViewAutomaticDimension
+        case .fixed(let height): tableView.rowHeight = height
+        }
+        
+        return tableView.rowHeight
         
     }
     
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CHTableViewCell.identifier, for: indexPath) as! CHTableViewCell
         
-        if let object = fetchedResultsController?.object(at: indexPath),
-            let jsonString = object.value(forKey: "data") as? String,
-            let jsonObject = try? jsonString.jsonObject() as? [NSObject: AnyObject] {
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+        
+        if let cellContentView = self.tableView(tableView, cellContentViewAt: indexPath) {
             
-            cell.textLabel?.text = jsonObject?["trackName"] as? String
+            cell.contentView.addSubview(cellContentView)
+            
+            cellContentView.pinEgdesToSuperview()
             
         }
         
@@ -322,6 +334,63 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     public func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
         
         print("Error: \(result.error)")
+        
+    }
+    
+}
+
+
+// MARK: UIView
+
+private extension UIView {
+    
+    func pinEgdesToSuperview() {
+        
+        guard let superview = self.superview else { fatalError("No superview exists.") }
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        let leading = NSLayoutConstraint(
+            item: self,
+            attribute: .leading,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .leading,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let top = NSLayoutConstraint(
+            item: self,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let trailing = NSLayoutConstraint(
+            item: self,
+            attribute: .trailing,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .trailing,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let bottom = NSLayoutConstraint(
+            item: self,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        superview.addConstraints([ leading, top, trailing, bottom ])
         
     }
     

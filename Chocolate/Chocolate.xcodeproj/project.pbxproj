@@ -56,6 +56,7 @@
 		B0971D331D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D301D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift */; };
 		B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */; };
 		B0971D351D280DC4005BBEE8 /* TemplateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */; };
+		B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */; };
 		B0EFC42B1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */; };
 		B0EFC42D1D2BDC6500054A3A /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42C1D2BDC6500054A3A /* SongModel.swift */; };
 /* End PBXBuildFile section */
@@ -148,6 +149,7 @@
 		B0971D301D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCellContentTableViewController.swift; sourceTree = "<group>"; };
 		B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTableViewCell.swift; sourceTree = "<group>"; };
 		B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateTableViewCell.xib; sourceTree = "<group>"; };
+		B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewDataSource.swift; sourceTree = "<group>"; };
 		B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0EFC42C1D2BDC6500054A3A /* SongModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 		D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				B0971CF91D280536005BBEE8 /* Identifiable.swift */,
+				B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */,
 				B0956ACE1D292858000BC8D0 /* CHFetchedResultsTableViewController.swift */,
@@ -635,6 +638,7 @@
 				B0956AD21D292A0B000BC8D0 /* CHFetchedResultsTableViewController.swift in Sources */,
 				B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */,
 				B0971CFF1D280536005BBEE8 /* CHTableViewCell.swift in Sources */,
+				B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */,
 				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
 				B06989291D3099EB00EA6123 /* CHWebServiceCachable.swift in Sources */,
 				B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */,
