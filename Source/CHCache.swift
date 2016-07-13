@@ -90,21 +90,47 @@ public class CHCache {
     
     public func cleanUp(successHandler: CleanUpSuccessHandler? = nil, failHandler: CleanUpFailHandler? = nil) {
         
+        let fetchRequest = CHCacheSchema.fetchRequest
+        fetchRequest.predicate = Predicate(format: "id == %@", identifier)
+        
+        let storeRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { [unowned self] result in
+            
+            guard let objects = result.finalResult where !objects.isEmpty else {
+                
+                DispatchQueue.main.async { successHandler?() }
+            
+                return
+                
+            }
+            
+            objects.forEach { self.writerContext.delete($0) }
+            
+            do {
+                
+                try self.writerContext.save()
+                DispatchQueue.main.async { successHandler?() }
+                
+            }
+            catch {
+                
+                DispatchQueue.main.async { failHandler?(error: error) }
+            
+            }
+            
+        }
+        
         writerContext.performAndWait {
-
-//            objects.forEach { context.delete($0) }
-//
-//            do {
-//
-//                try context.save()
-//                DispatchQueue.main.async { successHandler?() }
-//
-//            }
-//            catch {
-//
-//                DispatchQueue.main.async { failHandler?(error: error) }
-//            
-//            }
+            
+            do {
+            
+                try self.writerContext.execute(storeRequest)
+                
+            }
+            catch {
+                
+                DispatchQueue.main.async { failHandler?(error: error) }
+                
+            }
             
         }
         

@@ -66,6 +66,12 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     
     public override func viewDidLoad() {
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .refresh,
+            target: self,
+            action: .refresh
+        )
+        
         tableView.registerCellType(CHTableViewCell.self)
         
         webServiceController.delegate = self
@@ -193,6 +199,22 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     }
     
     
+    // MARK: Action
+    
+    @objc public func refresh(barButtonItem: UIBarButtonItem) {
+        
+        cache?.cleanUp(successHandler: { [weak self] in
+        
+            guard let weakSelf = self else { return }
+            guard let fetchedResultsController = weakSelf.fetchedResultsController else { return }
+            
+            weakSelf.fetchData(with: fetchedResultsController, webServiceController: weakSelf.webServiceController)
+        
+        })
+        
+    }
+    
+    
     // MARK: UITableViewDataSource
     
     public final override func numberOfSections(in tableView: UITableView) -> Int {
@@ -308,5 +330,14 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         print("Error: \(result.error)")
         
     }
+    
+}
+
+
+// MARK: Selector
+
+private extension Selector {
+    
+    static let refresh = #selector(CHCacheTableViewController.refresh)
     
 }
