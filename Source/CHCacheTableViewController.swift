@@ -9,10 +9,7 @@
 import CoreData
 import CHFoundation
 
-public class CHCacheTableViewController<
-    Objects: Sequence
-    where Objects: ArrayLiteralConvertible
->: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
+public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
     
     
     // MARK: Property
@@ -22,7 +19,7 @@ public class CHCacheTableViewController<
     public let cacheIdentifier: String
     
     private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
-    public private(set) var webServiceController = CHWebServiceController<Objects>()
+    public private(set) var webServiceController = CHWebServiceController<[AnyObject]>()
     
     
     // MARK: Init
@@ -198,9 +195,11 @@ public class CHCacheTableViewController<
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CHTableViewCell.identifier, for: indexPath) as! CHTableViewCell
         
-        if let object = fetchedResultsController?.object(at: indexPath) {
+        if let object = fetchedResultsController?.object(at: indexPath),
+            let jsonString = object.value(forKey: "data") as? String,
+            let jsonObject = try? jsonString.jsonObject() as? [NSObject: AnyObject] {
             
-            cell.textLabel?.text = object.value(forKey: "data") as? String
+            cell.textLabel?.text = jsonObject?["trackName"] as? String
             
         }
         
@@ -222,6 +221,8 @@ public class CHCacheTableViewController<
     
     public final func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
         
+        let jsonObjects = objects.map { $0 as! AnyObject }
+        
         DispatchQueue.global(attributes: .qosBackground).async { [weak self] in
             
             guard let weakSelf = self else { return }
@@ -236,12 +237,14 @@ public class CHCacheTableViewController<
                 
                 do {
                     
-                    for _ in objects {
+                    for jsonObject in jsonObjects {
+                        
+                        let jsonString = try String(jsonObject: jsonObject)
                         
                         let _ = try weakSelf.cacheSchema.insertObject(
                             with: [
                                 "id": weakSelf.cacheIdentifier,
-                                "data": "Hello",
+                                "data": jsonString,
                                 "createdAt": Date(),
                                 "section": section.name
                             ],
@@ -283,5 +286,47 @@ public class CHCacheTableViewController<
 private extension Selector {
     
     static let contextDidSave = #selector(CHCacheTableViewController.contextDidSave)
+    
+}
+
+
+// MARK: Strings
+
+public extension String {
+    
+    public enum JSONError: ErrorProtocol {
+        case fail(Encoding)
+    }
+    
+    public init(jsonObject: AnyObject, encoding: Encoding = .utf8) throws {
+        
+        do {
+            
+            let data = try JSONSerialization.data(withJSONObject: jsonObject, options: [])
+            guard let jsonString = String(data: data, encoding: encoding)
+                else { throw JSONError.fail(encoding) }
+            
+            self = jsonString
+            
+        }
+        catch { throw error }
+        
+    }
+    
+    public func jsonObject(with encoding: Encoding = .utf8, allowLossyConversion isLossy: Bool = true) throws -> AnyObject {
+        
+        guard let data = self.data(using: encoding, allowLossyConversion: isLossy)
+            else { throw JSONError.fail(encoding) }
+        
+        do {
+            
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
+            
+            return json
+            
+        }
+        catch { throw error }
+        
+    }
     
 }

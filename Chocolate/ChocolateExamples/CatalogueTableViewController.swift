@@ -114,40 +114,19 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
 
             let urlString = "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false"
             let urlRequest = URLRequest(url: URL(string: urlString)!)
-            let webResource = WebResource<[SongModel]>(urlRequest: urlRequest) { json in
+            let webResource = WebResource<[AnyObject]>(urlRequest: urlRequest) { json in
                 
                 typealias Object = [NSObject: AnyObject]
                 
-                guard let json = json as? Object,
-                    songObjects = json["results"] as? [Object]
-                    else { return nil }
+                guard let json = json as? Object else { return nil }
                 
-                var songs: [SongModel] = []
-                
-                for songObject in songObjects {
-                    
-                    guard let identifier = songObject["trackId"] as? Int,
-                        artist = songObject["artistName"] as? String,
-                        name = songObject["trackName"] as? String
-                        else { continue }
-                    
-                    let song = SongModel(
-                        identifier: "\(identifier)",
-                        artist: artist,
-                        name: name
-                    )
-                    
-                    songs.append(song)
-                    
-                }
-                
-                return songs
+                return json["results"] as? [AnyObject]
                 
             }
             let webService = WebService(webResource: webResource)
             let section = CHWebServiceSectionInfo(name: "Request 1", webService: webService)
             
-            let controller = CHCacheTableViewController<[SongModel]>(cacheIdentifier: "GET_\(urlString)")
+            let controller = CHCacheTableViewController(cacheIdentifier: "GET_\(urlString)")
             controller.navigationItem.title = row.title
             
             controller.webServiceController.appendSection(section)
