@@ -18,7 +18,6 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         case CoreDataIntegration
         case WebServiceIntegration
         case CacheIntegration
-        case AutomaticallyCaching
         
         var title: String {
             
@@ -27,7 +26,6 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             case .CoreDataIntegration: return "Core Data Integration"
             case .WebServiceIntegration: return "Web Service Integration"
             case .CacheIntegration: return "Cache Integration"
-            case .AutomaticallyCaching: return "Automatically Caching"
             }
             
         }
@@ -37,7 +35,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     // MARK: Property
     
-    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration, .WebServiceIntegration, .CacheIntegration, .AutomaticallyCaching ]
+    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration, .WebServiceIntegration, .CacheIntegration ]
     
     
     // MARK: Init
@@ -107,51 +105,6 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
             let controller = CacheIntegrationTableViewController()
             controller.navigationItem.title = row.title
-            
-            show(controller, sender: nil)
-            
-        case .AutomaticallyCaching:
-
-            let urlString = "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false"
-            let urlRequest = URLRequest(url: URL(string: urlString)!)
-            let webResource = WebResource<[AnyObject]>(urlRequest: urlRequest) { json in
-                
-                typealias Object = [NSObject: AnyObject]
-                
-                guard let json = json as? Object else { return nil }
-                
-                return json["results"] as? [AnyObject]
-                
-            }
-            let webService = WebService(webResource: webResource)
-            let section = CHWebServiceSectionInfo(name: "Request 1", webService: webService)
-            
-            let controller = CHCacheTableViewController(cacheIdentifier: "GET_\(urlString)")
-            controller.navigationItem.title = row.title
-            
-            controller.webServiceController.appendSection(section)
-            
-            let urlString2 = "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false"
-            let urlRequest2 = URLRequest(url: URL(string: urlString2)!)
-            let webResource2 = WebResource<[AnyObject]>(urlRequest: urlRequest2) { json in
-                
-                typealias Object = [NSObject: AnyObject]
-                
-                guard let json = json as? Object else { return nil }
-                
-                return json["results"] as? [AnyObject]
-                
-            }
-            let webService2 = WebService(webResource: webResource2)
-            let section2 = CHWebServiceSectionInfo(name: "Request 2", webService: webService2)
-            
-            controller.webServiceController.appendSection(section2)
-            
-            controller.navigationItem.rightBarButtonItem = UIBarButtonItem(
-                barButtonSystemItem: .refresh,
-                target: self,
-                action: #selector(controller.refreshData)
-            )
             
             show(controller, sender: nil)
         }

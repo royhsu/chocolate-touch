@@ -10,77 +10,16 @@ import CHFoundation
 import Chocolate
 import CoreData
 
-public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell>, CHWebServiceControllerDelegate, NSFetchedResultsControllerDelegate {
-    
-    struct UserDefaultsKey {
-        static let lastUpdated = "CacheIntegrationTableViewController.UserDefaultsKey.lastUpdated"
-    }
-    
-    var managedObjectContext: NSManagedObjectContext!
-    var fetchedResultsController: NSFetchedResultsController<SongEntity>!
-    
-    lazy var webServiceController: CHWebServiceController<[SongModel]> = { [unowned self] in
-    
-        let controller = CHWebServiceController<[SongModel]>()
-    
-        controller.delegate = self
-        
-        return controller
-        
-    }()
-    
-    
-    // MARK: CHWebServiceControllerDelegate
-    
-    public func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
-        
-        let songs = objects.map { $0 as! SongModel }
-        
-        for song in songs {
-            
-            let songEntity = NSEntityDescription.insertNewObject(forEntityName: "Song", into: managedObjectContext) as! SongEntity
-            
-            songEntity.sectionName = section.name
-            songEntity.lastUpdated = Date()
-            
-            songEntity.trackId = song.identifier
-            songEntity.trackName = song.name
-            songEntity.artistName = song.artist
-            
-        }
-        
-        managedObjectContext.perform {
-            
-            do { try self.managedObjectContext.save() }
-            catch { fatalError("Cannot save: \(error)") }
-            
-        }
-        
-    }
-    
-    public func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
-        
-        print("Error: \(result.error)")
-        
-    }
-    
-    
-    // MARK: NSFetchedResultsControllerDelegate
-    
-    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-    }
-    
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
-        tableView.reloadData()
-        
-    }
+public class CacheIntegrationTableViewController: CHCacheTableViewController {
     
     
     // MARK: Init
     
-    public init() { super.init(cellType: CHTableViewCell.self) }
+    public init() {
+        
+        super.init(cacheIdentifier: "CacheIntegrationTableViewController")
+        
+    }
     
     required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
@@ -96,107 +35,55 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
             action: .refresh
         )
         
-        let modelURL = Bundle.main.urlForResource("Cache", withExtension: "momd")!
-        let model = NSManagedObjectModel(contentsOf: modelURL)!
-        let storeURL = try! URL(filename: "Cache", withExtension: "sqlite", in: .document(mask: .userDomainMask))
+        setUpWebServices()
         
-        print("storeURL: \(storeURL)")
-        
-        let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
-        
-        try! persistentStoreCoordinator.addPersistentStore(
-            ofType: NSSQLiteStoreType,
-            configurationName: nil,
-            at: storeURL,
-            options: [
-                NSMigratePersistentStoresAutomaticallyOption: true,
-                NSInferMappingModelAutomaticallyOption: true
-            ]
-        )
-        
-        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = persistentStoreCoordinator
-        
-        let fetchRequest = NSFetchRequest<SongEntity>(entityName: "Song")
-        fetchRequest.sortDescriptors = [
-            SortDescriptor(key: "lastUpdated", ascending: true)
-        ]
-        
-        fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: managedObjectContext,
-            sectionNameKeyPath: "sectionName",
-            cacheName: nil
-        )
-        
-        fetchedResultsController.delegate = self
-        try! fetchedResultsController.performFetch()
-        
-        if UserDefaults.standard
-            .object(forKey: UserDefaultsKey.lastUpdated) == nil {
-            
-            fetchData()
-            
-        }
+        fetchData()
         
     }
     
-    private func deleteCachedData(completionHandler: (() -> Void)?) {
-        
-        guard let objects = fetchedResultsController.fetchedObjects else { return }
-        
-        let context = fetchedResultsController.managedObjectContext
-        
-        DispatchQueue.global(attributes: .qosBackground).async { 
-            
-            context.perform {
-                
-                objects.forEach { context.delete($0) }
-                
-                do { try context.save() }
-                catch { print("Error: \(error)") }
-                
-                DispatchQueue.main.async { completionHandler?() }
-        
-            }
-            
-        }
-        
-    }
     
-    private func fetchData() {
+    // MARK: Set Up
+    
+    private func setUpWebServices() {
         
-        deleteCachedData {
-        
-            UserDefaults.standard.set(Date(), forKey: UserDefaultsKey.lastUpdated)
-            UserDefaults.standard.synchronize()
+        let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
+        let urlRequest1 = URLRequest(url: url1)
+        let webResource1 = WebResource<[AnyObject]>(urlRequest: urlRequest1) { json in
             
-            let url1 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&explicit=false")!
-            let urlRequest1 = URLRequest(url: url1)
-            let webResource1 = WebResource<[SongModel]>(urlRequest: urlRequest1, parse: self.dynamicType.parseSongs)
-            let webService1 = WebService(webResource: webResource1)
-            let section1 = CHWebServiceSectionInfo(name: "Section 1", webService: webService1)
+            typealias Object = [NSObject: AnyObject]
             
-            self.webServiceController.appendSection(section1)
+            guard let json = json as? Object else { return nil }
             
-            let url2 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false")!
-            let urlRequest2 = URLRequest(url: url2)
-            let webResource2 = WebResource<[SongModel]>(urlRequest: urlRequest2, parse: self.dynamicType.parseSongs)
-            let webService2 = WebService(webResource: webResource2)
-            let section2 = CHWebServiceSectionInfo(name: "Section 2", webService: webService2)
-
-            self.webServiceController.appendSection(section2)
-            
-            self.webServiceController.performReqeust()
+            return json["results"] as? [AnyObject]
             
         }
+        let webService1 = WebService(webResource: webResource1)
+        let section1 = CHWebServiceSectionInfo(name: "Section 1", webService: webService1)
+        
+        webServiceController.appendSection(section1)
+        
+        let url2 = URL(string: "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false")!
+        let urlRequest2 = URLRequest(url: url2)
+        let webResource2 = WebResource<[AnyObject]>(urlRequest: urlRequest2) { json in
+            
+            typealias Object = [NSObject: AnyObject]
+            
+            guard let json = json as? Object else { return nil }
+            
+            return json["results"] as? [AnyObject]
+            
+        }
+        let webService2 = WebService(webResource: webResource2)
+        let section2 = CHWebServiceSectionInfo(name: "Section 2", webService: webService2)
+        
+        webServiceController.appendSection(section2)
         
     }
     
     
     // MARK: Action
     
-    @objc public func refresh(barButtonItem: UIBarButtonItem) { fetchData() }
+    @objc public func refresh(barButtonItem: UIBarButtonItem) { refreshData() }
     
     
     // MARK: Parsing
@@ -235,23 +122,11 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
     
     // MARK: UITableViewDataSource
     
-    public override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return fetchedResultsController.sections?.count ?? 0
-        
-    }
-    
     public override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return fetchedResultsController.sections?[section].name
+        guard let sections = fetchedResultsController?.sections else { return nil }
         
-    }
-    
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let sections = fetchedResultsController.sections else { return 0 }
-        
-        return sections[section].numberOfObjects
+        return sections[section].name
         
     }
     
@@ -261,16 +136,14 @@ public class CacheIntegrationTableViewController: CHSingleCellTypeTableViewContr
         
     }
     
-    
-    // MARK: CHSingleCellTypeTableViewControllerProtocol
-    
-    public override func tableView(_ tableView: UITableView, configurationFor cell: CHTableViewCell, at indexPath: IndexPath) -> CHTableViewCell {
+    public override func tableView(_ tableView: UITableView, cellContentViewForRowAt indexPath: IndexPath) -> UIView? {
         
-        let song = fetchedResultsController.object(at: indexPath)
+        let jsonObject = self.tableView(tableView, jsonObjectForRowAt: indexPath) as? [NSObject: AnyObject]
         
-        cell.textLabel?.text = "\(song.artistName!) - \(song.trackName!)"
+        let label = UILabel()
+        label.text = jsonObject?["trackName"] as? String
         
-        return cell
+        return label
         
     }
 

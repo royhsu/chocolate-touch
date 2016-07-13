@@ -12,6 +12,6 @@ public class CHTableViewController: UITableViewController, CHTableViewDataSource
     
     public func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
     
-    public func tableView(_ tableView: UITableView, cellContentViewAt indexPath: IndexPath) -> UIView? { return nil }
+    public func tableView(_ tableView: UITableView, cellContentViewForRowAt indexPath: IndexPath) -> UIView? { return nil }
     
 }

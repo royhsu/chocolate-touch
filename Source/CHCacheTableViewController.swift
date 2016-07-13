@@ -18,7 +18,7 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     private let cacheIdentifier: String
     private var cache: CHCache?
     
-    private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
+    public private(set) var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
     public private(set) var webServiceController = CHWebServiceController<[AnyObject]>()
     
     
@@ -78,8 +78,6 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
             cache = try setUpCache(with: cacheStack)
             
             fetchedResultsController = try setUpFetchResultsController(with: cacheStack.context)
-                
-            fetchData(with: fetchedResultsController!, webServiceController: webServiceController)
             
         }
         catch { /* TODO: error handling */ print("Error: \(error)") }
@@ -199,14 +197,19 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     
     // MARK: Action
     
+    public final func fetchData() {
+        
+        guard let fetchedResultsController = fetchedResultsController else { return }
+        
+        fetchData(with: fetchedResultsController, webServiceController: webServiceController)
+        
+    }
+    
     public final func refreshData() {
         
         cache?.cleanUp(successHandler: { [weak self] in
-        
-            guard let weakSelf = self else { return }
-            guard let fetchedResultsController = weakSelf.fetchedResultsController else { return }
             
-            weakSelf.fetchData(with: fetchedResultsController, webServiceController: weakSelf.webServiceController)
+            self?.fetchData()
         
         })
         
@@ -248,7 +251,7 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         
         cell.contentView.subviews.forEach { $0.removeFromSuperview() }
         
-        if let cellContentView = self.tableView(tableView, cellContentViewAt: indexPath) {
+        if let cellContentView = self.tableView(tableView, cellContentViewForRowAt: indexPath) {
             
             cell.contentView.addSubview(cellContentView)
             
@@ -257,6 +260,16 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         }
         
         return cell
+        
+    }
+    
+    public final func tableView(_ tableView: UITableView, jsonObjectForRowAt indexPath: IndexPath) -> AnyObject? {
+        
+        let object = fetchedResultsController?.object(at: indexPath)
+        let jsonString = object?.value(forKey: "data") as? String
+        let jsonObject = try? jsonString?.jsonObject()
+            
+        return jsonObject ?? nil
         
     }
     

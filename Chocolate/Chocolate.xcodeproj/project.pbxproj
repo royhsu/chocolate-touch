@@ -14,9 +14,6 @@
 		B04385211D332941008DABAC /* CoreDataSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851E1D332941008DABAC /* CoreDataSchema.swift */; };
 		B04385221D332941008DABAC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851F1D332941008DABAC /* CoreDataStack.swift */; };
 		B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04385231D332F69008DABAC /* CHCacheSchema.swift */; };
-		B06072E61D2E3B710044A13E /* SongEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */; };
-		B06072E71D2E3B710044A13E /* SongEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */; };
-		B06072EA1D2E405F0044A13E /* Cache.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */; };
 		B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */; };
 		B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */; };
 		B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0651D2C893800A194FA /* CHWebServiceController.swift */; };
@@ -57,6 +54,8 @@
 		B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */; };
 		B0971D351D280DC4005BBEE8 /* TemplateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */; };
 		B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */; };
+		B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06D1D3639ED000B7429 /* CacheContentView.swift */; };
+		B09AF0701D3639F3000B7429 /* CacheContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09AF06F1D3639F3000B7429 /* CacheContentView.xib */; };
 		B0EFC42B1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */; };
 		B0EFC42D1D2BDC6500054A3A /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42C1D2BDC6500054A3A /* SongModel.swift */; };
 /* End PBXBuildFile section */
@@ -104,9 +103,6 @@
 		B043851E1D332941008DABAC /* CoreDataSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSchema.swift; sourceTree = "<group>"; };
 		B043851F1D332941008DABAC /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B04385231D332F69008DABAC /* CHCacheSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheSchema.swift; sourceTree = "<group>"; };
-		B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SongEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SongEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B06072E91D2E405F0044A13E /* Cache.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Cache.xcdatamodel; sourceTree = "<group>"; };
 		B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceTableViewController.swift; sourceTree = "<group>"; };
 		B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceSectionInfo.swift; sourceTree = "<group>"; };
 		B060B0651D2C893800A194FA /* CHWebServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceController.swift; sourceTree = "<group>"; };
@@ -150,6 +146,8 @@
 		B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTableViewCell.swift; sourceTree = "<group>"; };
 		B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateTableViewCell.xib; sourceTree = "<group>"; };
 		B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewDataSource.swift; sourceTree = "<group>"; };
+		B09AF06D1D3639ED000B7429 /* CacheContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheContentView.swift; sourceTree = "<group>"; };
+		B09AF06F1D3639F3000B7429 /* CacheContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CacheContentView.xib; sourceTree = "<group>"; };
 		B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0EFC42C1D2BDC6500054A3A /* SongModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
 		D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,10 +219,9 @@
 		B060B06B1D2DFCEA00A194FA /* CacheIntegration */ = {
 			isa = PBXGroup;
 			children = (
-				B06072E31D2E3B710044A13E /* SongEntity+CoreDataClass.swift */,
-				B06072E41D2E3B710044A13E /* SongEntity+CoreDataProperties.swift */,
 				B060B06E1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift */,
-				B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */,
+				B09AF06D1D3639ED000B7429 /* CacheContentView.swift */,
+				B09AF06F1D3639F3000B7429 /* CacheContentView.xib */,
 			);
 			path = CacheIntegration;
 			sourceTree = "<group>";
@@ -493,6 +490,7 @@
 				B0971D351D280DC4005BBEE8 /* TemplateTableViewCell.xib in Resources */,
 				B0971D281D280D3F005BBEE8 /* LaunchScreen.storyboard in Resources */,
 				B0971D251D280D3F005BBEE8 /* Assets.xcassets in Resources */,
+				B09AF0701D3639F3000B7429 /* CacheContentView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,9 +665,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */,
-				B06072E71D2E3B710044A13E /* SongEntity+CoreDataProperties.swift in Sources */,
-				B06072EA1D2E405F0044A13E /* Cache.xcdatamodeld in Sources */,
 				B0956AC91D2916C7000BC8D0 /* CityEntity.swift in Sources */,
+				B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */,
 				B0956B0F1D2A32D4000BC8D0 /* City.swift in Sources */,
 				B060B06F1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift in Sources */,
 				B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */,
@@ -678,7 +675,6 @@
 				B0EFC42B1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift in Sources */,
 				B0971D2E1D280D9D005BBEE8 /* CatalogueTableViewController.swift in Sources */,
 				B0956ACD1D2916D6000BC8D0 /* Main.xcdatamodeld in Sources */,
-				B06072E61D2E3B710044A13E /* SongEntity+CoreDataClass.swift in Sources */,
 				B066EF9C1D28B22600B0AF29 /* CoreDataIntegrationTableViewController.swift in Sources */,
 				B0EFC42D1D2BDC6500054A3A /* SongModel.swift in Sources */,
 			);
@@ -947,16 +943,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		B06072E81D2E405F0044A13E /* Cache.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B06072E91D2E405F0044A13E /* Cache.xcdatamodel */,
-			);
-			currentVersion = B06072E91D2E405F0044A13E /* Cache.xcdatamodel */;
-			path = Cache.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		B0956ACB1D2916D6000BC8D0 /* Main.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

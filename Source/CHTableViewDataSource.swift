@@ -17,6 +17,6 @@ public protocol CHTableViewDataSource: class {
     
     func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType
     
-    func tableView(_ tableView: UITableView, cellContentViewAt indexPath: IndexPath) -> UIView?
+    func tableView(_ tableView: UITableView, cellContentViewForRowAt indexPath: IndexPath) -> UIView?
     
 }
