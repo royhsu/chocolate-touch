@@ -10,7 +10,7 @@ import CHFoundation
 import CoreData
 
 
-public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
+public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
     
     
     // MARK: Property
@@ -75,9 +75,9 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
             
             let cacheStack = try setUpCacheStack(name: "Cache")
             
-            cache = try setUpCache(with: cacheStack)
+            cache = CHCache(identifier: cacheIdentifier, stack: cacheStack)
             
-            fetchedResultsController = try setUpFetchResultsController(with: cacheStack.context)
+            fetchedResultsController = try setUpFetchResultsController(with: cacheStack.writerContext)
             
         }
         catch { /* TODO: error handling */ print("Error: \(error)") }
@@ -91,7 +91,6 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         
         do {
             
-            let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
             let storeURL = try Directory.document(mask: .userDomainMask).url
                 .appendingPathComponent(name)
                 .appendingPathExtension("sqlite")
@@ -103,27 +102,14 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
             let stack = try CoreDataStack(
                 name: name,
                 model: model,
-                context: context,
-                options: nil,
+                options: [
+                    NSMigratePersistentStoresAutomaticallyOption: true,
+                    NSInferMappingModelAutomaticallyOption: true
+                ],
                 storeType: .local(storeURL: storeURL)
             )
             
             return stack
-            
-        }
-        catch { throw error }
-        
-    }
-    
-    private func setUpCache(with stack: CoreDataStack) throws -> CHCache {
-        
-        do {
-            
-            let cache = try CHCache(identifier: cacheIdentifier, stack: stack)
-            
-            cache.delegate = self
-            
-            return cache
             
         }
         catch { throw error }
@@ -140,12 +126,9 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
             SortDescriptor(key: "createdAt", ascending: true)
         ]
         
-        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.persistentStoreCoordinator = context.persistentStoreCoordinator
-        
         let fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
-            managedObjectContext: backgroundContext,
+            managedObjectContext: context,
             sectionNameKeyPath: "section",
             cacheName: nil
         )
@@ -171,13 +154,12 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
                 
                 DispatchQueue.main.async {
                     
-                    self.tableView.reloadData()
-                    
                     if let fetchedObjects = fetchedResultsController.fetchedObjects where fetchedObjects.isEmpty {
                         
                         webServiceController.performReqeust()
                         
                     }
+                    else { self.tableView.reloadData() }
                     
                     successHandler?()
                     
@@ -274,11 +256,6 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     }
     
     
-    // MARK: CHCacheDelegate
-    
-    public final func contextDidSave() { }
-    
-    
     // MARK: NSFetchedResultsControllerDelegate
     
     public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -293,8 +270,9 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     public final func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
         
         guard let cache = cache else { return }
+        let writerContext = cache.stack.writerContext
         
-        cache.writerContext.performAndWait {
+        writerContext.performAndWait {
             
             do {
                 
@@ -311,12 +289,12 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
                             "createdAt": Date(),
                             "section": section.name
                         ],
-                        into: cache.writerContext
+                        into: writerContext
                     )
                     
                 }
                 
-                try cache.writerContext.save()
+                try writerContext.save()
                 
             }
             catch {

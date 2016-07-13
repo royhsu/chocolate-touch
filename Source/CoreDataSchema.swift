@@ -128,7 +128,7 @@ extension CoreDataSchema {
         let entity = NSEntityDescription()
         
         entity.name = entityName
-        entity.managedObjectClassName = entityName
+//        entity.managedObjectClassName = entityName
         
         for (key, valueType) in self.dynamicType.template {
             

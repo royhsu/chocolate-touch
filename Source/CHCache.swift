@@ -8,12 +8,6 @@
 
 import CoreData
 
-public protocol CHCacheDelegate: class {
-    
-    func contextDidSave()
-    
-}
-
 public class CHCache {
     
     
@@ -21,64 +15,16 @@ public class CHCache {
     
     public let identifier: String
     public let stack: CoreDataStack
-    public let writerContext: NSManagedObjectContext
-    public weak var delegate: CHCacheDelegate?
     
     public static let schema = CHCacheSchema()
     
     
     // MARK: Init
     
-    public enum InitError: ErrorProtocol {
-        case noPersistentStoreCoordinatorInContext
-    }
-    
-    public init(identifier: String, stack: CoreDataStack) throws {
-        
-        guard let storeCoordinate = stack.context.persistentStoreCoordinator
-            else { throw InitError.noPersistentStoreCoordinatorInContext }
-        
-        let writerContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        writerContext.persistentStoreCoordinator = storeCoordinate
+    public init(identifier: String, stack: CoreDataStack) {
         
         self.identifier = identifier
         self.stack = stack
-        self.writerContext = writerContext
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: .contextDidSave,
-            name: .NSManagedObjectContextDidSave,
-            object: nil
-        )
-        
-    }
-    
-    deinit {
-        
-        NotificationCenter.default.removeObserver(
-            self,
-            name: .NSManagedObjectContextDidSave,
-            object: nil
-        )
-        
-    }
-    
-    
-    // MARK: Notification
-    
-    @objc public func contextDidSave(notification: Notification) {
-        
-        guard let childContext = notification.object as? NSManagedObjectContext
-            else { return }
-        
-        guard let childStoreCoordinator = childContext.persistentStoreCoordinator
-            where childStoreCoordinator === stack.storeCoordinator
-            else { return }
-        
-        stack.context.mergeChanges(fromContextDidSave: notification)
-        
-        delegate?.contextDidSave()
         
     }
     
@@ -93,7 +39,9 @@ public class CHCache {
         let fetchRequest = CHCacheSchema.fetchRequest
         fetchRequest.predicate = Predicate(format: "id == %@", identifier)
         
-        let storeRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { [unowned self] result in
+        let writerContext = stack.writerContext
+        
+        let storeRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
             
             guard let objects = result.finalResult where !objects.isEmpty else {
                 
@@ -103,11 +51,11 @@ public class CHCache {
                 
             }
             
-            objects.forEach { self.writerContext.delete($0) }
+            objects.forEach { writerContext.delete($0) }
             
             do {
                 
-                try self.writerContext.save()
+                try writerContext.save()
                 DispatchQueue.main.async { successHandler?() }
                 
             }
@@ -123,7 +71,7 @@ public class CHCache {
             
             do {
             
-                try self.writerContext.execute(storeRequest)
+                try writerContext.execute(storeRequest)
                 
             }
             catch {
@@ -138,11 +86,3 @@ public class CHCache {
 
 }
 
-
-// MARK: Selector
-
-private extension Selector {
-    
-    static let contextDidSave = #selector(CHCache.contextDidSave)
-    
-}
