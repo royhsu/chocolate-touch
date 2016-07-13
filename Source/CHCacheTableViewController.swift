@@ -159,7 +159,6 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
                         webServiceController.performReqeust()
                         
                     }
-                    else { self.tableView.reloadData() }
                     
                     successHandler?()
                     
