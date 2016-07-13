@@ -66,12 +66,6 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     
     public override func viewDidLoad() {
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            barButtonSystemItem: .refresh,
-            target: self,
-            action: .refresh
-        )
-        
         tableView.registerCellType(CHTableViewCell.self)
         
         webServiceController.delegate = self
@@ -201,7 +195,7 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
     
     // MARK: Action
     
-    @objc public func refresh(barButtonItem: UIBarButtonItem) {
+    public final func refreshData() {
         
         cache?.cleanUp(successHandler: { [weak self] in
         
@@ -330,14 +324,5 @@ public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate,
         print("Error: \(result.error)")
         
     }
-    
-}
-
-
-// MARK: Selector
-
-private extension Selector {
-    
-    static let refresh = #selector(CHCacheTableViewController.refresh)
     
 }

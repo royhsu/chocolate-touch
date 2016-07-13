@@ -147,6 +147,12 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
             controller.webServiceController.appendSection(section2)
             
+            controller.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                barButtonSystemItem: .refresh,
+                target: self,
+                action: #selector(controller.refreshData)
+            )
+            
             show(controller, sender: nil)
         }
         
