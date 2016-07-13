@@ -8,7 +8,13 @@
 
 import CoreData
 
-public struct CHCache {
+public protocol CHCacheDelegate: class {
+    
+    func contextDidSave()
+    
+}
+
+public class CHCache {
     
     
     // MARK: Property
@@ -16,6 +22,7 @@ public struct CHCache {
     public let identifier: String
     public let stack: CoreDataStack
     public let writerContext: NSManagedObjectContext
+    public weak var delegate: CHCacheDelegate?
     
     public static let schema = CHCacheSchema()
     
@@ -38,6 +45,41 @@ public struct CHCache {
         self.stack = stack
         self.writerContext = writerContext
         
+        NotificationCenter.default.addObserver(
+            self,
+            selector: .contextDidSave,
+            name: .NSManagedObjectContextDidSave,
+            object: nil
+        )
+        
+    }
+    
+    deinit {
+        
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .NSManagedObjectContextDidSave,
+            object: nil
+        )
+        
+    }
+    
+    
+    // MARK: Notification
+    
+    @objc public func contextDidSave(notification: Notification) {
+        
+        guard let childContext = notification.object as? NSManagedObjectContext
+            else { return }
+        
+        guard let childStoreCoordinator = childContext.persistentStoreCoordinator
+            where childStoreCoordinator === stack.storeCoordinator
+            else { return }
+        
+        stack.context.mergeChanges(fromContextDidSave: notification)
+        
+        delegate?.contextDidSave()
+        
     }
     
     
@@ -46,42 +88,35 @@ public struct CHCache {
     public typealias CleanUpSuccessHandler = () -> Void
     public typealias CleanUpFailHandler = (error: ErrorProtocol) -> Void
     
-    public static func cleanUp(fetchedResultsController: NSFetchedResultsController<NSManagedObject>, successHandler: CleanUpSuccessHandler? = nil, failHandler: CleanUpFailHandler? = nil) {
+    public func cleanUp(successHandler: CleanUpSuccessHandler? = nil, failHandler: CleanUpFailHandler? = nil) {
         
-//        guard let objects = fetchedResultsController.fetchedObjects else {
-//            
-//            successHandler?()
-//            
-//            return
-//        
-//        }
-//        
-//        DispatchQueue.global(attributes: .qosBackground).async {
-//            
-//            let storeCoordinator = fetchedResultsController.managedObjectContext.persistentStoreCoordinator
-//            let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-//            context.persistentStoreCoordinator = storeCoordinator
-//            
-//            context.performAndWait {
-//                
-//                objects.forEach { context.delete($0) }
-//                
-//                do {
-//                    
-//                    try context.save()
-//                    DispatchQueue.main.async { successHandler?() }
-//                
-//                }
-//                catch {
-//                    
-//                    DispatchQueue.main.async { failHandler?(error: error) }
-//                
-//                }
-//                
+        writerContext.performAndWait {
+
+//            objects.forEach { context.delete($0) }
+//
+//            do {
+//
+//                try context.save()
+//                DispatchQueue.main.async { successHandler?() }
+//
 //            }
+//            catch {
+//
+//                DispatchQueue.main.async { failHandler?(error: error) }
 //            
-//        }
+//            }
+            
+        }
         
     }
 
+}
+
+
+// MARK: Selector
+
+private extension Selector {
+    
+    static let contextDidSave = #selector(CHCache.contextDidSave)
+    
 }

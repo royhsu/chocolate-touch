@@ -9,18 +9,13 @@
 import CoreData
 import CHFoundation
 
-public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
-
-    public struct Cache {
-        static let name = "Cache"
-    }
+public class CHCacheTableViewController: CHTableViewController, CHCacheDelegate, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
     
     
     // MARK: Property
     
     private let cacheIdentifier: String
     private var cache: CHCache?
-    
     
     private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
     public private(set) var webServiceController = CHWebServiceController<[AnyObject]>()
@@ -71,23 +66,17 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     
     public override func viewDidLoad() {
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: .contextDidSave,
-            name: .NSManagedObjectContextDidSave,
-            object: nil
-        )
-        
         tableView.registerCellType(CHTableViewCell.self)
         
         webServiceController.delegate = self
         
         do {
             
-            let cacheStack = try setUpCacheStack(name: Cache.name)
-            cache = try CHCache(identifier: cacheIdentifier, stack: cacheStack)
+            let cacheStack = try setUpCacheStack(name: "Cache")
             
-            fetchedResultsController = try setupUpFetchResultsController(with: cacheStack.context)
+            cache = try setUpCache(with: cacheStack)
+            
+            fetchedResultsController = try setUpFetchResultsController(with: cacheStack.context)
                 
             fetchData(with: fetchedResultsController!, webServiceController: webServiceController)
             
@@ -127,7 +116,22 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
         
     }
     
-    private func setupUpFetchResultsController(with context: NSManagedObjectContext) throws -> NSFetchedResultsController<NSManagedObject> {
+    private func setUpCache(with stack: CoreDataStack) throws -> CHCache {
+        
+        do {
+            
+            let cache = try CHCache(identifier: cacheIdentifier, stack: stack)
+            
+            cache.delegate = self
+            
+            return cache
+            
+        }
+        catch { throw error }
+        
+    }
+    
+    private func setUpFetchResultsController(with context: NSManagedObjectContext) throws -> NSFetchedResultsController<NSManagedObject> {
         
         let fetchRequest = CHCacheSchema.fetchRequest
         
@@ -156,7 +160,7 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     private func fetchData(with fetchedResultsController: NSFetchedResultsController<NSManagedObject>, webServiceController: CHWebServiceController<[AnyObject]>, successHandler: FetchDataSuccessHandler? = nil, failHandler: FetchDataFailHandler? = nil) {
         
         let context = fetchedResultsController.managedObjectContext
-        
+        // TODO: add background context to fetch.
         context.perform {
             
             do {
@@ -185,22 +189,6 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
             }
             
         }
-        
-    }
-    
-    
-    // MARK: Notification
-    
-    @objc public func contextDidSave(notification: Notification) {
-        
-        guard let childContext = notification.object as? NSManagedObjectContext
-            else { return }
-        
-        guard let childStoreCoordinator = childContext.persistentStoreCoordinator
-            where childStoreCoordinator === fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
-            else { return }
-        
-        fetchedResultsController?.managedObjectContext.mergeChanges(fromContextDidSave: notification)
         
     }
     
@@ -250,6 +238,11 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
         return cell
         
     }
+    
+    
+    // MARK: CHCacheDelegate
+    
+    public final func contextDidSave() { }
     
     
     // MARK: NSFetchedResultsControllerDelegate
@@ -315,14 +308,5 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
         print("Error: \(result.error)")
         
     }
-    
-}
-
-
-// MARK: Selector
-
-private extension Selector {
-    
-    static let contextDidSave = #selector(CHCacheTableViewController.contextDidSave)
     
 }
