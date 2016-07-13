@@ -131,6 +131,22 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             
             controller.webServiceController.appendSection(section)
             
+            let urlString2 = "http://itunes.apple.com/search?term=chocolate&media=music&limit=10&offset=10&explicit=false"
+            let urlRequest2 = URLRequest(url: URL(string: urlString2)!)
+            let webResource2 = WebResource<[AnyObject]>(urlRequest: urlRequest2) { json in
+                
+                typealias Object = [NSObject: AnyObject]
+                
+                guard let json = json as? Object else { return nil }
+                
+                return json["results"] as? [AnyObject]
+                
+            }
+            let webService2 = WebService(webResource: webResource2)
+            let section2 = CHWebServiceSectionInfo(name: "Request 2", webService: webService2)
+            
+            controller.webServiceController.appendSection(section2)
+            
             show(controller, sender: nil)
         }
         

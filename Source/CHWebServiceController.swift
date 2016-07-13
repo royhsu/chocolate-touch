@@ -114,6 +114,8 @@ public class CHWebServiceController<Objects: Sequence where Objects: ArrayLitera
     
     public func performReqeust() {
         
+        // TODO: Lock when requesting
+        
         for index in 0..<pendingQueue.count {
             
             let section = sections[index]

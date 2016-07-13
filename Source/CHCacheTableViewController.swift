@@ -10,13 +10,17 @@ import CoreData
 import CHFoundation
 
 public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
+
+    public struct Cache {
+        static let name = "Cache"
+    }
     
     
     // MARK: Property
     
-    private let cacheSchema = CHCacheSchema()
-    private var cacheStack: CoreDataStack?
-    public let cacheIdentifier: String
+    private let cacheIdentifier: String
+    private var cache: CHCache?
+    
     
     private var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
     public private(set) var webServiceController = CHWebServiceController<[AnyObject]>()
@@ -80,18 +84,35 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
         
         do {
             
-            let name = "Cache"
+            let cacheStack = try setUpCacheStack(name: Cache.name)
+            cache = try CHCache(identifier: cacheIdentifier, stack: cacheStack)
+            
+            fetchedResultsController = try setupUpFetchResultsController(with: cacheStack.context)
+                
+            fetchData(with: fetchedResultsController!, webServiceController: webServiceController)
+            
+        }
+        catch { /* TODO: error handling */ print("Error: \(error)") }
+        
+    }
+    
+    
+    // MARK: Set Up
+    
+    private func setUpCacheStack(name: String) throws -> CoreDataStack {
+        
+        do {
+            
             let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
             let storeURL = try Directory.document(mask: .userDomainMask).url
                 .appendingPathComponent(name)
                 .appendingPathExtension("sqlite")
             
-            print("Debug: \(storeURL)")
-            
             let model = CoreDataModel()
-            model.add(entity: cacheSchema.entity, of: CHCacheSchema.self)
+            let entity = CHCache.schema.entity
+            model.add(entity: entity, of: CHCacheSchema.self)
             
-            cacheStack = try CoreDataStack(
+            let stack = try CoreDataStack(
                 name: name,
                 model: model,
                 context: context,
@@ -99,48 +120,71 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
                 storeType: .local(storeURL: storeURL)
             )
             
-            let fetchRequest = CHCacheSchema.fetchRequest
+            return stack
             
-            fetchRequest.predicate = Predicate(format: "id == %@", cacheIdentifier)
+        }
+        catch { throw error }
+        
+    }
+    
+    private func setupUpFetchResultsController(with context: NSManagedObjectContext) throws -> NSFetchedResultsController<NSManagedObject> {
+        
+        let fetchRequest = CHCacheSchema.fetchRequest
+        
+        fetchRequest.predicate = Predicate(format: "id == %@", cacheIdentifier)
+        
+        fetchRequest.sortDescriptors = [
+            SortDescriptor(key: "createdAt", ascending: true)
+        ]
+        
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: context,
+            sectionNameKeyPath: "section",
+            cacheName: nil
+        )
+        
+        fetchedResultsController.delegate = self
+        
+        return fetchedResultsController
+        
+    }
+    
+    private typealias FetchDataSuccessHandler = () -> Void
+    private typealias FetchDataFailHandler = (error: ErrorProtocol) -> Void
+    
+    private func fetchData(with fetchedResultsController: NSFetchedResultsController<NSManagedObject>, webServiceController: CHWebServiceController<[AnyObject]>, successHandler: FetchDataSuccessHandler? = nil, failHandler: FetchDataFailHandler? = nil) {
+        
+        let context = fetchedResultsController.managedObjectContext
+        
+        context.perform {
             
-            fetchRequest.sortDescriptors = [
-                SortDescriptor(key: "createdAt", ascending: true)
-            ]
-            
-            fetchedResultsController = NSFetchedResultsController(
-                fetchRequest: fetchRequest,
-                managedObjectContext: context,
-                sectionNameKeyPath: "section",
-                cacheName: nil
-            )
-            
-            fetchedResultsController?.delegate = self
-            
-            context.perform {
+            do {
                 
-                do {
+                let _ = try fetchedResultsController.performFetch()
+                
+                DispatchQueue.main.async {
                     
-                    let _ = try self.fetchedResultsController?.performFetch()
+                    self.tableView.reloadData()
                     
-                    DispatchQueue.main.async {
+                    if let fetchedObjects = fetchedResultsController.fetchedObjects where fetchedObjects.isEmpty {
                         
-                        self.tableView.reloadData()
-                        
-                        if let fetchedObjects = self.fetchedResultsController?.fetchedObjects where fetchedObjects.isEmpty {
-                            
-                            self.webServiceController.performReqeust()
-                            
-                        }
+                        webServiceController.performReqeust()
                         
                     }
                     
+                    successHandler?()
+                    
                 }
-                catch { /* TODO: error handling */ print("Error: \(error)") }
                 
+            }
+            catch {
+                
+                DispatchQueue.main.async { failHandler?(error: error) }
+            
             }
             
         }
-        catch { /* TODO: error handling */ print("Error: \(error)") }
         
     }
     
@@ -221,49 +265,43 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     
     public final func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
         
-        let jsonObjects = objects.map { $0 as! AnyObject }
+        guard let cache = cache else { return }
         
-        DispatchQueue.global(attributes: .qosBackground).async { [weak self] in
+        cache.writerContext.performAndWait {
             
-            guard let weakSelf = self else { return }
-            
-            guard let storeCoordinate = weakSelf.fetchedResultsController?.managedObjectContext.persistentStoreCoordinator
-                else { return }
-            
-            let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            context.persistentStoreCoordinator = storeCoordinate
-            
-            context.performAndWait {
+            do {
                 
-                do {
-                    
-                    for jsonObject in jsonObjects {
-                        
-                        let jsonString = try String(jsonObject: jsonObject)
-                        
-                        let _ = try weakSelf.cacheSchema.insertObject(
-                            with: [
-                                "id": weakSelf.cacheIdentifier,
-                                "data": jsonString,
-                                "createdAt": Date(),
-                                "section": section.name
-                            ],
-                            into: context
-                        )
-                        
-                    }
-                    
-                    try context.save()
+                let jsonObjects = objects.map { $0 as! AnyObject }
                 
+                for jsonObject in jsonObjects {
+                    
+                    let jsonString = try String(jsonObject: jsonObject)
+                    
+                    let _ = try CHCache.schema.insertObject(
+                        with: [
+                            "id": cache.identifier,
+                            "data": jsonString,
+                            "createdAt": Date(),
+                            "section": section.name
+                        ],
+                        into: cache.writerContext
+                    )
+                    
                 }
-                catch {
                 
-                    weakSelf.webServiceController(
+                try cache.writerContext.save()
+                
+            }
+            catch {
+                
+                DispatchQueue.main.async {
+                    
+                    self.webServiceController(
                         controller,
                         didRequest: section,
                         withFail: (statusCode: nil, error: error)
                     )
-                
+                    
                 }
                 
             }
@@ -286,47 +324,5 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
 private extension Selector {
     
     static let contextDidSave = #selector(CHCacheTableViewController.contextDidSave)
-    
-}
-
-
-// MARK: Strings
-
-public extension String {
-    
-    public enum JSONError: ErrorProtocol {
-        case fail(Encoding)
-    }
-    
-    public init(jsonObject: AnyObject, encoding: Encoding = .utf8) throws {
-        
-        do {
-            
-            let data = try JSONSerialization.data(withJSONObject: jsonObject, options: [])
-            guard let jsonString = String(data: data, encoding: encoding)
-                else { throw JSONError.fail(encoding) }
-            
-            self = jsonString
-            
-        }
-        catch { throw error }
-        
-    }
-    
-    public func jsonObject(with encoding: Encoding = .utf8, allowLossyConversion isLossy: Bool = true) throws -> AnyObject {
-        
-        guard let data = self.data(using: encoding, allowLossyConversion: isLossy)
-            else { throw JSONError.fail(encoding) }
-        
-        do {
-            
-            let json = try JSONSerialization.jsonObject(with: data, options: [])
-            
-            return json
-            
-        }
-        catch { throw error }
-        
-    }
     
 }

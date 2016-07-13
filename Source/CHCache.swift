@@ -10,7 +10,35 @@ import CoreData
 
 public struct CHCache {
     
-    static let shared = CHCache()
+    
+    // MARK: Property
+    
+    public let identifier: String
+    public let stack: CoreDataStack
+    public let writerContext: NSManagedObjectContext
+    
+    public static let schema = CHCacheSchema()
+    
+    
+    // MARK: Init
+    
+    public enum InitError: ErrorProtocol {
+        case noPersistentStoreCoordinatorInContext
+    }
+    
+    public init(identifier: String, stack: CoreDataStack) throws {
+        
+        guard let storeCoordinate = stack.context.persistentStoreCoordinator
+            else { throw InitError.noPersistentStoreCoordinatorInContext }
+        
+        let writerContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        writerContext.persistentStoreCoordinator = storeCoordinate
+        
+        self.identifier = identifier
+        self.stack = stack
+        self.writerContext = writerContext
+        
+    }
     
     
     // MARK: Clean Up

@@ -8,9 +8,9 @@
 
 import Foundation
 
-class CHCacheSchema: CoreDataSchema {
+public class CHCacheSchema: CoreDataSchema {
 
-    static var template: Template = [
+    public static var template: Template = [
         "id": .string,
         "data": .string,
         "createdAt": .date,
