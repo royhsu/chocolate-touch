@@ -10,6 +10,18 @@ import UIKit
 
 public extension UIView {
     
+    /**
+     A convenience method that help you to generate a view from local xib file.
+     
+     - Author: Roy Hsu
+     
+     - Parameter nibNamed: The name of xib file.
+     
+     - Parameter bundle: The bundle xib file located. Default is nil.
+     
+     - Returns: The view instance.
+     */
+    
     public class func view(nibNamed: String, bundle: Bundle? = nil) -> UIView? {
         
         return UINib(nibName: nibNamed, bundle: bundle)
