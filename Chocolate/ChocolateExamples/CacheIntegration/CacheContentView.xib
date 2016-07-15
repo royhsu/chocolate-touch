@@ -9,7 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CacheContentView" customModule="ChocolateExamples" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="103"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morbi leo risus, porta ac consectetur ac, vestibulum at eros." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWT-z7-Yz6">
@@ -17,7 +17,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morbi leo risus, porta ac consectetur ac, vestibulum at eros." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1I-Af-FYA">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Morbi leo risus, porta ac consectetur ac, vestibulum at eros." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1I-Af-FYA">
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -25,7 +25,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="H1I-Af-FYA" secondAttribute="bottom" constant="8" id="bj6-SY-two"/>
+                <constraint firstAttribute="bottom" secondItem="H1I-Af-FYA" secondAttribute="bottom" constant="8" id="Dtv-OV-C2M"/>
                 <constraint firstItem="H1I-Af-FYA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="iBz-gX-DEC"/>
                 <constraint firstItem="eWT-z7-Yz6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ioj-3A-jT3"/>
                 <constraint firstAttribute="trailing" secondItem="eWT-z7-Yz6" secondAttribute="trailing" constant="8" id="lHj-Pf-oeI"/>
@@ -39,7 +39,7 @@
                 <outlet property="subtitleLabel" destination="H1I-Af-FYA" id="pb7-hc-XFS"/>
                 <outlet property="titleLabel" destination="eWT-z7-Yz6" id="IlJ-Mj-MKc"/>
             </connections>
-            <point key="canvasLocation" x="34" y="-268.5"/>
+            <point key="canvasLocation" x="34" y="-256"/>
         </view>
     </objects>
 </document>
