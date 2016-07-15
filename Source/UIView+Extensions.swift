@@ -20,7 +20,7 @@ public extension UIView {
      - Parameter bundle: The bundle xib file located. Default is nil.
      
      - Returns: The view instance.
-     */
+    */
     
     public class func view(nibNamed: String, bundle: Bundle? = nil) -> UIView? {
         

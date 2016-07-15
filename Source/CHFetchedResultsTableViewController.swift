@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
+import CHFoundation
 import CoreData
 
 public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: NSManagedObject where Cell: Identifiable>: CHSingleCellTypeTableViewController<Cell>, NSFetchedResultsControllerDelegate {

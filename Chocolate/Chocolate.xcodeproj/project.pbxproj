@@ -7,12 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3860B4A3CAC16D389168B00C /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD43660BDDA9539C854081EF /* Pods_ChocolateExamples.framework */; };
-		5C948F99904203145E06361C /* Pods_ChocolateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 755462D45EF1C7DE44BF44B7 /* Pods_ChocolateTests.framework */; };
-		619666D08F0D2ABC6863006B /* Pods_Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */; };
-		B04385201D332941008DABAC /* CoreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851D1D332941008DABAC /* CoreDataModel.swift */; };
-		B04385211D332941008DABAC /* CoreDataSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851E1D332941008DABAC /* CoreDataSchema.swift */; };
-		B04385221D332941008DABAC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043851F1D332941008DABAC /* CoreDataStack.swift */; };
 		B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04385231D332F69008DABAC /* CHCacheSchema.swift */; };
 		B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */; };
 		B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */; };
@@ -31,12 +25,9 @@
 		B0956ADE1D293D0A000BC8D0 /* Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0956ADC1D293D0A000BC8D0 /* Test.xcdatamodeld */; };
 		B0956AE11D293D21000BC8D0 /* CityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956ADF1D293D21000BC8D0 /* CityEntity.swift */; };
 		B0956AE21D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AE01D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift */; };
-		B0956B071D2A2730000BC8D0 /* Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; };
-		B0956B081D2A2730000BC8D0 /* Chocolate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0956B0F1D2A32D4000BC8D0 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956B0E1D2A32D4000BC8D0 /* City.swift */; };
 		B0971CF01D2804E3005BBEE8 /* Chocolate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0971CEF1D2804E3005BBEE8 /* Chocolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF81D280536005BBEE8 /* CHTableViewController.swift */; };
-		B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF91D280536005BBEE8 /* Identifiable.swift */; };
 		B0971CFF1D280536005BBEE8 /* CHTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */; };
 		B0971D001D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */; };
 		B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */; };
@@ -55,18 +46,13 @@
 		B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06D1D3639ED000B7429 /* CacheContentView.swift */; };
 		B09AF0701D3639F3000B7429 /* CacheContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09AF06F1D3639F3000B7429 /* CacheContentView.xib */; };
 		B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF0711D36439A000B7429 /* UIView+Extensions.swift */; };
+		B09AF0761D377DFB000B7429 /* CHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09AF0751D377DFB000B7429 /* CHFoundation.framework */; };
+		B09AF0771D377DFB000B7429 /* CHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09AF0751D377DFB000B7429 /* CHFoundation.framework */; };
 		B0EFC42B1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */; };
 		B0EFC42D1D2BDC6500054A3A /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EFC42C1D2BDC6500054A3A /* SongModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B0956B091D2A2730000BC8D0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B0971CE31D2804E3005BBEE8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B0971CEB1D2804E3005BBEE8;
-			remoteInfo = Chocolate;
-		};
 		B0971D0C1D280ADB005BBEE8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B0971CE31D2804E3005BBEE8 /* Project object */;
@@ -76,31 +62,7 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		B0956B0B1D2A2730000BC8D0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				B0956B081D2A2730000BC8D0 /* Chocolate.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		0342EE9931725EC1D4047591 /* Pods-Chocolate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.debug.xcconfig"; sourceTree = "<group>"; };
-		25C714340EF4E7519A5D4CEF /* Pods-ChocolateExamples.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateExamples.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.debug.xcconfig"; sourceTree = "<group>"; };
-		2D31B77525090737386FD008 /* Pods-ChocolateExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.release.xcconfig"; sourceTree = "<group>"; };
-		4DE908768A4A877557263C55 /* Pods-Chocolate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.release.xcconfig"; sourceTree = "<group>"; };
-		755462D45EF1C7DE44BF44B7 /* Pods_ChocolateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChocolateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7765E0B2099F51548F99B86C /* Pods-ChocolateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9760C9EB116DEFADF50E95DE /* Pods-ChocolateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.release.xcconfig"; sourceTree = "<group>"; };
-		B043851D1D332941008DABAC /* CoreDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataModel.swift; sourceTree = "<group>"; };
-		B043851E1D332941008DABAC /* CoreDataSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSchema.swift; sourceTree = "<group>"; };
-		B043851F1D332941008DABAC /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		B04385231D332F69008DABAC /* CHCacheSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheSchema.swift; sourceTree = "<group>"; };
 		B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceTableViewController.swift; sourceTree = "<group>"; };
 		B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceSectionInfo.swift; sourceTree = "<group>"; };
@@ -124,7 +86,6 @@
 		B0971CEF1D2804E3005BBEE8 /* Chocolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chocolate.h; sourceTree = "<group>"; };
 		B0971CF11D2804E3005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0971CF81D280536005BBEE8 /* CHTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewController.swift; sourceTree = "<group>"; };
-		B0971CF91D280536005BBEE8 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		B0971CFA1D280536005BBEE8 /* CHTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewCell.swift; sourceTree = "<group>"; };
 		B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHSingleCellTypeTableViewController.swift; sourceTree = "<group>"; };
 		B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -146,10 +107,9 @@
 		B09AF06D1D3639ED000B7429 /* CacheContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheContentView.swift; sourceTree = "<group>"; };
 		B09AF06F1D3639F3000B7429 /* CacheContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CacheContentView.xib; sourceTree = "<group>"; };
 		B09AF0711D36439A000B7429 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		B09AF0751D377DFB000B7429 /* CHFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CHFoundation.framework; sourceTree = "<group>"; };
 		B0EFC42A1D2BDBD300054A3A /* WebServiceIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0EFC42C1D2BDC6500054A3A /* SongModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
-		D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD43660BDDA9539C854081EF /* Pods_ChocolateExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChocolateExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				619666D08F0D2ABC6863006B /* Pods_Chocolate.framework in Frameworks */,
+				B09AF0761D377DFB000B7429 /* CHFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,8 +125,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09AF0771D377DFB000B7429 /* CHFoundation.framework in Frameworks */,
 				B0971D0B1D280ADB005BBEE8 /* Chocolate.framework in Frameworks */,
-				5C948F99904203145E06361C /* Pods_ChocolateTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,8 +134,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0956B071D2A2730000BC8D0 /* Chocolate.framework in Frameworks */,
-				3860B4A3CAC16D389168B00C /* Pods_ChocolateExamples.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,24 +143,9 @@
 		4A14E9FC9ECCA82C5BA706C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D795B160D4E3A98DE5FC2E03 /* Pods_Chocolate.framework */,
-				DD43660BDDA9539C854081EF /* Pods_ChocolateExamples.framework */,
-				755462D45EF1C7DE44BF44B7 /* Pods_ChocolateTests.framework */,
+				B09AF0751D377DFB000B7429 /* CHFoundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		66DCE72C9802B65E836FD543 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				0342EE9931725EC1D4047591 /* Pods-Chocolate.debug.xcconfig */,
-				4DE908768A4A877557263C55 /* Pods-Chocolate.release.xcconfig */,
-				25C714340EF4E7519A5D4CEF /* Pods-ChocolateExamples.debug.xcconfig */,
-				2D31B77525090737386FD008 /* Pods-ChocolateExamples.release.xcconfig */,
-				7765E0B2099F51548F99B86C /* Pods-ChocolateTests.debug.xcconfig */,
-				9760C9EB116DEFADF50E95DE /* Pods-ChocolateTests.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		B04466001D2B47E4004CB0E9 /* WebServiceIntegration */ = {
@@ -243,7 +186,6 @@
 				B0971D071D280ADB005BBEE8 /* ChocolateTests */,
 				B0971D1C1D280D3F005BBEE8 /* ChocolateExamples */,
 				B0971CED1D2804E3005BBEE8 /* Products */,
-				66DCE72C9802B65E836FD543 /* Pods */,
 				4A14E9FC9ECCA82C5BA706C0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -270,7 +212,6 @@
 		B0971CF71D280536005BBEE8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B0971CF91D280536005BBEE8 /* Identifiable.swift */,
 				B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */,
@@ -284,9 +225,6 @@
 				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
 				B04385231D332F69008DABAC /* CHCacheSchema.swift */,
 				B069892A1D30D41900EA6123 /* CHCache.swift */,
-				B043851D1D332941008DABAC /* CoreDataModel.swift */,
-				B043851E1D332941008DABAC /* CoreDataSchema.swift */,
-				B043851F1D332941008DABAC /* CoreDataStack.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -354,12 +292,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0971CF41D2804E3005BBEE8 /* Build configuration list for PBXNativeTarget "Chocolate" */;
 			buildPhases = (
-				1E2A20B2981FA5E93BA2BC48 /* [CP] Check Pods Manifest.lock */,
 				B0971CE71D2804E3005BBEE8 /* Sources */,
 				B0971CE81D2804E3005BBEE8 /* Frameworks */,
 				B0971CE91D2804E3005BBEE8 /* Headers */,
 				B0971CEA1D2804E3005BBEE8 /* Resources */,
-				5DAA3EA1AE64CD1E6286E3A8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -374,12 +310,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0971D0E1D280ADB005BBEE8 /* Build configuration list for PBXNativeTarget "ChocolateTests" */;
 			buildPhases = (
-				57F8BD28536526A918FF1681 /* [CP] Check Pods Manifest.lock */,
 				B0971D021D280ADB005BBEE8 /* Sources */,
 				B0971D031D280ADB005BBEE8 /* Frameworks */,
 				B0971D041D280ADB005BBEE8 /* Resources */,
-				D45245F8C82CB03AA21410F7 /* [CP] Embed Pods Frameworks */,
-				3100ADE055F7256349F471C9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -395,18 +328,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0971D2A1D280D3F005BBEE8 /* Build configuration list for PBXNativeTarget "ChocolateExamples" */;
 			buildPhases = (
-				4653371F98697D5E7008851C /* [CP] Check Pods Manifest.lock */,
 				B0971D171D280D3F005BBEE8 /* Sources */,
 				B0971D181D280D3F005BBEE8 /* Frameworks */,
 				B0971D191D280D3F005BBEE8 /* Resources */,
-				B0956B0B1D2A2730000BC8D0 /* Embed Frameworks */,
-				788A84071F078708516134B4 /* [CP] Embed Pods Frameworks */,
-				E6D2FB2EC8B25C21CBE644A4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B0956B0A1D2A2730000BC8D0 /* PBXTargetDependency */,
 			);
 			name = ChocolateExamples;
 			productName = ChocolateExamples;
@@ -493,145 +421,18 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1E2A20B2981FA5E93BA2BC48 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		3100ADE055F7256349F471C9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4653371F98697D5E7008851C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		57F8BD28536526A918FF1681 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		5DAA3EA1AE64CD1E6286E3A8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		788A84071F078708516134B4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D45245F8C82CB03AA21410F7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E6D2FB2EC8B25C21CBE644A4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		B0971CE71D2804E3005BBEE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B04385221D332941008DABAC /* CoreDataStack.swift in Sources */,
 				B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */,
 				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
 				B0971D001D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift in Sources */,
-				B04385211D332941008DABAC /* CoreDataSchema.swift in Sources */,
 				B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */,
 				B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */,
-				B04385201D332941008DABAC /* CoreDataModel.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B0956AD21D292A0B000BC8D0 /* CHFetchedResultsTableViewController.swift in Sources */,
-				B0971CFE1D280536005BBEE8 /* Identifiable.swift in Sources */,
 				B0971CFF1D280536005BBEE8 /* CHTableViewCell.swift in Sources */,
 				B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */,
 				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
@@ -679,11 +480,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B0956B0A1D2A2730000BC8D0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B0971CEB1D2804E3005BBEE8 /* Chocolate */;
-			targetProxy = B0956B091D2A2730000BC8D0 /* PBXContainerItemProxy */;
-		};
 		B0971D0D1D280ADB005BBEE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B0971CEB1D2804E3005BBEE8 /* Chocolate */;
@@ -800,13 +596,16 @@
 		};
 		B0971CF51D2804E3005BBEE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0342EE9931725EC1D4047591 /* Pods-Chocolate.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Chocolate/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -819,13 +618,16 @@
 		};
 		B0971CF61D2804E3005BBEE8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DE908768A4A877557263C55 /* Pods-Chocolate.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Chocolate/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -838,9 +640,12 @@
 		};
 		B0971D0F1D280ADB005BBEE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7765E0B2099F51548F99B86C /* Pods-ChocolateTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChocolateTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -852,9 +657,12 @@
 		};
 		B0971D101D280ADB005BBEE8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9760C9EB116DEFADF50E95DE /* Pods-ChocolateTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChocolateTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -866,11 +674,13 @@
 		};
 		B0971D2B1D280D3F005BBEE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25C714340EF4E7519A5D4CEF /* Pods-ChocolateExamples.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChocolateExamples/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -883,11 +693,13 @@
 		};
 		B0971D2C1D280D3F005BBEE8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D31B77525090737386FD008 /* Pods-ChocolateExamples.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ChocolateExamples/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

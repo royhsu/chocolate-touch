@@ -7,7 +7,6 @@
 //
 
 import Chocolate
-import moa
 
 public typealias ContentTableViewCell = TemplateTableViewCell
 
@@ -56,7 +55,6 @@ public class DynamicCellContentTableViewController: CHSingleCellTypeTableViewCon
         
         let content = contents[indexPath.row]
 
-        cell.mainImageView.moa.url = content.imageURL.absoluteString
         cell.titleLabel.text = content.title
         cell.bodyLabel.text = content.body
         
