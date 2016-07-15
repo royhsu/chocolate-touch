@@ -10,14 +10,19 @@ import CHFoundation
 import Chocolate
 import CoreData
 
-public class CacheIntegrationTableViewController: CHCacheTableViewController {
+public class CacheIntegrationTableViewController: CHCacheTableViewController, Identifiable {
+    
+    
+    // MARK: Property
+    
+    public class var identifier: String { return String(self) }
     
     
     // MARK: Init
     
     public init() {
         
-        super.init(cacheIdentifier: "CacheIntegrationTableViewController")
+        super.init(cacheIdentifier: self.dynamicType.identifier)
         
     }
     
