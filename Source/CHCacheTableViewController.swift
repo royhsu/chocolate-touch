@@ -66,7 +66,7 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     
     public override func viewDidLoad() {
         
-        tableView.registerCellType(CHTableViewCell.self)
+        tableView.register(CHTableViewCell.self)
         
 //        webServiceController.delegate = self
         
@@ -170,7 +170,7 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
             }
             catch {
                 
-                DispatchQueue.main.async { failHandler?(error as! UIViewController.Error) }
+//                DispatchQueue.main.async { failHandler?(error as! UIViewController.Error) }
             
             }
             

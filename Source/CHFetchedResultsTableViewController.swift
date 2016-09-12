@@ -2,147 +2,125 @@
 //  CHFetchedResultsTableViewController.swift
 //  Chocolate
 //
-//  Created by 許郁棋 on 2016/7/3.
+//  Created by 許郁棋 on 2016/9/12.
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
 import CHFoundation
 import CoreData
+import UIKit
 
-public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: NSManagedObject>: CHSingleCellTypeTableViewController<Cell>, NSFetchedResultsControllerDelegate where Cell: Identifiable {
-    
-    
+open class CHFetchedResultsTableViewController: CHTableViewController {
+
+
     // MARK: Property
-    
-    public var fetchedResultsController: NSFetchedResultsController<Entity>!
-    public var managedObjectContext: NSManagedObjectContext { return fetchedResultsController.managedObjectContext }
-    
-    
-    // MARK: Init
-    
-    public init(cellType: Cell.Type, fetchedResultsController: NSFetchedResultsController<Entity>) {
+
+    private let fetchRequest: NSFetchRequest<NSManagedObject>
+    internal var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
+    internal var cacheStack: CoreDataStack?
+    internal var storeType: CoreDataStack.StoreType {
         
-        self.fetchedResultsController = fetchedResultsController
+        let storeURL = URL.fileURL(
+            filename: "Cache",
+            withExtension: "momd",
+            in: .document(domainMask: .userDomainMask)
+        )
         
-        super.init(cellType: cellType)
-        
-    }
-    
-    public init(nibType: Cell.Type, bundle: Bundle? = nil, fetchedResultsController: NSFetchedResultsController<Entity>) {
-        
-        self.fetchedResultsController = fetchedResultsController
-        
-        super.init(nibType: nibType, bundle: bundle)
+        return .local(storeURL: storeURL)
         
     }
     
-    private override init(cellType: Cell.Type) { super.init(cellType: cellType) }
     
-    private override init(nibType: Cell.Type, bundle: Bundle? = nil) { super.init(nibType: nibType, bundle: bundle) }
+    // MARK: Initializer
     
-    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    public init(fetchRequest: NSFetchRequest<NSManagedObject>) {
+        
+        self.fetchRequest = fetchRequest
+        
+        super.init(style: .plain)
+        
+    }
+    
+    private override init(style: UITableViewStyle) {
+        
+        fetchRequest = NSFetchRequest<NSManagedObject>()
+        
+        super.init(style: style)
+        
+    }
+    
+    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        
+        fetchRequest = NSFetchRequest<NSManagedObject>()
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        
+        fatalError()
+        
+    }
     
     
     // MARK: View Life Cycle
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchedResultsController.delegate = self
         
         do {
             
-            try fetchedResultsController.performFetch()
+            cacheStack = try setUpCacheStack()
+            fetchedResultsController = try setUpFetchedResulsController()
+        
+        }
+        catch { print("CHFetchedResultsTableViewController: \(error)") }
+        
+    }
+    
+    
+    // MARK: Set Up
+    
+    private func setUpCacheStack() throws -> CoreDataStack {
+        
+        do {
             
-            tableView.reloadData()
+            return try CoreDataStack(
+                name: "Cache",
+                model: NSManagedObjectModel(),
+                options: [
+                    NSMigratePersistentStoresAutomaticallyOption: true,
+                    NSInferMappingModelAutomaticallyOption: true
+                ],
+                storeType: storeType
+            )
             
         }
-        catch { fatalError("Cannot perform fetch: \(error)") }
+        catch { throw error }
         
     }
     
-    
-    // MARK: UITableViewDataSource
-    
-    public final override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return fetchedResultsController.sections?.count ?? 0
-        
+    public enum SetUpFetchedResulsControllerError: Swift.Error {
+        case noContext
     }
     
-    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    private func setUpFetchedResulsController() throws -> NSFetchedResultsController<NSManagedObject> {
         
-        guard let sections = fetchedResultsController.sections else { return 0 }
+        guard let context = cacheStack?.viewContext
+            else { throw SetUpFetchedResulsControllerError.noContext }
         
-        return sections[section].numberOfObjects
+        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        backgroundContext.parent = context
         
-    }
-    
-    
-    // MARK: NSFetchedResultsControllerDelegate
-    
-    public final func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        let controller = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: backgroundContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
         
-//        tableView.beginUpdates()
-        
-    }
-    
-    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        
-//        switch type {
-//        case .insert:
-//            
-//            let indexSet = NSIndexSet(index: sectionIndex) as IndexSet
-//            
-//            tableView.insertSections(indexSet, with: .automatic )
-//            
-//        case .delete:
-//            
-//            let indexSet = NSIndexSet(index: sectionIndex) as IndexSet
-//            
-//            tableView.deleteSections(indexSet, with: .automatic)
-//            
-//        case .move, .update: break
-//        }
-        
-    }
-    
-    @nonobjc public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-//        switch type {
-//        case .insert:
-//            
-//            guard let newIndexPath = newIndexPath else { break }
-//            
-//            tableView.insertRows(at: [newIndexPath], with: .automatic)
-//            
-//        case .delete:
-//            
-//            guard let indexPath = indexPath else { break }
-//            
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            
-//        case .move:
-//            
-//            guard let indexPath = indexPath else { break }
-//            guard let newIndexPath = newIndexPath else { break }
-//            
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            tableView.insertRows(at: [newIndexPath], with: .automatic)
-//            
-//        case .update:
-//            
-//            guard let indexPath = indexPath else { break }
-//            
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-//        }
-        
-    }
-    
-    public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
-//        tableView.endUpdates()
-        tableView.reloadData()
+        return controller
         
     }
     

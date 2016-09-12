@@ -9,7 +9,7 @@
 import CHFoundation
 import UIKit
 
-public class CHTableViewCell: UITableViewCell { }
+open class CHTableViewCell: UITableViewCell { }
 
 
 // MARK: - Identifiable

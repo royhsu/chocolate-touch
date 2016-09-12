@@ -8,4 +8,4 @@
 
 import Chocolate
 
-class TestTableViewCell: CHTableViewCell { }
+open class TestTableViewCell: CHTableViewCell { }

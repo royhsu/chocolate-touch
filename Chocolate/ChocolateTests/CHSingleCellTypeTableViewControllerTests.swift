@@ -17,7 +17,7 @@ class CHSingleCellTypeTableViewControllerTests: XCTestCase {
         
         super.setUp()
         
-        bundle = Bundle(for: self.dynamicType)
+        bundle = Bundle(for: type(of: self))
         
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class CHTableViewController: UITableViewController, CHTableViewDataSource {
+open class CHTableViewController: UITableViewController, CHTableViewDataSource {
     
     
     // MARK: CHTableViewDataSource

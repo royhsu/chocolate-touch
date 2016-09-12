@@ -26,7 +26,7 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell>: CHTable
         
         super.init(style: .plain)
         
-        tableView.registerCellType(cellType)
+//        tableView.registerCellType(cellType)
         
     }
     
@@ -34,7 +34,7 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell>: CHTable
         
         super.init(style: .plain)
         
-        tableView.registerCellNibType(nibType, bundle: bundle)
+//        tableView.registerCellNibType(nibType, bundle: bundle)
         
     }
     
@@ -86,7 +86,7 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell>: CHTable
     
     public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell: Cell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: Cell = tableView.dequeueReusableCell(for: indexPath) as! Cell
         
         return self.tableView(tableView, configurationFor: cell, at: indexPath)
         
