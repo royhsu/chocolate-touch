@@ -24,7 +24,8 @@ public extension UIView {
     
     public class func view(nibNamed: String, bundle: Bundle? = nil) -> UIView? {
         
-        return UINib(nibName: nibNamed, bundle: bundle)
+        return
+            UINib(nibName: nibNamed, bundle: bundle)
             .instantiate(withOwner: nil, options: nil)
             .first as? UIView
     
