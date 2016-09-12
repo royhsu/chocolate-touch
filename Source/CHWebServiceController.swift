@@ -42,16 +42,16 @@ internal func ==(lhs: Request, rhs: Request) -> Bool {
 
 public protocol CHWebServiceControllerDelegate: class {
     
-    func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects)
+    func webServiceController<Objects: Sequence>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) where Objects: ExpressibleByArrayLiteral
     
-    func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?))
+    func webServiceController<Objects: Sequence>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: Error?)) where Objects: ExpressibleByArrayLiteral
     
 }
 
 
 // MARK: CHWebServiceController
 
-public class CHWebServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible> {
+public class CHWebServiceController<Objects: Sequence> where Objects: ExpressibleByArrayLiteral {
     
     
     // MARK: Property
@@ -134,61 +134,60 @@ public class CHWebServiceController<Objects: Sequence where Objects: ArrayLitera
     
     internal func request(for section: CHWebServiceSectionInfo<Objects>, completionHandler: (() -> Void)? = nil) {
         
-        let urlSessionTask = section.webService.request(
-            with: session,
-            errorParser: section.errorParser,
-            successHandler: { [weak self] objects in
-            
-                guard let weakSelf = self else { return }
-                
-                DispatchQueue.main.async {
-                    
-                    weakSelf.removeSectionFromRequestingQueue(with: section.identifier)
-                    
-                    guard let sectionIndex = weakSelf.sections
-                        .index(where: { $0.identifier == section.identifier })
-                        else { return }
-
-                    weakSelf.sections[sectionIndex].objects = objects
-
-                    weakSelf.delegate?.webServiceController(
-                        weakSelf,
-                        didRequest: section,
-                        withSuccess: objects
-                    )
-                    
-                    completionHandler?()
-                    
-                }
-                
-            },
-            failHandler: { [weak self] statusCode, error in
-                
-                guard let weakSelf = self else { return }
-                
-                DispatchQueue.main.async {
-                    
-                    weakSelf.removeSectionFromRequestingQueue(with: section.identifier)
-                    
-                    weakSelf.delegate?.webServiceController(
-                        weakSelf,
-                        didRequest: section,
-                        withFail: (statusCode: statusCode, error: error)
-                    )
-                    
-                    completionHandler?()
-                    
-                }
-                
-            }
-        )
-        
-        requestingQueue.append(
-            Request(
-                identifier: section.identifier,
-                urlSessionTask: urlSessionTask
-            )
-        )
+//        let urlSessionTask = section.webService.request(
+//            with: session,
+//            successHandler: { [weak self] objects in
+//            
+//                guard let weakSelf = self else { return }
+//                
+//                DispatchQueue.main.async {
+//                    
+//                    weakSelf.removeSectionFromRequestingQueue(with: section.identifier)
+//                    
+//                    guard let sectionIndex = weakSelf.sections
+//                        .index(where: { $0.identifier == section.identifier })
+//                        else { return }
+//
+//                    weakSelf.sections[sectionIndex].objects = objects
+//
+//                    weakSelf.delegate?.webServiceController(
+//                        weakSelf,
+//                        didRequest: section,
+//                        withSuccess: objects
+//                    )
+//                    
+//                    completionHandler?()
+//                    
+//                }
+//                
+//            },
+//            failHandler: { [weak self] statusCode, error in
+//                
+//                guard let weakSelf = self else { return }
+//                
+//                DispatchQueue.main.async {
+//                    
+//                    weakSelf.removeSectionFromRequestingQueue(with: section.identifier)
+//                    
+//                    weakSelf.delegate?.webServiceController(
+//                        weakSelf,
+//                        didRequest: section,
+//                        withFail: (statusCode: statusCode, error: error)
+//                    )
+//                    
+//                    completionHandler?()
+//                    
+//                }
+//                
+//            }
+//        )
+//        
+//        requestingQueue.append(
+//            Request(
+//                identifier: section.identifier,
+//                urlSessionTask: urlSessionTask
+//            )
+//        )
         
     }
     

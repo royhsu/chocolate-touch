@@ -8,13 +8,7 @@
 
 import CHFoundation
 
-public class CHCacheSchema: CoreDataSchema {
+public class CHCacheSchema {
 
-    public static var template: Template = [
-        "id": .string,
-        "data": .string,
-        "createdAt": .date,
-        "section": .string
-    ]
     
 }

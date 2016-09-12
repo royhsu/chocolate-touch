@@ -11,13 +11,13 @@ import UIKit
 
 public extension UITableView {
     
-    func registerCellType<Cell: UITableViewCell where Cell: Identifiable>(_ cellType: Cell.Type) {
+    func registerCellType<Cell: UITableViewCell>(_ cellType: Cell.Type) where Cell: Identifiable {
         
         register(cellType, forCellReuseIdentifier: cellType.identifier)
         
     }
     
-    func registerCellNibType<Cell: UITableViewCell where Cell: Identifiable>(_ nibType: Cell.Type, bundle: Bundle? = nil) {
+    func registerCellNibType<Cell: UITableViewCell>(_ nibType: Cell.Type, bundle: Bundle? = nil) where Cell: Identifiable {
         
         registerNib(nibName: nibType.identifier, bundle: bundle)
         
@@ -30,13 +30,13 @@ public extension UITableView {
         
     }
     
-    func dequeueReusableCell<Cell: UITableViewCell where Cell: Identifiable>(for indexPath: IndexPath) -> Cell {
+    func dequeueReusableCell<Cell: UITableViewCell>(for indexPath: IndexPath) -> Cell where Cell: Identifiable {
         
         return dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as! Cell
         
     }
     
-    func cellForRow<Cell: UITableViewCell where Cell: Identifiable>(at indexPath: IndexPath) -> Cell? {
+    func cellForRow<Cell: UITableViewCell>(at indexPath: IndexPath) -> Cell? where Cell: Identifiable {
         
         return cellForRow(at: indexPath) as? Cell
         

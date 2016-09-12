@@ -9,7 +9,7 @@
 import CHFoundation
 import CoreData
 
-public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: NSManagedObject where Cell: Identifiable>: CHSingleCellTypeTableViewController<Cell>, NSFetchedResultsControllerDelegate {
+public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: NSManagedObject>: CHSingleCellTypeTableViewController<Cell>, NSFetchedResultsControllerDelegate where Cell: Identifiable {
     
     
     // MARK: Property
@@ -107,7 +107,7 @@ public class CHFetchedResultsTableViewController<Cell: UITableViewCell, Entity: 
         
     }
     
-    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    @nonobjc public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: AnyObject, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
 //        switch type {
 //        case .insert:

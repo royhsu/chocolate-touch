@@ -16,6 +16,6 @@ public class CHTableViewCell: UITableViewCell { }
 
 extension CHTableViewCell: Identifiable {
     
-    public class var identifier: String { return String(self) }
+    public class var identifier: String { return String(describing: self) }
     
 }

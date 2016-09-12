@@ -8,7 +8,7 @@
 
 import CHFoundation
 
-public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel where Cell: Identifiable>: CHSingleCellTypeTableViewController<Cell>, CHWebServiceControllerDelegate {
+public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel>: CHSingleCellTypeTableViewController<Cell> where Cell: Identifiable {
 
     
     // MARK: Property
@@ -30,7 +30,7 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        webServiceController.delegate = self
+//        webServiceController.delegate = self
         
     }
     
@@ -54,7 +54,7 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
     
     // MARK: CHWebServiceControllerDelegate
     
-    public func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
+    public func webServiceController<Objects: Sequence>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) where Objects: ExpressibleByArrayLiteral {
 
         tableView.beginUpdates()
         
@@ -67,7 +67,7 @@ public class CHWebServiceTableViewController<Cell: UITableViewCell, ObjectModel 
         
     }
     
-    public func webServiceController<Objects: Sequence where Objects: ArrayLiteralConvertible>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) {
+    public func webServiceController<Objects: Sequence>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: Error?)) where Objects: ExpressibleByArrayLiteral {
         
         // TODO: Error handling.
         

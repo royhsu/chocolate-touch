@@ -33,55 +33,58 @@ public class CHCache {
     // MARK: Clean Up
     
     public typealias CleanUpSuccessHandler = () -> Void
-    public typealias CleanUpFailHandler = (error: ErrorProtocol) -> Void
+    public typealias CleanUpFailHandler = (_ error: Error) -> Void
     
     public func cleanUp(successHandler: CleanUpSuccessHandler? = nil, failHandler: CleanUpFailHandler? = nil) {
         
-        let fetchRequest = CHCacheSchema.fetchRequest
-        fetchRequest.predicate = Predicate(format: "id == %@", identifier)
-        
-        let writerContext = stack.writerContext
-        
-        let storeRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
-            
-            guard let objects = result.finalResult where !objects.isEmpty else {
-                
-                DispatchQueue.main.async { successHandler?() }
-            
-                return
-                
-            }
-            
-            objects.forEach { writerContext.delete($0) }
-            
-            do {
-                
-                try writerContext.save()
-                DispatchQueue.main.async { successHandler?() }
-                
-            }
-            catch {
-                
-                DispatchQueue.main.async { failHandler?(error: error) }
-            
-            }
-            
-        }
-        
-        writerContext.performAndWait {
-            
-            do {
-            
-                try writerContext.execute(storeRequest)
-                
-            }
-            catch {
-                
-                DispatchQueue.main.async { failHandler?(error: error) }
-                
-            }
-            
-        }
+//        let fetchRequest = CHCacheSchema.fetchRequest
+//        fetchRequest.predicate = Predicate(format: "id == %@", identifier)
+//        
+//        let writerContext = stack.writerContext
+//        
+//        let storeRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
+//            
+//            guard
+//                let objects = result.finalResult,
+//                !objects.isEmpty
+//                else {
+//                
+//                DispatchQueue.main.async { successHandler?() }
+//            
+//                return
+//                
+//            }
+//            
+//            objects.forEach { writerContext.delete($0) }
+//            
+//            do {
+//                
+//                try writerContext.save()
+//                DispatchQueue.main.async { successHandler?() }
+//                
+//            }
+//            catch {
+//                
+//                DispatchQueue.main.async { failHandler?(error: error) }
+//            
+//            }
+//            
+//        }
+//        
+//        writerContext.performAndWait {
+//            
+//            do {
+//            
+//                try writerContext.execute(storeRequest)
+//                
+//            }
+//            catch {
+//                
+//                DispatchQueue.main.async { failHandler?(error: error) }
+//                
+//            }
+//            
+//        }
         
     }
 

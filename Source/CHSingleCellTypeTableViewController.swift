@@ -17,7 +17,7 @@ public protocol CHSingleCellTypeTableViewControllerProtocol {
     
 }
 
-public class CHSingleCellTypeTableViewController<Cell: UITableViewCell where Cell: Identifiable>: CHTableViewController, CHSingleCellTypeTableViewControllerProtocol {
+public class CHSingleCellTypeTableViewController<Cell: UITableViewCell>: CHTableViewController, CHSingleCellTypeTableViewControllerProtocol where Cell: Identifiable {
     
     
     // MARK: Init
