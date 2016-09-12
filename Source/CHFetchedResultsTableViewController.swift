@@ -15,45 +15,46 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
 
     // MARK: Property
 
-    private let fetchRequest: NSFetchRequest<NSManagedObject>
-    internal var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
-    internal var cacheStack: CoreDataStack?
-    internal var storeType: CoreDataStack.StoreType {
-        
-        let storeURL = URL.fileURL(
-            filename: "Cache",
-            withExtension: "momd",
-            in: .document(domainMask: .userDomainMask)
-        )
-        
-        return .local(storeURL: storeURL)
-        
-    }
+    internal let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
+//    internal var cacheStack: CoreDataStack?
+//    internal var storeType: CoreDataStack.StoreType {
+//        
+//        let storeURL = URL.fileURL(
+//            filename: "Cache",
+//            withExtension: "momd",
+//            in: .document(domainMask: .userDomainMask)
+//        )
+//        
+//        return .local(storeURL: storeURL)
+//        
+//    }
     
     
     // MARK: Initializer
     
-    public init(fetchRequest: NSFetchRequest<NSManagedObject>) {
+    public init(fetchedResultsController: NSFetchedResultsController<NSManagedObject>) {
         
-        self.fetchRequest = fetchRequest
+        self.fetchedResultsController = fetchedResultsController
         
         super.init(style: .plain)
         
     }
     
+    private init() {
+        
+        fatalError()
+        
+    }
+    
     private override init(style: UITableViewStyle) {
         
-        fetchRequest = NSFetchRequest<NSManagedObject>()
-        
-        super.init(style: style)
+        fatalError()
         
     }
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
-        fetchRequest = NSFetchRequest<NSManagedObject>()
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        fatalError()
         
     }
     
@@ -71,9 +72,9 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
         
         do {
             
-            cacheStack = try setUpCacheStack()
-            fetchedResultsController = try setUpFetchedResulsController()
-        
+//            cacheStack = try setUpCacheStack()
+//            fetchedResultsController = try setUpFetchedResulsController()
+//        
         }
         catch { print("CHFetchedResultsTableViewController: \(error)") }
         
@@ -82,46 +83,46 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     
     // MARK: Set Up
     
-    private func setUpCacheStack() throws -> CoreDataStack {
-        
-        do {
-            
-            return try CoreDataStack(
-                name: "Cache",
-                model: NSManagedObjectModel(),
-                options: [
-                    NSMigratePersistentStoresAutomaticallyOption: true,
-                    NSInferMappingModelAutomaticallyOption: true
-                ],
-                storeType: storeType
-            )
-            
-        }
-        catch { throw error }
-        
-    }
-    
-    public enum SetUpFetchedResulsControllerError: Swift.Error {
-        case noContext
-    }
-    
-    private func setUpFetchedResulsController() throws -> NSFetchedResultsController<NSManagedObject> {
-        
-        guard let context = cacheStack?.viewContext
-            else { throw SetUpFetchedResulsControllerError.noContext }
-        
-        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.parent = context
-        
-        let controller = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: backgroundContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil
-        )
-        
-        return controller
-        
-    }
+//    private func setUpCacheStack() throws -> CoreDataStack {
+//        
+//        do {
+//            
+//            return try CoreDataStack(
+//                name: "Cache",
+//                model: NSManagedObjectModel(),
+//                options: [
+//                    NSMigratePersistentStoresAutomaticallyOption: true,
+//                    NSInferMappingModelAutomaticallyOption: true
+//                ],
+//                storeType: storeType
+//            )
+//            
+//        }
+//        catch { throw error }
+//        
+//    }
+//    
+//    public enum SetUpFetchedResulsControllerError: Swift.Error {
+//        case noContext
+//    }
+//    
+//    private func setUpFetchedResulsController() throws -> NSFetchedResultsController<NSManagedObject> {
+//        
+//        guard let context = cacheStack?.viewContext
+//            else { throw SetUpFetchedResulsControllerError.noContext }
+//        
+//        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+//        backgroundContext.parent = context
+//        
+//        let controller = NSFetchedResultsController(
+//            fetchRequest: fetchRequest,
+//            managedObjectContext: backgroundContext,
+//            sectionNameKeyPath: nil,
+//            cacheName: nil
+//        )
+//        
+//        return controller
+//        
+//    }
     
 }
