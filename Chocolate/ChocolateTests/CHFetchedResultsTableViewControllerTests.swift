@@ -86,6 +86,9 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
         
         XCTAssertEqual(numberOfSections, 2, "Number of sections doesn't match.")
         
+        let numberOfRowsForFirstSection = tableView.numberOfRows(inSection: 0)
+        XCTAssertEqual(numberOfRowsForFirstSection, 2)
+        
     }
     
 //    func testInitWithFetchRequest() {
