@@ -72,11 +72,30 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
         
         do {
             
+            try fetchedResultsController.performFetch()
+            
 //            cacheStack = try setUpCacheStack()
 //            fetchedResultsController = try setUpFetchedResulsController()
 //        
         }
         catch { print("CHFetchedResultsTableViewController: \(error)") }
+        
+    }
+    
+    
+    // MARK: UITableViewDataSource
+    
+    open override func numberOfSections(in tableView: UITableView) -> Int {
+     
+        return fetchedResultsController.sections?.count ?? 0
+        
+    }
+    
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let sectionInfo = fetchedResultsController.sections?[section]
+        
+        return sectionInfo?.numberOfObjects ?? 0
         
     }
     

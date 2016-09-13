@@ -66,7 +66,7 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
         
         try! context.save()
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>()
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "name", ascending: true)
         ]
