@@ -8,7 +8,7 @@
 
 import Chocolate
 
-public class TemplateTableViewCell: CHTableViewCell {
+public class TemplateTableViewCell: UITableViewCell {
 
     @IBOutlet private(set) weak var mainImageView: UIImageView!
     @IBOutlet private(set) weak var titleLabel: UILabel!

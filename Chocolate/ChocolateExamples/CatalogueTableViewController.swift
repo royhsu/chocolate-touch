@@ -10,7 +10,7 @@ import CHFoundation
 import Chocolate
 import CoreData
 
-public class CatalogueTableViewController: UITableViewController {
+public class CatalogueTableViewController: CHTableViewController {
 
     enum Row: Int {
         
@@ -67,7 +67,6 @@ public class CatalogueTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Chocolate"
-        tableView.register(CHTableViewCell.self)
         
     }
     
@@ -80,26 +79,9 @@ public class CatalogueTableViewController: UITableViewController {
     
     }
     
-    
-    
-    
-    // MARK: UITableViewDataSource
-    
-    public func tableView(_ tableView: UITableView, configurationForRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.cellForRow(at: indexPath)
-        
-        cell?.textLabel?.text = rows[indexPath.row].title
-        
-    }
-    
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(for: indexPath)
+    public override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
         
         cell.textLabel?.text = "test"
-        
-        return cell
         
     }
     

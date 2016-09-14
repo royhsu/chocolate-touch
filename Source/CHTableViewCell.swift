@@ -9,7 +9,69 @@
 import CHFoundation
 import UIKit
 
-open class CHTableViewCell: UITableViewCell { }
+public class CHTableViewCell: UITableViewCell {
+
+    
+    // MARK: Property
+    
+    public private(set) var containerView: UIView?
+    
+    
+    // MARK: Set Up
+    
+    public func setUp(containerView: UIView) {
+        
+        self.containerView?.removeFromSuperview()
+        self.containerView = containerView
+        
+        self.contentView.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leadingConstraint = NSLayoutConstraint(
+            item: containerView,
+            attribute: .leading,
+            relatedBy: .equal,
+            toItem: contentView,
+            attribute: .leading,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let topConstraint = NSLayoutConstraint(
+            item: containerView,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: contentView,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let leftConstraint = NSLayoutConstraint(
+            item: containerView,
+            attribute: .left,
+            relatedBy: .equal,
+            toItem: contentView,
+            attribute: .left,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let bottomConstraint = NSLayoutConstraint(
+            item: containerView,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: contentView,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        contentView.addConstraints([ leadingConstraint, topConstraint, leftConstraint, bottomConstraint ])
+        
+    }
+    
+}
 
 
 // MARK: - Identifiable

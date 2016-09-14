@@ -16,14 +16,29 @@ open class CHTableViewController: UITableViewController {
     }
     
     
+    // MARK: View Life Cycle
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.register(CHTableViewCell.self)
+        
+    }
+    
+    
     // MARK: UITableViewDataSource
     
-//    open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        
-////        return self.tableView(tableView, heightTypeForRowAt: indexPath)
-//        
-//    }
-//        
+    open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let heightType = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        
+        switch heightType {
+        case .dynamic: return UITableViewAutomaticDimension
+        case .fixed(let height): return height
+        }
+        
+    }
+        
     open func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType {
         
         return .fixed(height: 44.0)
@@ -36,21 +51,21 @@ open class CHTableViewController: UITableViewController {
         
     }
     
-    func tableView(_ tableView: UITableView, configurationForRowAt indexPath: IndexPath) { }
+    open func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) { }
     
-    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath)
+        let cell = tableView.dequeueReusableCell(for: indexPath)
         
-//        if
-//            cell.containerView == nil,
-//            let containerView = self.tableView(tableView, containerViewForRowAt: indexPath) {
-//            
-//            cell.setUp(containerView: containerView)
-//            
-//        }
-//        
-//        self.tableView(tableView, configurationForRowAt: indexPath)
+        if
+            cell.containerView == nil,
+            let containerView = self.tableView(tableView, containerViewForRowAt: indexPath) {
+            
+            cell.setUp(containerView: containerView)
+            
+        }
+        
+        self.configure(cell: cell, forRowAt: indexPath)
         
         return cell
         
