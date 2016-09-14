@@ -23,6 +23,7 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     public init(fetchedResultsController: NSFetchedResultsController<NSManagedObject>) {
         
         self.fetchedResultsController = fetchedResultsController
+        fetchedResultsController.delegate = self
         
         super.init(style: .plain)
         

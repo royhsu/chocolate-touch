@@ -95,7 +95,10 @@ public class CatalogueTableViewController: CHTableViewController {
         switch row {
         case .fetchedResultsTableView:
             
-            break
+            let controller = FriendListTableViewController()
+            controller.title = row.title
+            
+            show(controller, sender: nil)
             
         case .DynamicCellContent:
             

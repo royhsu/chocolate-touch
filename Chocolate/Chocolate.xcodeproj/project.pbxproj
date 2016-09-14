@@ -17,6 +17,7 @@
 		B060B06A1D2CD0D100A194FA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0691D2CD0D100A194FA /* UserModel.swift */; };
 		B060B06F1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B06E1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift */; };
 		B0615C1B1D894B0A00816654 /* CHTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0615C191D89496900816654 /* CHTableViewCell.swift */; };
+		B0615C1D1D89512000816654 /* FriendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0615C1C1D89512000816654 /* FriendListTableViewController.swift */; };
 		B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */; };
 		B069892B1D30D41900EA6123 /* CHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892A1D30D41900EA6123 /* CHCache.swift */; };
 		B0956ACD1D2916D6000BC8D0 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0956ACB1D2916D6000BC8D0 /* Main.xcdatamodeld */; };
@@ -86,6 +87,7 @@
 		B060B0691D2CD0D100A194FA /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		B060B06E1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0615C191D89496900816654 /* CHTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewCell.swift; sourceTree = "<group>"; };
+		B0615C1C1D89512000816654 /* FriendListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewController.swift; sourceTree = "<group>"; };
 		B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTableViewController.swift; sourceTree = "<group>"; };
 		B069892A1D30D41900EA6123 /* CHCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCache.swift; sourceTree = "<group>"; };
 		B0956ACC1D2916D6000BC8D0 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		B0FA96711D892B19002D13AC /* FetchedResultsTableView */ = {
 			isa = PBXGroup;
 			children = (
+				B0615C1C1D89512000816654 /* FriendListTableViewController.swift */,
 			);
 			path = FetchedResultsTableView;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0615C1D1D89512000816654 /* FriendListTableViewController.swift in Sources */,
 				B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */,
 				B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */,
 				B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */,
