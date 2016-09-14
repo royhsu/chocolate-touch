@@ -15,7 +15,7 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
 
     // MARK: Property
 
-    internal let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
+    public let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
     
     
     // MARK: Initializer
@@ -23,9 +23,10 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     public init(fetchedResultsController: NSFetchedResultsController<NSManagedObject>) {
         
         self.fetchedResultsController = fetchedResultsController
-        fetchedResultsController.delegate = self
         
         super.init(style: .plain)
+        
+        fetchedResultsController.delegate = self
         
     }
     
@@ -62,9 +63,13 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
         do {
             
             try fetchedResultsController.performFetch()
-
+            
         }
-        catch { print(error.localizedDescription) }
+        catch {
+            
+            print(error.localizedDescription)
+        
+        }
         
     }
     
@@ -72,7 +77,7 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     // MARK: UITableViewDataSource
     
     open override func numberOfSections(in tableView: UITableView) -> Int {
-     
+        
         return fetchedResultsController.sections?.count ?? 0
         
     }

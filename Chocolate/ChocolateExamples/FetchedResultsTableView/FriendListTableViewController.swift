@@ -80,11 +80,7 @@ class FriendListTableViewController: CHFetchedResultsTableViewController {
         let model = NSManagedObjectModel()
         model.entities.append(entity)
         
-        let storeURL = URL.fileURL(filename: "Friend", withExtension: "sqlite", in: .document(domainMask: .userDomainMask))
-        
-        print("Store url: \(storeURL)")
-        
-        return try! CoreDataStack(name: "", model: model, options: nil, storeType: .local(storeURL: storeURL))
+        return try! CoreDataStack(name: "", model: model, options: nil, storeType: .memory)
         
     }
     
@@ -92,20 +88,39 @@ class FriendListTableViewController: CHFetchedResultsTableViewController {
     
         let context = stack.viewContext
         
-        let roy = NSEntityDescription.insertNewObject(forEntityName: "Person", into: context)
-        roy.setValue("Roy", forKey: "name")
-        roy.setValue("r", forKey: "firstLetterOfName")
+        let names = [ "Roy", "Allen", "Alex", "Bob", "Christen", "Tiffany", "Helen", "Kevin", "David", "Kitty", "Darren", "Candy", "Carol" ]
         
-        let allen = NSEntityDescription.insertNewObject(forEntityName: "Person", into: context)
-        allen.setValue("Allen", forKey: "name")
-        allen.setValue("a", forKey: "firstLetterOfName")
-        
-        let alex = NSEntityDescription.insertNewObject(forEntityName: "Person", into: context)
-        alex.setValue("Alex", forKey: "name")
-        alex.setValue("a", forKey: "firstLetterOfName")
+        names.forEach { insert(name: $0, in: context) }
         
         try! context.save()
     
+    }
+    
+    private func insert(name: String, in context: NSManagedObjectContext) {
+    
+        let person = NSEntityDescription.insertNewObject(forEntityName: "Person", into: context)
+        person.setValue(name, forKey: "name")
+        let firstCharacter = name[name.startIndex]
+        let lowercasedFirstCharacter = String(firstCharacter).lowercased()
+        person.setValue(lowercasedFirstCharacter, forKey: "firstLetterOfName")
+    
+    }
+    
+    
+    // MARK: UITableViewDataSource
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return fetchedResultsController.sections?[section].name.uppercased()
+        
+    }
+    
+    override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
+        
+        let person = fetchedResultsController.object(at: indexPath)
+        
+        cell.textLabel?.text = person.value(forKey: "name") as? String
+        
     }
     
 }
