@@ -6,7 +6,6 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
-import CHFoundation
 import UIKit
 
 public extension UITableView {
@@ -20,12 +19,6 @@ public extension UITableView {
     func dequeueReusableCell<Cell: CHTableViewCell>(for indexPath: IndexPath) -> Cell {
         
         return dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as! Cell
-        
-    }
-    
-    func cellForRow<Cell: CHTableViewCell>(at indexPath: IndexPath) -> Cell? {
-        
-        return cellForRow(at: indexPath)
         
     }
     

@@ -9,7 +9,7 @@
 import CHFoundation
 import CoreData
 
-public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate {
+open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate {
     
     
     // MARK: Property
@@ -64,9 +64,9 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     
     // MARK: View Life Cycle
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         
-        tableView.register(CHTableViewCell.self)
+//        tableView.register(CHTableViewCell.self)
         
 //        webServiceController.delegate = self
         

@@ -10,7 +10,7 @@ import CHFoundation
 import Chocolate
 import CoreData
 
-public class CatalogueTableViewController: CHSingleCellTypeTableViewController<CHTableViewCell> {
+public class CatalogueTableViewController: UITableViewController {
 
     enum Row: Int {
         
@@ -18,6 +18,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         case CoreDataIntegration
         case WebServiceIntegration
         case CacheIntegration
+        case fetchedResultsTableView
         
         var title: String {
             
@@ -26,6 +27,7 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
             case .CoreDataIntegration: return "Core Data Integration"
             case .WebServiceIntegration: return "Web Service Integration"
             case .CacheIntegration: return "Cache Integration"
+            case .fetchedResultsTableView: return "Fetched Results Table View"
             }
             
         }
@@ -35,14 +37,28 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
     
     // MARK: Property
     
-    let rows: [Row] = [ .DynamicCellContent, .CoreDataIntegration, .WebServiceIntegration, .CacheIntegration ]
+    let rows: [Row] = [
+        .fetchedResultsTableView,
+        .DynamicCellContent,
+        .CoreDataIntegration,
+        .WebServiceIntegration,
+        .CacheIntegration
+    ]
     
     
     // MARK: Init
     
-    init() { super.init(cellType: CHTableViewCell.self) }
+    public init() {
+        
+        super.init(style: .plain)
+        
+    }
     
-    required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    required public init?(coder aDecoder: NSCoder) {
+        
+        fatalError()
+    
+    }
     
     
     // MARK: View Life Cycle
@@ -51,22 +67,37 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         super.viewDidLoad()
         
         navigationItem.title = "Chocolate"
+        tableView.register(CHTableViewCell.self)
         
     }
     
     
     // MARK: UITableViewDataSource
     
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return rows.count }
-    
-    
-    // MARK: TWTableViewControllerProtocol
-    
-    public override func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType { return .fixed(height: 44.0) }
-    
-    public override func tableView(_ tableView: UITableView, configurationFor cell: CHTableViewCell, at indexPath: IndexPath) -> CHTableViewCell {
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        cell.textLabel?.text = rows[indexPath.row].title
+        return rows.count
+    
+    }
+    
+    
+    
+    
+    // MARK: UITableViewDataSource
+    
+    public func tableView(_ tableView: UITableView, configurationForRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        cell?.textLabel?.text = rows[indexPath.row].title
+        
+    }
+    
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(for: indexPath)
+        
+        cell.textLabel?.text = "test"
         
         return cell
         
@@ -80,33 +111,42 @@ public class CatalogueTableViewController: CHSingleCellTypeTableViewController<C
         let row = rows[indexPath.row]
         
         switch row {
+        case .fetchedResultsTableView:
+            
+            break
+            
         case .DynamicCellContent:
             
-            let controller = DynamicCellContentTableViewController()
-            controller.navigationItem.title = row.title
-            
-            show(controller, sender: nil)
+//            let controller = DynamicCellContentTableViewController()
+//            controller.navigationItem.title = row.title
+//            
+//            show(controller, sender: nil)
+            break
             
         case .CoreDataIntegration:
             
-            let controller = CoreDataIntegrationTableViewController(modelName: "Main", at: .document(mask: .userDomainMask))
-            controller.navigationItem.title = row.title
+//            let controller = CoreDataIntegrationTableViewController(modelName: "Main", at: .document(mask: .userDomainMask))
+//            controller.navigationItem.title = row.title
+//            
+//            show(controller, sender: nil)
             
-            show(controller, sender: nil)
+            break
             
         case .WebServiceIntegration:
             
-            let controller = WebServiceIntegrationTableViewController()
-            controller.navigationItem.title = row.title
-            
-            show(controller, sender: nil)
+//            let controller = WebServiceIntegrationTableViewController()
+//            controller.navigationItem.title = row.title
+//            
+//            show(controller, sender: nil)
+            break
             
         case .CacheIntegration:
             
-            let controller = CacheIntegrationTableViewController()
-            controller.navigationItem.title = row.title
-            
-            show(controller, sender: nil)
+//            let controller = CacheIntegrationTableViewController()
+//            controller.navigationItem.title = row.title
+//            
+//            show(controller, sender: nil)
+            break
         }
         
     }

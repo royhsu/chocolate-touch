@@ -10,7 +10,7 @@ import Chocolate
 
 public typealias ContentTableViewCell = TemplateTableViewCell
 
-public class DynamicCellContentTableViewController: CHSingleCellTypeTableViewController<ContentTableViewCell> {
+public class DynamicCellContentTableViewController: UIViewController {
     
     public struct Content {
         
@@ -39,27 +39,27 @@ public class DynamicCellContentTableViewController: CHSingleCellTypeTableViewCon
     
     // MARK: Init
     
-    public init() { super.init(nibType: ContentTableViewCell.self) }
+//    public init() { super.init(nibType: ContentTableViewCell.self) }
     
     required public init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     
     // MARK: UITableViewDataSource
-    
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return contents.count }
-    
+//    
+//    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return contents.count }
+//    
     
     // MARK: CHSingleCellTypeTableViewControllerProtocol
     
-    public override func tableView(_ tableView: UITableView, configurationFor cell: ContentTableViewCell, at indexPath: IndexPath) -> ContentTableViewCell {
-        
-        let content = contents[indexPath.row]
-
-        cell.titleLabel.text = content.title
-        cell.bodyLabel.text = content.body
-        
-        return cell
-        
-    }
+//    public override func tableView(_ tableView: UITableView, configurationFor cell: ContentTableViewCell, at indexPath: IndexPath) -> ContentTableViewCell {
+//        
+//        let content = contents[indexPath.row]
+//
+//        cell.titleLabel.text = content.title
+//        cell.bodyLabel.text = content.body
+//        
+//        return cell
+//        
+//    }
     
 }
