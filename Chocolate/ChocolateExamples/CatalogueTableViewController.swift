@@ -81,7 +81,7 @@ public class CatalogueTableViewController: CHTableViewController {
     
     public override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
         
-        cell.textLabel?.text = "test"
+        cell.textLabel?.text = rows[indexPath.row].title
         
     }
     
