@@ -8,13 +8,27 @@
 
 import UIKit
 
-open class CHTableViewController: UITableViewController, CHTableViewDataSource {
+open class CHTableViewController: UITableViewController {
     
     
-    // MARK: CHTableViewDataSource
+    // MARK: UITableViewDataSource
     
-    public func tableView(_ tableView: UITableView, heightTypeForRowAt: IndexPath) -> HeightType { return .dynamic }
-    
-    public func tableView(_ tableView: UITableView, cellContentViewForRowAt indexPath: IndexPath) -> UIView? { return nil }
+    final override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(for: indexPath)
+        
+        if
+            cell.containerView == nil,
+            let containerView = self.tableView(tableView, containerViewForRowAt: indexPath) {
+            
+            cell.setUp(containerView: containerView)
+            
+        }
+        
+        self.tableView(tableView, configurationForRowAt: indexPath)
+        
+        return cell
+        
+    }
     
 }

@@ -84,13 +84,13 @@ public class CHSingleCellTypeTableViewController<Cell: UITableViewCell>: CHTable
         
     }
     
-    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell: Cell = tableView.dequeueReusableCell(for: indexPath) as! Cell
-        
-        return self.tableView(tableView, configurationFor: cell, at: indexPath)
-        
-    }
+//    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        
+//        let cell: Cell = tableView.dequeueReusableCell(for: indexPath) as! Cell
+//        
+//        return self.tableView(tableView, configurationFor: cell, at: indexPath)
+//        
+//    }
     
     
     // MARK: CHSingleCellTypeTableViewControllerProtocol

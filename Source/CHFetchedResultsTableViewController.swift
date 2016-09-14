@@ -16,18 +16,6 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     // MARK: Property
 
     internal let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
-//    internal var cacheStack: CoreDataStack?
-//    internal var storeType: CoreDataStack.StoreType {
-//        
-//        let storeURL = URL.fileURL(
-//            filename: "Cache",
-//            withExtension: "momd",
-//            in: .document(domainMask: .userDomainMask)
-//        )
-//        
-//        return .local(storeURL: storeURL)
-//        
-//    }
     
     
     // MARK: Initializer
@@ -73,12 +61,9 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
         do {
             
             try fetchedResultsController.performFetch()
-            
-//            cacheStack = try setUpCacheStack()
-//            fetchedResultsController = try setUpFetchedResulsController()
-//        
+
         }
-        catch { print("CHFetchedResultsTableViewController: \(error)") }
+        catch { print(error.localizedDescription) }
         
     }
     
@@ -99,49 +84,78 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
         
     }
     
+}
+
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension CHFetchedResultsTableViewController: NSFetchedResultsControllerDelegate {
     
-    // MARK: Set Up
+    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        tableView.beginUpdates()
+        
+    }
     
-//    private func setUpCacheStack() throws -> CoreDataStack {
-//        
-//        do {
-//            
-//            return try CoreDataStack(
-//                name: "Cache",
-//                model: NSManagedObjectModel(),
-//                options: [
-//                    NSMigratePersistentStoresAutomaticallyOption: true,
-//                    NSInferMappingModelAutomaticallyOption: true
-//                ],
-//                storeType: storeType
-//            )
-//            
-//        }
-//        catch { throw error }
-//        
-//    }
-//    
-//    public enum SetUpFetchedResulsControllerError: Swift.Error {
-//        case noContext
-//    }
-//    
-//    private func setUpFetchedResulsController() throws -> NSFetchedResultsController<NSManagedObject> {
-//        
-//        guard let context = cacheStack?.viewContext
-//            else { throw SetUpFetchedResulsControllerError.noContext }
-//        
-//        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-//        backgroundContext.parent = context
-//        
-//        let controller = NSFetchedResultsController(
-//            fetchRequest: fetchRequest,
-//            managedObjectContext: backgroundContext,
-//            sectionNameKeyPath: nil,
-//            cacheName: nil
-//        )
-//        
-//        return controller
-//        
-//    }
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case .insert:
+            
+            tableView.insertSections(
+                IndexSet(integer: sectionIndex),
+                with: .automatic
+            )
+            
+        case .delete:
+            
+            tableView.deleteSections(
+                IndexSet(integer: sectionIndex),
+                with: .automatic
+            )
+            
+        case .move, .update: break
+        }
+        
+    }
+    
+    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            
+            tableView.insertRows(
+                at: [ newIndexPath! ],
+                with: .automatic
+            )
+            
+        case .delete:
+            
+            tableView.deleteRows(
+                at: [ indexPath! ],
+                with: .automatic
+            )
+            
+        case .move:
+            
+            tableView.deleteRows(
+                at: [ indexPath! ],
+                with: .automatic
+            )
+            tableView.insertRows(
+                at: [ indexPath! ],
+                with: .automatic
+            )
+            
+        case .update: break
+        }
+        
+    }
+    
+    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        tableView.endUpdates()
+        
+    }
     
 }

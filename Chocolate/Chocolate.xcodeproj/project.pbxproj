@@ -39,7 +39,7 @@
 		B0971D331D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D301D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift */; };
 		B0971D341D280DC4005BBEE8 /* TemplateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */; };
 		B0971D351D280DC4005BBEE8 /* TemplateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */; };
-		B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */; };
+		B09AF06C1D3628EE000B7429 /* UITableViewDataSource+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06B1D3628EE000B7429 /* UITableViewDataSource+Extensions.swift */; };
 		B09AF06E1D3639ED000B7429 /* CacheContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF06D1D3639ED000B7429 /* CacheContentView.swift */; };
 		B09AF0701D3639F3000B7429 /* CacheContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09AF06F1D3639F3000B7429 /* CacheContentView.xib */; };
 		B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF0711D36439A000B7429 /* UIView+Extensions.swift */; };
@@ -114,7 +114,7 @@
 		B0971D301D280DC4005BBEE8 /* DynamicCellContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCellContentTableViewController.swift; sourceTree = "<group>"; };
 		B0971D311D280DC4005BBEE8 /* TemplateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateTableViewCell.swift; sourceTree = "<group>"; };
 		B0971D321D280DC4005BBEE8 /* TemplateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateTableViewCell.xib; sourceTree = "<group>"; };
-		B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewDataSource.swift; sourceTree = "<group>"; };
+		B09AF06B1D3628EE000B7429 /* UITableViewDataSource+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewDataSource+Extensions.swift"; sourceTree = "<group>"; };
 		B09AF06D1D3639ED000B7429 /* CacheContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheContentView.swift; sourceTree = "<group>"; };
 		B09AF06F1D3639F3000B7429 /* CacheContentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CacheContentView.xib; sourceTree = "<group>"; };
 		B09AF0711D36439A000B7429 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -232,7 +232,7 @@
 		B0971CF71D280536005BBEE8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B09AF06B1D3628EE000B7429 /* CHTableViewDataSource.swift */,
+				B09AF06B1D3628EE000B7429 /* UITableViewDataSource+Extensions.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0F919C51D8687260075B956 /* CHFetchedResultsTableViewController.swift */,
 				B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */,
@@ -585,7 +585,7 @@
 				B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B0971CFF1D280536005BBEE8 /* CHTableViewCell.swift in Sources */,
-				B09AF06C1D3628EE000B7429 /* CHTableViewDataSource.swift in Sources */,
+				B09AF06C1D3628EE000B7429 /* UITableViewDataSource+Extensions.swift in Sources */,
 				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
 				B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */,
 				B069892B1D30D41900EA6123 /* CHCache.swift in Sources */,

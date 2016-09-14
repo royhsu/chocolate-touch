@@ -231,23 +231,23 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
         
     }
     
-    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell: CHTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        
-        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        if let cellContentView = self.tableView(tableView, cellContentViewForRowAt: indexPath) {
-            
-            cell.contentView.addSubview(cellContentView)
-            
-            cellContentView.pinEgdesToSuperview()
-            
-        }
-        
-        return cell
-        
-    }
+//    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        
+//        let cell: CHTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+//        
+//        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+//        
+//        if let cellContentView = self.tableView(tableView, cellContentViewForRowAt: indexPath) {
+//            
+//            cell.contentView.addSubview(cellContentView)
+//            
+//            cellContentView.pinEgdesToSuperview()
+//            
+//        }
+//        
+//        return cell
+//        
+//    }
     
     public final func tableView(_ tableView: UITableView, jsonObjectForRowAt indexPath: IndexPath) -> AnyObject? {
         
