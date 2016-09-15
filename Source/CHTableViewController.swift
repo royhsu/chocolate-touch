@@ -30,12 +30,14 @@ open class CHTableViewController: UITableViewController {
     
     open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let heightType = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
         
-        switch heightType {
-        case .dynamic: return UITableViewAutomaticDimension
-        case .fixed(let height): return height
+        switch cellHeight {
+        case .dynamic: tableView.rowHeight = UITableViewAutomaticDimension
+        case .fixed(let height): tableView.rowHeight = height
         }
+        
+        return tableView.rowHeight
         
     }
         

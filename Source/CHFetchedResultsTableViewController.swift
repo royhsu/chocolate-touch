@@ -10,29 +10,23 @@ import CHFoundation
 import CoreData
 import UIKit
 
-open class CHFetchedResultsTableViewController: CHTableViewController {
+open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTableViewController, NSFetchedResultsControllerDelegate {
 
 
     // MARK: Property
 
-    public let fetchedResultsController: NSFetchedResultsController<NSManagedObject>
+    public var fetchedResultsController: NSFetchedResultsController<Entity>? {
+        
+        didSet { fetchedResultsControllerDidSet() }
+    
+    }
     
     
     // MARK: Initializer
     
-    public init(fetchedResultsController: NSFetchedResultsController<NSManagedObject>) {
-        
-        self.fetchedResultsController = fetchedResultsController
+    public init() {
         
         super.init(style: .plain)
-        
-        fetchedResultsController.delegate = self
-        
-    }
-    
-    private init() {
-        
-        fatalError()
         
     }
     
@@ -55,10 +49,21 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     }
     
     
-    // MARK: View Life Cycle
+    // MARK: Observer
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    private func fetchedResultsControllerDidSet() {
+        
+        guard
+            let fetchedResultsController = fetchedResultsController
+            else {
+            
+                tableView.reloadData()
+                
+                return
+            
+            }
+        
+        fetchedResultsController.delegate = self
         
         do {
             
@@ -68,7 +73,7 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
         catch {
             
             print(error.localizedDescription)
-        
+            
         }
         
     }
@@ -76,34 +81,30 @@ open class CHFetchedResultsTableViewController: CHTableViewController {
     
     // MARK: UITableViewDataSource
     
-    open override func numberOfSections(in tableView: UITableView) -> Int {
+    public final override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return fetchedResultsController.sections?.count ?? 0
+        return fetchedResultsController?.sections?.count ?? 0
         
     }
     
-    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let sectionInfo = fetchedResultsController.sections?[section]
+        let sectionInfo = fetchedResultsController?.sections?[section]
         
         return sectionInfo?.numberOfObjects ?? 0
         
     }
     
-}
-
-
-// MARK: - NSFetchedResultsControllerDelegate
-
-extension CHFetchedResultsTableViewController: NSFetchedResultsControllerDelegate {
     
-    public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    // MARK: NSFetchedResultsControllerDelegate
+    
+    public final func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         tableView.beginUpdates()
         
     }
     
-    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         
         switch type {
         case .insert:
@@ -125,7 +126,7 @@ extension CHFetchedResultsTableViewController: NSFetchedResultsControllerDelegat
         
     }
     
-    public func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
         case .insert:
@@ -158,7 +159,7 @@ extension CHFetchedResultsTableViewController: NSFetchedResultsControllerDelegat
         
     }
     
-    public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         tableView.endUpdates()
         

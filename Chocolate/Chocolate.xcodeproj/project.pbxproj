@@ -10,6 +10,10 @@
 		0E8C8A21D207F5ECE5F491FD /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46DF0C8CA86DA4C907DC1D91 /* Pods_ChocolateExamples.framework */; };
 		7E1FA4BAC41B4036D458F48A /* Pods_ChocolateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2EB873348F0DA86401960D /* Pods_ChocolateTests.framework */; };
 		B05C6F951D8A9D6E00B32BB6 /* CHCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */; };
+		B05C6F971D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */; };
+		B05C6F991D8ADAEF00B32BB6 /* CHCacheEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F981D8ADAEF00B32BB6 /* CHCacheEntity+CoreDataClass.swift */; };
+		B05C6F9B1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F9A1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift */; };
+		B05C6F9D1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F9C1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift */; };
 		B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */; };
 		B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */; };
 		B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0651D2C893800A194FA /* CHWebServiceController.swift */; };
@@ -80,6 +84,10 @@
 		7E8F728D1C8C04C6F8C6D03B /* Pods-Chocolate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.debug.xcconfig"; sourceTree = "<group>"; };
 		9D0E48B1A0D49BE4EF638191 /* Pods-ChocolateExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.release.xcconfig"; sourceTree = "<group>"; };
 		B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTests.swift; sourceTree = "<group>"; };
+		B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTableViewControllerTests.swift; sourceTree = "<group>"; };
+		B05C6F981D8ADAEF00B32BB6 /* CHCacheEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHCacheEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B05C6F9A1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHCacheEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B05C6F9C1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHCacheEntity+Extensions.swift"; sourceTree = "<group>"; };
 		B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceTableViewController.swift; sourceTree = "<group>"; };
 		B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceSectionInfo.swift; sourceTree = "<group>"; };
 		B060B0651D2C893800A194FA /* CHWebServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceController.swift; sourceTree = "<group>"; };
@@ -235,14 +243,17 @@
 				B0615C191D89496900816654 /* CHTableViewCell.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
 				B0F919C51D8687260075B956 /* CHFetchedResultsTableViewController.swift */,
+				B069892A1D30D41900EA6123 /* CHCache.swift */,
+				B05C6F981D8ADAEF00B32BB6 /* CHCacheEntity+CoreDataClass.swift */,
+				B05C6F9A1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift */,
+				B05C6F9C1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift */,
+				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
 				B0971CFB1D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift */,
 				B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */,
 				B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */,
 				B060B0651D2C893800A194FA /* CHWebServiceController.swift */,
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
-				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
-				B069892A1D30D41900EA6123 /* CHCache.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -253,6 +264,7 @@
 			children = (
 				B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */,
 				B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */,
+				B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */,
 				B0971D111D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift */,
 				B060B0671D2CCA1100A194FA /* CHWebServiceControllerTests.swift */,
 				B060B0691D2CD0D100A194FA /* UserModel.swift */,
@@ -585,12 +597,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B05C6F9B1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift in Sources */,
 				B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */,
 				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
 				B0971D001D280536005BBEE8 /* CHSingleCellTypeTableViewController.swift in Sources */,
 				B0F919C61D8687260075B956 /* CHFetchedResultsTableViewController.swift in Sources */,
+				B05C6F9D1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift in Sources */,
 				B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */,
 				B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */,
+				B05C6F991D8ADAEF00B32BB6 /* CHCacheEntity+CoreDataClass.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B0615C1B1D894B0A00816654 /* CHTableViewCell.swift in Sources */,
 				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
@@ -611,6 +626,7 @@
 				B0971D121D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift in Sources */,
 				B0971D151D280C44005BBEE8 /* TestTableViewCell.swift in Sources */,
 				B0956AE21D293D21000BC8D0 /* CityEntity+CoreDataProperties.swift in Sources */,
+				B05C6F971D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

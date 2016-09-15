@@ -25,49 +25,8 @@ public class CHTableViewCell: UITableViewCell {
         self.containerView = containerView
         
         self.contentView.addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        let leadingConstraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .leading,
-            relatedBy: .equal,
-            toItem: contentView,
-            attribute: .leading,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let topConstraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .top,
-            relatedBy: .equal,
-            toItem: contentView,
-            attribute: .top,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let leftConstraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .left,
-            relatedBy: .equal,
-            toItem: contentView,
-            attribute: .left,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let bottomConstraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .bottom,
-            relatedBy: .equal,
-            toItem: contentView,
-            attribute: .bottom,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        contentView.addConstraints([ leadingConstraint, topConstraint, leftConstraint, bottomConstraint ])
+        containerView.pinEdgesToSuperview()
         
     }
     
@@ -82,6 +41,65 @@ extension CHTableViewCell: Identifiable {
         
         return String(describing: self)
     
+    }
+    
+}
+
+
+// MARK: UIView
+
+private extension UIView {
+    
+    func pinEdgesToSuperview() {
+        
+        guard
+            let superview = self.superview
+            else { fatalError("No superview exists.") }
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        let leading = NSLayoutConstraint(
+            item: self,
+            attribute: .leading,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .leading,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let top = NSLayoutConstraint(
+            item: self,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let trailing = NSLayoutConstraint(
+            item: self,
+            attribute: .trailing,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .trailing,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        let bottom = NSLayoutConstraint(
+            item: self,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: superview,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: 0.0
+        )
+        
+        superview.addConstraints([ leading, top, trailing, bottom ])
+        
     }
     
 }

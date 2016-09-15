@@ -14,7 +14,6 @@ public class CHCache {
     
     private struct Constant {
         static let filename = "Cache"
-        static let entityName = "Cache"
     }
     
     
@@ -24,7 +23,7 @@ public class CHCache {
     
     public private(set) var stack: CoreDataStack?
     
-    private var storeURL: URL {
+    private var defaultStoreURL: URL {
         
         return URL.fileURL(
             filename: Constant.filename,
@@ -37,9 +36,9 @@ public class CHCache {
     
     // MARK: Core Data Stack
     
-    public func setUpCacheStack(in storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
+    public func setUpCacheStack(in storeType: CoreDataStack.StoreType? = nil) -> Promise<CoreDataStack> {
         
-        let storeType = storeType ?? .local(storeURL: storeURL)
+        let storeType = storeType ?? .local(storeURL: defaultStoreURL)
         
         return Promise { fulfill, reject in
             
@@ -47,7 +46,7 @@ public class CHCache {
                 
                 let cacheModel = CHCache.createCacheModel()
                 
-                stack = try CoreDataStack(
+                let stack = try CoreDataStack(
                     name: "",
                     model: cacheModel,
                     options: [
@@ -57,7 +56,9 @@ public class CHCache {
                     storeType: storeType
                 )
                 
-                fulfill()
+                self.stack = stack
+                
+                fulfill(stack)
                 
             }
             catch { reject(error) }
@@ -84,8 +85,8 @@ public class CHCache {
         createdAt.isOptional = false
         
         let entity = NSEntityDescription()
-        entity.name = Constant.entityName
-        entity.managedObjectClassName = Constant.entityName
+        entity.name = CHCacheEntity.entityName
+        entity.managedObjectClassName = CHCacheEntity.entityName
         entity.properties.append(identifier)
         entity.properties.append(data)
         entity.properties.append(createdAt)
