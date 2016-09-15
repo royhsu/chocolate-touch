@@ -8,85 +8,86 @@
 
 import CHFoundation
 import CoreData
+import PromiseKit
 
 public class CHCache {
+    
+    private struct Constant {
+        static let filename = "Cache"
+        static let entityName = "Cache"
+    }
     
     
     // MARK: Property
     
-    public let identifier: String
-    public let stack: CoreDataStack
+    public static let `default` = CHCache()
     
-    public static let schema = CHCacheSchema()
+    public private(set) var stack: CoreDataStack?
     
-    
-    // MARK: Init
-    
-    public init(identifier: String, stack: CoreDataStack) {
+    private var storeURL: URL {
         
-        self.identifier = identifier
-        self.stack = stack
-        
+        return URL.fileURL(
+            filename: Constant.filename,
+            withExtension: "sqlite",
+            in: .document(domainMask: .userDomainMask)
+        )
+    
     }
     
     
-    // MARK: Clean Up
+    // MARK: Core Data Stack
     
-    public typealias CleanUpSuccessHandler = () -> Void
-    public typealias CleanUpFailHandler = (_ error: Error) -> Void
-    
-    public func cleanUp(successHandler: CleanUpSuccessHandler? = nil, failHandler: CleanUpFailHandler? = nil) {
+    public func setUpCacheStack() -> Promise<Void> {
         
-//        let fetchRequest = CHCacheSchema.fetchRequest
-//        fetchRequest.predicate = Predicate(format: "id == %@", identifier)
-//        
-//        let writerContext = stack.writerContext
-//        
-//        let storeRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
-//            
-//            guard
-//                let objects = result.finalResult,
-//                !objects.isEmpty
-//                else {
-//                
-//                DispatchQueue.main.async { successHandler?() }
-//            
-//                return
-//                
-//            }
-//            
-//            objects.forEach { writerContext.delete($0) }
-//            
-//            do {
-//                
-//                try writerContext.save()
-//                DispatchQueue.main.async { successHandler?() }
-//                
-//            }
-//            catch {
-//                
-//                DispatchQueue.main.async { failHandler?(error: error) }
-//            
-//            }
-//            
-//        }
-//        
-//        writerContext.performAndWait {
-//            
-//            do {
-//            
-//                try writerContext.execute(storeRequest)
-//                
-//            }
-//            catch {
-//                
-//                DispatchQueue.main.async { failHandler?(error: error) }
-//                
-//            }
-//            
-//        }
+        return Promise { fulfill, reject in
+            
+            do {
+                
+                let cacheModel = CHCache.createCacheModel()
+                
+                stack = try CoreDataStack(
+                    name: "",
+                    model: cacheModel,
+                    options: [:],
+                    storeType: .local(storeURL: storeURL)
+                )
+                
+            }
+            catch { reject(error) }
+            
+        }
+        
+    }
+    
+    internal class func createCacheModel() -> NSManagedObjectModel {
+        
+        let identifier = NSAttributeDescription()
+        identifier.name = "identifier"
+        identifier.attributeType = .stringAttributeType
+        identifier.isOptional = false
+        
+        let data = NSAttributeDescription()
+        data.name = "data"
+        data.attributeType = .stringAttributeType
+        data.isOptional = false
+        
+        let createdAt = NSAttributeDescription()
+        createdAt.name = "createdAt"
+        createdAt.attributeType = .dateAttributeType
+        createdAt.isOptional = false
+        
+        let entity = NSEntityDescription()
+        entity.name = Constant.entityName
+        entity.managedObjectClassName = Constant.entityName
+        entity.properties.append(identifier)
+        entity.properties.append(data)
+        entity.properties.append(createdAt)
+        
+        let model = NSManagedObjectModel()
+        model.entities.append(entity)
+        
+        return model
         
     }
 
 }
-

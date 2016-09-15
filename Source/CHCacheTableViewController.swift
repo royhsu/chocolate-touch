@@ -72,9 +72,9 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
         do {
             
-            let cacheStack = try setUpCacheStack(name: "Cache")
+//            let cacheStack = try setUpCacheStack(name: "Cache")
             
-            cache = CHCache(identifier: cacheIdentifier, stack: cacheStack)
+//            cache = CHCache(identifier: cacheIdentifier, stack: cacheStack)
             
 //            fetchedResultsController = try setUpFetchResultsController(with: cacheStack.writerContext)
             
@@ -191,11 +191,11 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     
     public final func refreshData() {
         
-        cache?.cleanUp(successHandler: { [weak self] in
-            
-            self?.fetchData()
-        
-        })
+//        cache?.cleanUp(successHandler: { [weak self] in
+//            
+//            self?.fetchData()
+//        
+//        })
         
     }
     
@@ -273,11 +273,11 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     
     public final func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
         
-        guard let cache = cache else { return }
-        let writerContext = cache.stack.viewContext
+//        guard let cache = cache else { return }
+//        let writerContext = cache.stack.viewContext
+//        
+//        writerContext.performAndWait {
         
-        writerContext.performAndWait {
-            
 //            do {
                 
 //                let jsonObjects = objects.map { $0 as AnyObject }
@@ -315,7 +315,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
 //                
 //            }
             
-        }
+//        }
         
     }
     

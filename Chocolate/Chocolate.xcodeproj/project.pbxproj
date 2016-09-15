@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0E8C8A21D207F5ECE5F491FD /* Pods_ChocolateExamples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46DF0C8CA86DA4C907DC1D91 /* Pods_ChocolateExamples.framework */; };
 		7E1FA4BAC41B4036D458F48A /* Pods_ChocolateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB2EB873348F0DA86401960D /* Pods_ChocolateTests.framework */; };
-		B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04385231D332F69008DABAC /* CHCacheSchema.swift */; };
+		B05C6F951D8A9D6E00B32BB6 /* CHCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */; };
 		B060B0621D2C0EFC00A194FA /* CHWebServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */; };
 		B060B0641D2C140000A194FA /* CHWebServiceSectionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */; };
 		B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B0651D2C893800A194FA /* CHWebServiceController.swift */; };
@@ -79,7 +79,7 @@
 		46DF0C8CA86DA4C907DC1D91 /* Pods_ChocolateExamples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChocolateExamples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E8F728D1C8C04C6F8C6D03B /* Pods-Chocolate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.debug.xcconfig"; sourceTree = "<group>"; };
 		9D0E48B1A0D49BE4EF638191 /* Pods-ChocolateExamples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateExamples.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateExamples/Pods-ChocolateExamples.release.xcconfig"; sourceTree = "<group>"; };
-		B04385231D332F69008DABAC /* CHCacheSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheSchema.swift; sourceTree = "<group>"; };
+		B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTests.swift; sourceTree = "<group>"; };
 		B060B0611D2C0EFC00A194FA /* CHWebServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceTableViewController.swift; sourceTree = "<group>"; };
 		B060B0631D2C140000A194FA /* CHWebServiceSectionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceSectionInfo.swift; sourceTree = "<group>"; };
 		B060B0651D2C893800A194FA /* CHWebServiceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHWebServiceController.swift; sourceTree = "<group>"; };
@@ -242,7 +242,6 @@
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
 				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
-				B04385231D332F69008DABAC /* CHCacheSchema.swift */,
 				B069892A1D30D41900EA6123 /* CHCache.swift */,
 			);
 			name = Source;
@@ -252,8 +251,9 @@
 		B0971D071D280ADB005BBEE8 /* ChocolateTests */ = {
 			isa = PBXGroup;
 			children = (
-				B0971D111D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift */,
 				B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */,
+				B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */,
+				B0971D111D280BC9005BBEE8 /* CHSingleCellTypeTableViewControllerTests.swift */,
 				B060B0671D2CCA1100A194FA /* CHWebServiceControllerTests.swift */,
 				B060B0691D2CD0D100A194FA /* UserModel.swift */,
 				B0971D131D280C44005BBEE8 /* TestTableViewCell.swift */,
@@ -594,7 +594,6 @@
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B0615C1B1D894B0A00816654 /* CHTableViewCell.swift in Sources */,
 				B060B0661D2C893800A194FA /* CHWebServiceController.swift in Sources */,
-				B04385241D332F69008DABAC /* CHCacheSchema.swift in Sources */,
 				B069892B1D30D41900EA6123 /* CHCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,6 +604,7 @@
 			files = (
 				B060B0681D2CCA1100A194FA /* CHWebServiceControllerTests.swift in Sources */,
 				B0956AD11D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift in Sources */,
+				B05C6F951D8A9D6E00B32BB6 /* CHCacheTests.swift in Sources */,
 				B060B06A1D2CD0D100A194FA /* UserModel.swift in Sources */,
 				B0956AE11D293D21000BC8D0 /* CityEntity.swift in Sources */,
 				B0956ADE1D293D0A000BC8D0 /* Test.xcdatamodeld in Sources */,

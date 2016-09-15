@@ -91,29 +91,4 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
         
     }
     
-//    func testInitWithFetchRequest() {
-//        
-//        let fetchRequest = NSFetchRequest<NSManagedObject>()
-//        fetchRequest.sortDescriptors = [
-//            NSSortDescriptor(key: "Test", ascending: true)
-//        ]
-//        class MockFetchedResultsTableViewController: CHFetchedResultsTableViewController {
-//            
-//            override var storeType: CoreDataStack.StoreType { return .memory }
-//            
-//        }
-//        
-//        let controller = MockFetchedResultsTableViewController(fetchRequest: fetchRequest)
-//        controller.view.isHidden = true // Trigger viewDidLoad.
-//        let cacheStack = controller.cacheStack
-//        let fetchedResultsController = controller.fetchedResultsController
-//        
-//        XCTAssertNotNil(cacheStack, "Cache stack should be initialized.")
-//        
-//        XCTAssertNotNil(fetchedResultsController, "Fetched results controller should be initialized.")
-//        
-//        let expectedNumberOfSections = controller.tableView.numberOfSections
-//        
-//    }
-    
 }
