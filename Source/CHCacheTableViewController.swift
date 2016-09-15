@@ -11,6 +11,8 @@ import CoreData
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity> {
     
+    // Todo: section
+    
     
     // MARK: Property
     

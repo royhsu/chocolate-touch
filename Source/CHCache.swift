@@ -86,7 +86,7 @@ public class CHCache {
         
         let entity = NSEntityDescription()
         entity.name = CHCacheEntity.entityName
-        entity.managedObjectClassName = CHCacheEntity.entityName
+        entity.managedObjectClassName = String(describing: CHCacheEntity.self)
         entity.properties.append(identifier)
         entity.properties.append(data)
         entity.properties.append(createdAt)

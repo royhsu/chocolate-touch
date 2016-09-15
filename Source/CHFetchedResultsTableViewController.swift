@@ -12,7 +12,9 @@ import UIKit
 
 open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTableViewController, NSFetchedResultsControllerDelegate {
 
-
+    // Todo: Emtpy page
+    
+    
     // MARK: Property
 
     public var fetchedResultsController: NSFetchedResultsController<Entity>? {

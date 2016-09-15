@@ -78,7 +78,8 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
             cacheName: nil
         )
         
-        let fetchedResultsTableViewController = CHFetchedResultsTableViewController(fetchedResultsController: fetchedResultsController)
+        let fetchedResultsTableViewController = CHFetchedResultsTableViewController()
+        fetchedResultsTableViewController.fetchedResultsController = fetchedResultsController
         let tableView = fetchedResultsTableViewController.tableView!
         tableView.isHidden = true
         

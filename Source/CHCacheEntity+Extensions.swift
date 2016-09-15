@@ -10,11 +10,7 @@ import CoreData
 
 public extension CHCacheEntity {
     
-    class var entityName: String {
-    
-        return String(describing: self)
-    
-    }
+    class var entityName: String { return "Cache" }
     
     @nonobjc public class var fetchRequest: NSFetchRequest<CHCacheEntity> {
         
