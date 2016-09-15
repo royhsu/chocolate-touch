@@ -75,4 +75,27 @@ class CHCacheTests: XCTestCase {
         
     }
     
+    func testInsertCache() {
+        
+        let expectation = self.expectation(description: "Insert a new cache.")
+        
+        let jsonObject: Dictionary = [
+            "name": "Roy"
+        ]
+        
+        let _ = cache!.setUpCacheStack(in: .memory)
+        
+        let _ = cache!
+            .insertWith(identifier: "test", section: "section 1", jsonObject: jsonObject)
+            .catch { error in
+            
+                XCTAssertNil(error, "Cannot insert a new cache \(error.localizedDescription).")
+                
+            }
+            .always { expectation.fulfill() }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+    }
+    
 }

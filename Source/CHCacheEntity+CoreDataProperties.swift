@@ -11,7 +11,8 @@ import Foundation
 public extension CHCacheEntity {
     
     @NSManaged public var identifier: String
+    @NSManaged public var section: String
     @NSManaged public var data: String
-    @NSManaged public var createdAt: NSDate
+    @NSManaged public var createdAt: Date
     
 }

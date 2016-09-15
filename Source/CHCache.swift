@@ -91,7 +91,7 @@ public class CHCache {
         
         let entity = NSEntityDescription()
         entity.name = CHCacheEntity.entityName
-        entity.managedObjectClassName = String(describing: CHCacheEntity.self)
+        entity.managedObjectClassName = CHCacheEntity.className
         entity.properties.append(identifier)
         entity.properties.append(data)
         entity.properties.append(createdAt)
@@ -101,6 +101,67 @@ public class CHCache {
         model.entities.append(entity)
         
         return model
+        
+    }
+    
+    enum InsertError: Error {
+        case stackNotReady
+    }
+    
+    func insertWith(identifier: String, section: String, jsonObject: Any) -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            guard let stack = stack else {
+                
+                reject(InsertError.stackNotReady)
+                
+                return
+            
+            }
+            
+            do {
+                
+                let jsonObjectString = try String(jsonObject: jsonObject)
+                
+                let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+                backgroundContext.parent = stack.viewContext
+                
+                backgroundContext.perform {
+                    
+                    let cache = CHCacheEntity.insert(into: backgroundContext)
+                    
+                    cache.identifier = identifier
+                    cache.section = section
+                    cache.data = jsonObjectString
+                    cache.createdAt = Date()
+                    
+                    do {
+                        
+                        try backgroundContext.save()
+                        
+                        let viewContext = stack.viewContext
+                        viewContext.perform {
+                            
+                            do {
+                                
+                                try viewContext.save()
+                                fulfill()
+
+                            }
+                            catch { reject(error) }
+                            
+                        }
+                        
+                    }
+                    catch { reject(error) }
+                    
+                }
+                
+            }
+            catch { reject(error) }
+        
+        }
         
     }
 
