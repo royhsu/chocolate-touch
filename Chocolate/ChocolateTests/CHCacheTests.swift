@@ -55,7 +55,18 @@ class CHCacheTests: XCTestCase {
     
     func testSetUpCacheStack() {
         
-//        cache!.setUpCacheStack()
+        let expectation = self.expectation(description: "Set up cache core data stack.")
+        
+        let _ = cache!
+            .setUpCacheStack(in: .memory)
+            .catch { error in
+                
+                XCTAssertNil(error, "Cannot set up cache stack \(error.localizedDescription).")
+            
+            }
+            .always { expectation.fulfill() }
+        
+        waitForExpectations(timeout: 5.0, handler: nil)
         
     }
     

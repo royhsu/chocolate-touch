@@ -37,7 +37,9 @@ public class CHCache {
     
     // MARK: Core Data Stack
     
-    public func setUpCacheStack() -> Promise<Void> {
+    public func setUpCacheStack(in storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
+        
+        let storeType = storeType ?? .local(storeURL: storeURL)
         
         return Promise { fulfill, reject in
             
@@ -48,9 +50,14 @@ public class CHCache {
                 stack = try CoreDataStack(
                     name: "",
                     model: cacheModel,
-                    options: [:],
-                    storeType: .local(storeURL: storeURL)
+                    options: [
+                        NSMigratePersistentStoresAutomaticallyOption: true,
+                        NSInferMappingModelAutomaticallyOption: true
+                    ],
+                    storeType: storeType
                 )
+                
+                fulfill()
                 
             }
             catch { reject(error) }
