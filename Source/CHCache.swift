@@ -74,6 +74,11 @@ public class CHCache {
         identifier.attributeType = .stringAttributeType
         identifier.isOptional = false
         
+        let section = NSAttributeDescription()
+        section.name = "section"
+        section.attributeType = .stringAttributeType
+        section.isOptional = false
+        
         let data = NSAttributeDescription()
         data.name = "data"
         data.attributeType = .stringAttributeType
@@ -90,6 +95,7 @@ public class CHCache {
         entity.properties.append(identifier)
         entity.properties.append(data)
         entity.properties.append(createdAt)
+        entity.properties.append(section)
         
         let model = NSManagedObjectModel()
         model.entities.append(entity)

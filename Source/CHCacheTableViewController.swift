@@ -68,7 +68,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
                 self.fetchedResultsController = NSFetchedResultsController(
                     fetchRequest: fetchRequest,
                     managedObjectContext: stack.viewContext,
-                    sectionNameKeyPath: nil,
+                    sectionNameKeyPath: "section",
                     cacheName: nil
                 )
                 
