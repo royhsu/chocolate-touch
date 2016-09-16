@@ -15,7 +15,6 @@
 		B05C6F9B1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F9A1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift */; };
 		B05C6F9D1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F9C1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift */; };
 		B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */; };
-		B05C6FAC1D8BE89900B32BB6 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6FAB1D8BE89900B32BB6 /* MockURLSession.swift */; };
 		B060B06F1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B060B06E1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift */; };
 		B0615C1B1D894B0A00816654 /* CHTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0615C191D89496900816654 /* CHTableViewCell.swift */; };
 		B0615C1D1D89512000816654 /* FriendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0615C1C1D89512000816654 /* FriendListTableViewController.swift */; };
@@ -79,7 +78,6 @@
 		B05C6F9A1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHCacheEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B05C6F9C1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CHCacheEntity+Extensions.swift"; sourceTree = "<group>"; };
 		B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheWebRequest.swift; sourceTree = "<group>"; };
-		B05C6FAB1D8BE89900B32BB6 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		B060B06E1D2DFD5600A194FA /* CacheIntegrationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheIntegrationTableViewController.swift; sourceTree = "<group>"; };
 		B0615C191D89496900816654 /* CHTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewCell.swift; sourceTree = "<group>"; };
 		B0615C1C1D89512000816654 /* FriendListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewController.swift; sourceTree = "<group>"; };
@@ -227,7 +225,6 @@
 		B0971CF71D280536005BBEE8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B05C6FAB1D8BE89900B32BB6 /* MockURLSession.swift */,
 				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
 				B0615C191D89496900816654 /* CHTableViewCell.swift */,
@@ -577,7 +574,6 @@
 				B05C6F9B1D8ADB1800B32BB6 /* CHCacheEntity+CoreDataProperties.swift in Sources */,
 				B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */,
 				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
-				B05C6FAC1D8BE89900B32BB6 /* MockURLSession.swift in Sources */,
 				B0F919C61D8687260075B956 /* CHFetchedResultsTableViewController.swift in Sources */,
 				B05C6F9D1D8ADB3200B32BB6 /* CHCacheEntity+Extensions.swift in Sources */,
 				B05C6F991D8ADAEF00B32BB6 /* CHCacheEntity+CoreDataClass.swift in Sources */,

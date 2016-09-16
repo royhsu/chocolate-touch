@@ -8,9 +8,6 @@
 
 import PromiseKit
 
-
-// MARK: - WebService
-
 public struct WebService<Model> {
     
     public typealias ModelParser = (Any) throws -> Model
@@ -48,7 +45,8 @@ public struct WebService<Model> {
         
         return Promise { fulfill, reject in
             
-            let _ = urlSession
+            let _ =
+                urlSession
                 .dataTask(with: self.urlRequest)
                 .then { data -> Void in
                     

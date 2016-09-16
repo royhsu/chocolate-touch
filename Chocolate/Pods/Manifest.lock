@@ -1,5 +1,5 @@
 PODS:
-  - CHFoundation (0.4.1):
+  - CHFoundation (0.4.2):
     - PromiseKit (= 4.0.1)
   - PromiseKit (4.0.1):
     - PromiseKit/Foundation (= 4.0.1)
@@ -14,12 +14,12 @@ PODS:
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
-  - CHFoundation (= 0.4.1)
+  - CHFoundation (= 0.4.2)
 
 SPEC CHECKSUMS:
-  CHFoundation: b452fda73e940245183f053a37fc26d3ff0452ba
+  CHFoundation: aa400cafe0732ee8918bb33ae7e05f6c12b85e2b
   PromiseKit: ae9e7f97ee758e23f7b9c5e80380a2e78d6338c5
 
-PODFILE CHECKSUM: 8533bff5ac13f38a8e674bb0df429236e487b334
+PODFILE CHECKSUM: b3ddfa491156424e771eda4cf9c452e6587dddab
 
 COCOAPODS: 1.0.1

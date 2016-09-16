@@ -12,6 +12,8 @@ import PromiseKit
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity> {
     
+    // Todo: Check core data before request.
+    
     
     // MARK: Property
     

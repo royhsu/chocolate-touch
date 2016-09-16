@@ -61,7 +61,9 @@ public extension CAAnimation {
         
         set {
             
-            let animationDelegate = (self.delegate as? AnimationDelegate) ?? AnimationDelegate()
+            let animationDelegate =
+                (self.delegate as? AnimationDelegate) ??
+                AnimationDelegate()
             animationDelegate.beginHandler = newValue
             
             delegate = animationDelegate
@@ -83,7 +85,9 @@ public extension CAAnimation {
         
         set {
             
-            let animationDelegate = (self.delegate as? AnimationDelegate) ?? AnimationDelegate()
+            let animationDelegate =
+                (self.delegate as? AnimationDelegate) ??
+                AnimationDelegate()
             animationDelegate.completionHandler = newValue
             
             delegate = animationDelegate

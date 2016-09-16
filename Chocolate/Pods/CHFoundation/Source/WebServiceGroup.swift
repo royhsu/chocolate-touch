@@ -13,14 +13,14 @@ public struct WebServiceGroup {
     
     // MARK: Property
     
-    public let services: [WebService<Any>]
+    public let webServices: [WebService<Any>]
     
     
     // MARK: Init
     
-    public init(services: [WebService<Any>]) {
+    public init(webServices: [WebService<Any>]) {
         
-        self.services = services
+        self.webServices = webServices
         
     }
     
@@ -31,7 +31,7 @@ public struct WebServiceGroup {
         
         return Promise { fulfill, reject in
             
-            let promises = services.map { $0.request() }
+            let promises = webServices.map { $0.request() }
             
             when(fulfilled: promises)
                 .then { fulfill($0) }

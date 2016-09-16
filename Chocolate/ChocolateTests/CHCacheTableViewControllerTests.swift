@@ -46,7 +46,7 @@ class CHCacheTableViewControllerTests: XCTestCase {
         webService2.urlSession = mockSession2
         
         let webServiceGroup = WebServiceGroup(
-            services: [ webService1, webService2 ]
+            webServices: [ webService1, webService2 ]
         )
         
         let webRequest = CHCacheWebRequest(sectionName: "Section 1", webServiceGroup: webServiceGroup) { objects in

@@ -74,4 +74,7 @@ public class CoreDataStack {
         
     }
     
+    
+    // Todo: background add persistent store
+    
 }
