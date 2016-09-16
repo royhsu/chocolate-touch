@@ -69,7 +69,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
                     fetchRequest: fetchRequest,
                     managedObjectContext: stack.viewContext,
                     sectionNameKeyPath: "section",
-                    cacheName: nil
+                    cacheName: cacheIdentifier
                 )
                 
             }
