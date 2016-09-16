@@ -69,7 +69,7 @@ class CHCacheTests: XCTestCase {
             .setUpCacheStack(in: .memory)
             .catch { error in
                 
-                XCTAssertNil(error, "Cannot set up cache stack \(error.localizedDescription).")
+                XCTAssertNil(error, "Cannot set up cache stack. \(error.localizedDescription)")
             
             }
             .always { expectation.fulfill() }
@@ -105,7 +105,7 @@ class CHCacheTests: XCTestCase {
             .then { return self.cache!.save() }
             .catch { error in
             
-                XCTAssertNil(error, "Cannot insert a new cache \(error.localizedDescription).")
+                XCTAssertNil(error, "Cannot insert a new cache. \(error.localizedDescription)")
                 
             }
             .always { expectation.fulfill() }

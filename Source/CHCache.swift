@@ -42,6 +42,14 @@ public class CHCache {
         
         return Promise { fulfill, reject in
             
+            if let stack = stack {
+                
+                fulfill(stack)
+                
+                return
+                
+            }
+            
             do {
                 
                 let cacheModel = CHCache.createCacheModel()

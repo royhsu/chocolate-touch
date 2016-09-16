@@ -8,6 +8,7 @@
 
 import CHFoundation
 import CoreData
+import PromiseKit
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity> {
     
@@ -16,11 +17,12 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     let cacheIdentifier: String
     private let cache = CHCache.default
+    internal var storeType: CoreDataStack.StoreType? = nil
     
     
     // MARK: Init
     
-    public init?(cacheIdentifier: String) {
+    public init(cacheIdentifier: String) {
         
         self.cacheIdentifier = cacheIdentifier
         
@@ -57,7 +59,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         
         let _ =
             cache
-            .setUpCacheStack()
+            .setUpCacheStack(in: storeType)
             .then { stack -> Void in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
@@ -78,6 +80,48 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
                 print(error.localizedDescription)
                 
             }
+        
+    }
+    
+    
+    // MARK: WebServcieCroup
+    
+    public func request(_ webRequest: CHCacheWebRequest) -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            let _ =
+                firstly { self.cache.setUpCacheStack() }
+                .then { _ in webRequest.webServiceGroup.request() }
+                .then { objects -> Void in
+                    
+                    do {
+                        
+                        let jsonObject = try webRequest.modelBuilder(objects)
+                        
+                        let _ =
+                            self.cache
+                            .insert(
+                                identifier: self.cacheIdentifier,
+                                section: webRequest.identifier,
+                                jsonObject: jsonObject
+                            )
+                            .then { _ -> Void in
+                                
+                                let _ = self.cache.save()
+                                fulfill()
+                                
+                            }
+                            .catch { reject($0) }
+                        
+                        
+                    }
+                    catch { reject(error) }
+                    
+                }
+                .catch { reject($0) }
+            
+        }
         
     }
     
