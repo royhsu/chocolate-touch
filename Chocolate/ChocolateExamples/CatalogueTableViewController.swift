@@ -93,11 +93,11 @@ public class CatalogueTableViewController: CHTableViewController {
             
         case .cacheTableView:
             
-//            let controller = DynamicCellContentTableViewController()
-//            controller.navigationItem.title = row.title
-//            
-//            show(controller, sender: nil)
-            break
+            let controller = ProductTableViewController(productIdentifier: "TestProduct")
+            controller.navigationItem.title = row.title
+            
+            show(controller, sender: nil)
+            
         }
         
     }

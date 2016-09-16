@@ -52,7 +52,7 @@ class FriendListTableViewController: CHFetchedResultsTableViewController<NSManag
         let model = NSManagedObjectModel()
         model.entities.append(entity)
         
-        return try! CoreDataStack(name: "", model: model, options: nil, storeType: .memory)
+        return try! CoreDataStack(model: model, options: nil, storeType: .memory)
         
     }
     
