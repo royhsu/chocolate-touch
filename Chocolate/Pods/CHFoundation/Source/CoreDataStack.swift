@@ -35,8 +35,6 @@ public class CoreDataStack {
      
      - Author: Roy Hsu.
      
-     - Parameter name: The model name.
-     
      - Parameter model: The model for stack.
      
      - Parameter options: The options for persistent store coordinator.
@@ -44,14 +42,20 @@ public class CoreDataStack {
      - Parameter storeType: The persistent store coordinator store type.
      
      - Returns: A core data stack instance.
+     
+     - Note: It's recommended to always create a stack on the main thread. http://stackoverflow.com/questions/13333289/core-data-timeout-adding-persistent-store-on-application-launch
     */
     
-    public init(name: String, model: NSManagedObjectModel, options: [AnyHashable: Any]? = nil, storeType: StoreType) throws {
+    public init(model: NSManagedObjectModel, options: [AnyHashable: Any]? = nil, storeType: StoreType) throws {
         
         let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
         let viewContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         viewContext.persistentStoreCoordinator = storeCoordinator
+        
+        self.viewContext = viewContext
+        self.storeCoordinator = storeCoordinator
+        self.storeType = storeType
         
         do {
             
@@ -64,10 +68,6 @@ public class CoreDataStack {
                 
                 try storeCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: options)
             }
-            
-            self.viewContext = viewContext
-            self.storeCoordinator = storeCoordinator
-            self.storeType = storeType
             
         }
         catch { throw error }

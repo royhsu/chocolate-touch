@@ -47,7 +47,6 @@ public class CHCache {
                 let cacheModel = CHCache.createCacheModel()
                 
                 let stack = try CoreDataStack(
-                    name: "",
                     model: cacheModel,
                     options: [
                         NSMigratePersistentStoresAutomaticallyOption: true,

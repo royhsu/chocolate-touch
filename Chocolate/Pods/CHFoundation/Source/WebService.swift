@@ -11,30 +11,40 @@ import PromiseKit
 
 // MARK: - WebService
 
-public struct WebService<Model>: Equatable {
+public struct WebService<Model> {
     
     public typealias ModelParser = (Any) throws -> Model
     
     
     // MARK: Property
     
+    public var urlSession: URLSession = .shared
     public let urlRequest: URLRequest
     public let modelParser: ModelParser
     
     
     // MARK: Init
     
-    public init(urlRequest: URLRequest, modelParser: @escaping ModelParser) {
+    public init(urlRequest: URLRequest, modelParser: ModelParser? = nil) {
         
         self.urlRequest = urlRequest
-        self.modelParser = modelParser
+        self.modelParser = modelParser ?? WebService.defaultModelParser
+        
+    }
+    
+    
+    // MARK: Model Parser
+    
+    private static func defaultModelParser(jsonObject: Any) throws -> Model {
+        
+        return jsonObject as! Model
         
     }
     
     
     // MARK: Request
     
-    public func request(with urlSession: URLSession) -> Promise<Model> {
+    public func request() -> Promise<Model> {
         
         return Promise { fulfill, reject in
             
@@ -53,19 +63,10 @@ public struct WebService<Model>: Equatable {
                     catch { reject(error) }
                     
                 }
-                .catch { error in reject(error) }
+                .catch { reject($0) }
             
         }
         
     }
-    
-}
-
-
-// MARK: - Equatable
-
-public func ==<Model>(lhs: WebService<Model>, rhs: WebService<Model>) -> Bool {
-    
-    return lhs.urlRequest == rhs.urlRequest
     
 }

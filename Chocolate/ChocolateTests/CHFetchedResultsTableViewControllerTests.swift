@@ -36,7 +36,7 @@ class CHFetchedResultsTableViewControllerTests: XCTestCase {
         let model = NSManagedObjectModel()
         model.entities.append(entity)
 
-        stack = try! CoreDataStack(name: "", model: model, options: nil, storeType: .memory)
+        stack = try! CoreDataStack(model: model, options: nil, storeType: .memory)
         
     }
     
