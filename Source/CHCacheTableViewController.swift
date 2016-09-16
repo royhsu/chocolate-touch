@@ -11,8 +11,6 @@ import CoreData
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity> {
     
-    // Todo: section
-    
     
     // MARK: Property
     
@@ -57,7 +55,9 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     private func setUpFetchedResultsController() {
         
-        let _ = cache.setUpCacheStack()
+        let _ =
+            cache
+            .setUpCacheStack()
             .then { stack -> Void in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest

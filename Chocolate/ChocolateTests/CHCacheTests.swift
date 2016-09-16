@@ -64,7 +64,8 @@ class CHCacheTests: XCTestCase {
         
         let expectation = self.expectation(description: "Set up cache core data stack.")
         
-        let _ = cache!
+        let _ =
+            cache!
             .setUpCacheStack(in: .memory)
             .catch { error in
                 
