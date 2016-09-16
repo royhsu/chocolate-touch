@@ -104,17 +104,17 @@ public class CHCache {
         
     }
     
-    enum InsertError: Error {
+    enum CacheError: Error {
         case stackNotReady
     }
     
-    func insertWith(identifier: String, section: String, jsonObject: Any) -> Promise<Void> {
+    public func insert(identifier: String, section: String, jsonObject: Any) -> Promise<Void> {
         
         return Promise { fulfill, reject in
             
             guard let stack = stack else {
                 
-                reject(InsertError.stackNotReady)
+                reject(CacheError.stackNotReady)
                 
                 return
             
@@ -139,19 +139,7 @@ public class CHCache {
                     do {
                         
                         try backgroundContext.save()
-                        
-                        let viewContext = stack.viewContext
-                        viewContext.perform {
-                            
-                            do {
-                                
-                                try viewContext.save()
-                                fulfill()
-
-                            }
-                            catch { reject(error) }
-                            
-                        }
+                        fulfill()
                         
                     }
                     catch { reject(error) }
@@ -160,6 +148,35 @@ public class CHCache {
                 
             }
             catch { reject(error) }
+        
+        }
+        
+    }
+    
+    public func save() -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            guard let stack = stack else {
+                
+                reject(CacheError.stackNotReady)
+                
+                return
+                
+            }
+            
+            let viewContext = stack.viewContext
+            viewContext.perform {
+                
+                do {
+                    
+                    try viewContext.save()
+                    fulfill()
+                    
+                }
+                catch { reject(error) }
+                
+            }
         
         }
         

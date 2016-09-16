@@ -7,6 +7,7 @@
 //
 
 @testable import Chocolate
+import PromiseKit
 import XCTest
 
 class CHCacheTests: XCTestCase {
@@ -75,18 +76,30 @@ class CHCacheTests: XCTestCase {
         
     }
     
-    func testInsertCache() {
+    func testInsertCaches() {
         
-        let expectation = self.expectation(description: "Insert a new cache.")
-        
-        let jsonObject: Dictionary = [
-            "name": "Roy"
-        ]
+        let expectation = self.expectation(description: "Insert caches.")
         
         let _ = cache!.setUpCacheStack(in: .memory)
         
-        let _ = cache!
-            .insertWith(identifier: "test", section: "section 1", jsonObject: jsonObject)
+        let _ = firstly { _ -> Promise<Void> in
+            
+                let cache1 = cache!.insert(
+                    identifier: "test",
+                    section: "section 1",
+                    jsonObject: [ "name": "Roy" ]
+                )
+                
+                let cache2 = cache!.insert(
+                    identifier: "test",
+                    section: "section 1",
+                    jsonObject: [ "name": "Allen" ]
+                )
+                
+                return when(fulfilled: cache1, cache2)
+                
+            }
+            .then { return self.cache!.save() }
             .catch { error in
             
                 XCTAssertNil(error, "Cannot insert a new cache \(error.localizedDescription).")
