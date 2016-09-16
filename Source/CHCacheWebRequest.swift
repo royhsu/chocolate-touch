@@ -16,16 +16,16 @@ public struct CHCacheWebRequest {
     
     // MARK: Property
     
-    public let identifier: String
+    public let sectionName: String
     public let webServiceGroup: WebServiceGroup
     public let modelBuilder: ModelBuilder
     
     
     // MARK: Init
     
-    public init(identifier: String, webServiceGroup: WebServiceGroup, modelBuilder: @escaping ModelBuilder) {
+    public init(sectionName: String, webServiceGroup: WebServiceGroup, modelBuilder: @escaping ModelBuilder) {
         
-        self.identifier = identifier
+        self.sectionName = sectionName
         self.webServiceGroup = webServiceGroup
         self.modelBuilder = modelBuilder
         

@@ -103,7 +103,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
                             self.cache
                             .insert(
                                 identifier: self.cacheIdentifier,
-                                section: webRequest.identifier,
+                                section: webRequest.sectionName,
                                 jsonObject: jsonObject
                             )
                             .then { _ -> Void in
