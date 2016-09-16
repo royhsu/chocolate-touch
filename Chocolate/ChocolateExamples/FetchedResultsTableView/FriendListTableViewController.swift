@@ -11,41 +11,12 @@ import Chocolate
 import CoreData
 import UIKit
 
-class FriendListTableViewController: CHFetchedResultsTableViewController {
+class FriendListTableViewController: CHFetchedResultsTableViewController<NSManagedObject> {
 
     
     // MARK: Property
     
-    private let stack: CoreDataStack
-    
-    
-    // MARK: Init
-    
-    init() {
-        
-        stack = FriendListTableViewController.setUpStack()
-        
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "name", ascending: true)
-        ]
-        
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: stack.viewContext,
-            sectionNameKeyPath: "firstLetterOfName",
-            cacheName: nil
-        )
-        
-        super.init(fetchedResultsController: fetchedResultsController)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        
-        fatalError()
-        
-    }
+    private lazy var stack: CoreDataStack = self.setUpStack()
     
     
     // MARK: View Life Cycle
@@ -54,13 +25,14 @@ class FriendListTableViewController: CHFetchedResultsTableViewController {
         super.viewDidLoad()
         
         setUpDumpData()
+        setUpFetchedResultsController()
         
     }
     
     
     // MARK: Set Up
     
-    private class func setUpStack() -> CoreDataStack {
+    private func setUpStack() -> CoreDataStack {
         
         let nameProperty = NSAttributeDescription()
         nameProperty.name = "name"
@@ -84,19 +56,35 @@ class FriendListTableViewController: CHFetchedResultsTableViewController {
         
     }
     
+    private func setUpFetchedResultsController() {
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Person")
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "name", ascending: true)
+        ]
+        
+        fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: stack.viewContext,
+            sectionNameKeyPath: "firstLetterOfName",
+            cacheName: nil
+        )
+        
+    }
+    
     private func setUpDumpData() {
     
         let context = stack.viewContext
         
         let names = [ "Roy", "Allen", "Alex", "Bob", "Christen", "Tiffany", "Helen", "Kevin", "David", "Kitty", "Darren", "Candy", "Carol" ]
         
-        names.forEach { insert(name: $0, in: context) }
+        names.forEach { insert(name: $0, into: context) }
         
         try! context.save()
-    
+        
     }
     
-    private func insert(name: String, in context: NSManagedObjectContext) {
+    private func insert(name: String, into context: NSManagedObjectContext) {
     
         let person = NSEntityDescription.insertNewObject(forEntityName: "Person", into: context)
         person.setValue(name, forKey: "name")
@@ -111,15 +99,15 @@ class FriendListTableViewController: CHFetchedResultsTableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return fetchedResultsController.sections?[section].name.uppercased()
+        return fetchedResultsController?.sections?[section].name.uppercased()
         
     }
     
     override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
         
-        let person = fetchedResultsController.object(at: indexPath)
+        let person = fetchedResultsController?.object(at: indexPath)
         
-        cell.textLabel?.text = person.value(forKey: "name") as? String
+        cell.textLabel?.text = person?.value(forKey: "name") as? String
         
     }
     

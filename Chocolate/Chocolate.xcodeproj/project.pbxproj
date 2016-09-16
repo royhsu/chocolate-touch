@@ -195,6 +195,13 @@
 			path = WebServiceIntegration;
 			sourceTree = "<group>";
 		};
+		B05C6F9E1D8B8DCC00B32BB6 /* CacheTableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CacheTableView;
+			sourceTree = "<group>";
+		};
 		B060B06B1D2DFCEA00A194FA /* CacheIntegration */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +291,7 @@
 				B0971D1D1D280D3F005BBEE8 /* AppDelegate.swift */,
 				B0971D2D1D280D9D005BBEE8 /* CatalogueTableViewController.swift */,
 				B0FA96711D892B19002D13AC /* FetchedResultsTableView */,
+				B05C6F9E1D8B8DCC00B32BB6 /* CacheTableView */,
 				B0971D2F1D280DC4005BBEE8 /* DynamicCellContent */,
 				B04466001D2B47E4004CB0E9 /* WebServiceIntegration */,
 				B060B06B1D2DFCEA00A194FA /* CacheIntegration */,

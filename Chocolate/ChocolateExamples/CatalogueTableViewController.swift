@@ -14,20 +14,14 @@ public class CatalogueTableViewController: CHTableViewController {
 
     enum Row: Int {
         
-        case DynamicCellContent
-        case CoreDataIntegration
-        case WebServiceIntegration
-        case CacheIntegration
         case fetchedResultsTableView
+        case cacheTableView
         
         var title: String {
             
             switch self {
-            case .DynamicCellContent: return "Dynamic Cell Content"
-            case .CoreDataIntegration: return "Core Data Integration"
-            case .WebServiceIntegration: return "Web Service Integration"
-            case .CacheIntegration: return "Cache Integration"
             case .fetchedResultsTableView: return "Fetched Results Table View"
+            case .cacheTableView: return "Cache Table View"
             }
             
         }
@@ -39,10 +33,7 @@ public class CatalogueTableViewController: CHTableViewController {
     
     let rows: [Row] = [
         .fetchedResultsTableView,
-        .DynamicCellContent,
-        .CoreDataIntegration,
-        .WebServiceIntegration,
-        .CacheIntegration
+        .cacheTableView
     ]
     
     
@@ -100,34 +91,9 @@ public class CatalogueTableViewController: CHTableViewController {
             
             show(controller, sender: nil)
             
-        case .DynamicCellContent:
+        case .cacheTableView:
             
 //            let controller = DynamicCellContentTableViewController()
-//            controller.navigationItem.title = row.title
-//            
-//            show(controller, sender: nil)
-            break
-            
-        case .CoreDataIntegration:
-            
-//            let controller = CoreDataIntegrationTableViewController(modelName: "Main", at: .document(mask: .userDomainMask))
-//            controller.navigationItem.title = row.title
-//            
-//            show(controller, sender: nil)
-            
-            break
-            
-        case .WebServiceIntegration:
-            
-//            let controller = WebServiceIntegrationTableViewController()
-//            controller.navigationItem.title = row.title
-//            
-//            show(controller, sender: nil)
-            break
-            
-        case .CacheIntegration:
-            
-//            let controller = CacheIntegrationTableViewController()
 //            controller.navigationItem.title = row.title
 //            
 //            show(controller, sender: nil)
