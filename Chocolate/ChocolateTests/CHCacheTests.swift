@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
+import CHFoundation
 @testable import Chocolate
 import PromiseKit
 import XCTest
@@ -80,17 +81,18 @@ class CHCacheTests: XCTestCase {
         
         let expectation = self.expectation(description: "Insert caches.")
         
-        let _ = cache!.setUpCacheStack(in: .memory)
-        
-        let _ = firstly { _ -> Promise<Void> in
+        let _ =
+            cache!
+            .setUpCacheStack(in: .memory)
+            .then { _ -> Promise<Void> in
             
-                let cache1 = cache!.insert(
+                let cache1 = self.cache!.insert(
                     identifier: "test",
                     section: "section 1",
                     jsonObject: [ "name": "Roy" ]
                 )
                 
-                let cache2 = cache!.insert(
+                let cache2 = self.cache!.insert(
                     identifier: "test",
                     section: "section 1",
                     jsonObject: [ "name": "Allen" ]
