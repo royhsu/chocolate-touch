@@ -10,11 +10,17 @@ import CHFoundation
 import CoreData
 import UIKit
 
-protocol CHFetchedResultsTableViewControllerDelegate: class {
+
+// MARK - CHFetchedResultsTableViewControllerDelegate
+
+public protocol CHFetchedResultsTableViewControllerDelegate: class {
     
     func fetchedResultsControllerDidSetUp()
     
 }
+
+
+// MARK: - CHFetchedResultsTableViewController
 
 open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTableViewController, NSFetchedResultsControllerDelegate, CHFetchedResultsTableViewControllerDelegate {
 

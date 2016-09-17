@@ -115,6 +115,7 @@ public class CHCache {
         case stackNotReady
     }
     
+    /// Insert a new cache with automatically generated background context. If you want to keep the changes, make sure to call save method.
     public func insert(identifier: String, section: String, jsonObject: Any) -> Promise<Void> {
         
         return Promise { fulfill, reject in
@@ -160,6 +161,7 @@ public class CHCache {
         
     }
     
+    /// Save all changes happened on the view context.
     public func save() -> Promise<Void> {
         
         return Promise { fulfill, reject in
@@ -189,6 +191,7 @@ public class CHCache {
         
     }
     
+    /// Delete all caches related to the given identifier.
     public func deleteCache(with identifier: String) -> Promise<Void> {
         
         return Promise { fulfill, reject in

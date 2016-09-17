@@ -10,6 +10,10 @@ import CHFoundation
 import CoreData
 import PromiseKit
 
+
+// MARK: - CHCacheTableViewDataSource
+
+/// A protocol designed for replacing table view data source. Make CHCache work well with CHFetchedResultsTableViewController.
 public protocol CHCacheTableViewDataSource: class {
     
     func numberOfSections() -> Int
@@ -21,6 +25,9 @@ public protocol CHCacheTableViewDataSource: class {
     func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any
     
 }
+
+
+// MARK: - CHCacheTableViewController
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity>, CHCacheTableViewDataSource {
     
@@ -40,6 +47,8 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         return !fetchedObjects.isEmpty
         
     }
+    
+    /// An array that keeps all web requests.
     public var webRequests: [CHCacheWebRequest] = []
     
     
@@ -110,6 +119,13 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     // MARK: Web Request
     
+    /** 
+     Perform all requests inside the webRequests property.
+     
+     - Returns: A promise object carries all transformed json objects for web requests.
+     
+     - Note: Please use this method the excute all the web requests instead of request them individually.
+    */
     internal func performWebRequests() -> Promise<[Any]> {
         
         let requests = self.webRequests.map { $0.execute() }
@@ -135,6 +151,15 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         
     }
     
+    /**
+     Insert caches based on provided CHCacheTableViewDataSource.
+     
+     - Parameter objects: All feeding json objects for CHCacheTableViewDataSource.
+     
+     - Returns: A promise object.
+     
+     - Note: Please make sure to call save method on the cache context manually if you want to keep the insertions.
+    */
     internal func insertCaches(with objects: [Any]) -> Promise<Void> {
         
         let sections = self.numberOfSections()
@@ -169,6 +194,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     // MARK: Action
     
+    /// Execute all required methods to request and cache data.
     public final func fetch() -> Promise<Void> {
         
         return
@@ -180,6 +206,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         
     }
     
+    /// Clean up previous caches and re-fetch data. Nicely cooperate with UIRefreshControl.
     public final func refresh() -> Promise<Void> {
         
         return
@@ -190,25 +217,29 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
 
 
     // MARK: - CHCacheTableViewDataSource
-
+    
+    /// Mirror to numberOfSections(in:).
     open func numberOfSections() -> Int {
         
         return 0
         
     }
     
+    /// The section name.
     open func name(for section: Int) -> String {
         
         return "\(section)"
         
     }
     
+    /// Mirror to tableView(:numberOfRowsInSection:).
     open func numberOfRows(in section: Int) -> Int {
         
         return 0
         
     }
     
+    /// The json object for configure(cell:forRowAt:).
     open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any {
     
         return [String: Any]()
