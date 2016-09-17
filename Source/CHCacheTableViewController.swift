@@ -19,7 +19,11 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     let cacheIdentifier: String
     private let cache = CHCache.default
+    
+    /// For unit test.
     internal var storeType: CoreDataStack.StoreType? = nil
+    
+    var webRequests: [CHCacheWebRequest] = []
     
     
     // MARK: Init
@@ -86,44 +90,13 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     }
     
     
-    // MARK: WebServcieCroup
+    // MARK: Web Request
     
-    public func request(_ webRequest: CHCacheWebRequest) -> Promise<Void> {
+    public func performWebRequests() -> Promise<[Any]> {
         
-        return Promise { fulfill, reject in
-            
-            let _ =
-                firstly { self.cache.setUpCacheStack() }
-                .then { _ in webRequest.webServiceGroup.request() }
-                .then { objects -> Void in
-                    
-                    do {
-                        
-                        let jsonObject = try webRequest.modelBuilder(objects)
-                        
-                        let _ =
-                            self.cache
-                            .insert(
-                                identifier: self.cacheIdentifier,
-                                section: webRequest.sectionName,
-                                jsonObject: jsonObject
-                            )
-                            .then { _ -> Void in
-                                
-                                let _ = self.cache.save()
-                                fulfill()
-                                
-                            }
-                            .catch { reject($0) }
-                        
-                        
-                    }
-                    catch { reject(error) }
-                    
-                }
-                .catch { reject($0) }
-            
-        }
+        let requests = self.webRequests.map { $0.execute() }
+        
+        return when(fulfilled: requests)
         
     }
     

@@ -61,9 +61,11 @@ class CHCacheTableViewControllerTests: XCTestCase {
             
         }
         
+        controller.webRequests.append(webRequest)
+        
         let _ =
             controller
-            .request(webRequest)
+            .performWebRequests()
             .catch { error in
         
                 XCTAssertNil(error, "Cannot request groups. \(error.localizedDescription)")

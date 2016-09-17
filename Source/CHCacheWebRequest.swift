@@ -31,4 +31,32 @@ public struct CHCacheWebRequest {
         
     }
     
+    
+    // MARK: Request
+    
+    public func execute() -> Promise<Any> {
+    
+        return Promise { fulfill, reject in
+            
+            let _ =
+                webServiceGroup
+                .request()
+                .then { objects -> Void in
+                    
+                    do {
+                        
+                        let jsonObject = try self.modelBuilder(objects)
+                        
+                        fulfill(jsonObject)
+                        
+                    }
+                    catch { reject(error) }
+                    
+                }
+                .catch { reject($0) }
+            
+        }
+    
+    }
+    
 }
