@@ -1,0 +1,6 @@
+framework module CHFoundation {
+  umbrella header "CHFoundation-umbrella.h"
+
+  export *
+  module * { export * }
+}

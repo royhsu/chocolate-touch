@@ -8,17 +8,48 @@
 
 import CHFoundation
 import CoreData
+import PromiseKit
 
-public class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate, CHWebServiceControllerDelegate {
+
+// MARK: - CHCacheTableViewDataSource
+
+/// A protocol designed for replacing table view data source. Make CHCache work well with CHFetchedResultsTableViewController.
+public protocol CHCacheTableViewDataSource: class {
+    
+    func numberOfSections() -> Int
+    
+    func name(for section: Int) -> String
+    
+    func numberOfRows(in section: Int) -> Int
+    
+    func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any?
+    
+}
+
+
+// MARK: - CHCacheTableViewController
+
+open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity>, CHCacheTableViewDataSource {
     
     
     // MARK: Property
     
-    private let cacheIdentifier: String
-    private var cache: CHCache?
+    let cacheIdentifier: String
+    private let cache = CHCache.default
     
-    public private(set) var fetchedResultsController: NSFetchedResultsController<NSManagedObject>?
-    public private(set) var webServiceController = CHWebServiceController<[AnyObject]>()
+    /// For unit test.
+    internal var storeType: CoreDataStack.StoreType? = nil
+    
+    public var isCached: Bool {
+        
+        let fetchedObjects = fetchedResultsController?.fetchedObjects ?? []
+    
+        return !fetchedObjects.isEmpty
+        
+    }
+    
+    /// An array that keeps all web requests.
+    public var webRequests: [CHCacheWebRequest] = []
     
     
     // MARK: Init
@@ -26,352 +57,195 @@ public class CHCacheTableViewController: CHTableViewController, NSFetchedResults
     public init(cacheIdentifier: String) {
         
         self.cacheIdentifier = cacheIdentifier
-    
-        super.init(style: .plain)
+        
+        super.init()
         
     }
     
-    private init() {
+    private override init() {
         
-        self.cacheIdentifier = ""
-        
-        super.init(style: .plain)
+        fatalError()
     
-    }
-    
-    private override init(style: UITableViewStyle) {
-        
-        self.cacheIdentifier = ""
-        
-        super.init(style: style)
-    
-    }
-    
-    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        
-        self.cacheIdentifier = ""
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
     }
     
     required public init?(coder aDecoder: NSCoder) {
         
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
         
     }
     
     
     // MARK: View Life Cycle
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
+        super.viewDidLoad()
         
-        tableView.registerCellType(CHTableViewCell.self)
-        
-        webServiceController.delegate = self
-        
-        do {
-            
-            let cacheStack = try setUpCacheStack(name: "Cache")
-            
-            cache = CHCache(identifier: cacheIdentifier, stack: cacheStack)
-            
-            fetchedResultsController = try setUpFetchResultsController(with: cacheStack.writerContext)
-            
-        }
-        catch { /* TODO: error handling */ print("Error: \(error)") }
+        let _ = setUpFetchedResultsController()
         
     }
     
     
     // MARK: Set Up
     
-    private func setUpCacheStack(name: String) throws -> CoreDataStack {
+    private func setUpFetchedResultsController() -> Promise<Void> {
         
-        do {
-            
-            let storeURL = try Directory.document(mask: .userDomainMask).url
-                .appendingPathComponent(name)
-                .appendingPathExtension("sqlite")
-            
-            let model = CoreDataModel()
-            let entity = CHCache.schema.entity
-            model.add(entity: entity, of: CHCacheSchema.self)
-            
-            let stack = try CoreDataStack(
-                name: name,
-                model: model,
-                options: [
-                    NSMigratePersistentStoresAutomaticallyOption: true,
-                    NSInferMappingModelAutomaticallyOption: true
-                ],
-                storeType: .local(storeURL: storeURL)
-            )
-            
-            return stack
-            
-        }
-        catch { throw error }
+        return
+            cache
+            .setUpCacheStack(in: storeType)
+            .then { stack -> Void in
+                
+                let fetchRequest = CHCacheEntity.fetchRequest
+                fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
+                fetchRequest.sortDescriptors = [
+                    NSSortDescriptor(key: "createdAt", ascending: true)
+                ]
+                
+                self.fetchedResultsController = NSFetchedResultsController(
+                    fetchRequest: fetchRequest,
+                    managedObjectContext: stack.viewContext,
+                    sectionNameKeyPath: "section",
+                    cacheName: self.cacheIdentifier
+                )
+                
+            }
+            .catch { error in
+                
+                print(error.localizedDescription)
+                
+            }
         
     }
     
-    private func setUpFetchResultsController(with context: NSManagedObjectContext) throws -> NSFetchedResultsController<NSManagedObject> {
+    
+    // MARK: Web Request
+    
+    /** 
+     Perform all requests inside the webRequests property.
+     
+     - Returns: A promise object carries all transformed json objects for web requests.
+     
+     - Note: Please use this method the excute all the web requests instead of request them individually.
+    */
+    internal func performWebRequests() -> Promise<[Any]> {
         
-        let fetchRequest = CHCacheSchema.fetchRequest
+        let requests = self.webRequests.map { $0.execute() }
         
-        fetchRequest.predicate = Predicate(format: "id == %@", cacheIdentifier)
-        
-        fetchRequest.sortDescriptors = [
-            SortDescriptor(key: "createdAt", ascending: true)
-        ]
-        
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: context,
-            sectionNameKeyPath: "section",
-            cacheName: nil
-        )
-        
-        fetchedResultsController.delegate = self
-        
-        return fetchedResultsController
+        return when(fulfilled: requests)
         
     }
     
-    private typealias FetchDataSuccessHandler = () -> Void
-    private typealias FetchDataFailHandler = (error: ErrorProtocol) -> Void
     
-    private func fetchData(with fetchedResultsController: NSFetchedResultsController<NSManagedObject>, webServiceController: CHWebServiceController<[AnyObject]>, successHandler: FetchDataSuccessHandler? = nil, failHandler: FetchDataFailHandler? = nil) {
+    // MARK: Cache
+    
+    internal func clearCache() -> Promise<Void> {
         
-        let context = fetchedResultsController.managedObjectContext
-        
-        context.perform {
-            
-            do {
+        return
+            cache
+            .deleteCache(with: cacheIdentifier)
+            .then { return self.cache.save() }
+            .then { _ -> Void in
                 
-                let _ = try fetchedResultsController.performFetch()
-                
-                DispatchQueue.main.async {
-                    
-                    if let fetchedObjects = fetchedResultsController.fetchedObjects where fetchedObjects.isEmpty {
-                        
-                        webServiceController.performReqeust()
-                        
-                    }
-                    
-                    successHandler?()
-                    
-                }
+                NSFetchedResultsController<CHCacheEntity>.deleteCache(withName: self.cacheIdentifier)
                 
             }
-            catch {
-                
-                DispatchQueue.main.async { failHandler?(error: error) }
+        
+    }
+    
+    /**
+     Insert caches based on provided CHCacheTableViewDataSource.
+     
+     - Parameter objects: All feeding json objects for CHCacheTableViewDataSource.
+     
+     - Returns: A promise object.
+     
+     - Note: Please make sure to call save method on the cache context manually if you want to keep the insertions.
+    */
+    internal func insertCaches(with objects: [Any]) -> Promise<Void> {
+        
+        let sections = self.numberOfSections()
+        var insertions: [Promise<Void>] = []
+        
+        for section in 0..<sections {
             
+            let sectionName = self.name(for: section)
+            let rows = self.numberOfRows(in: section)
+            
+            for row in 0..<rows {
+                
+                let indexPath = IndexPath(row: row, section: section)
+                let jsonObject =
+                    self.jsonObject(with: objects, forRowsAt: indexPath) ??
+                    [AnyHashable: Any]()
+                
+                let insertion = self.cache.insert(
+                    identifier: self.cacheIdentifier,
+                    section: sectionName,
+                    jsonObject: jsonObject
+                )
+                
+                insertions.append(insertion)
+                
             }
             
         }
+        
+        return when(fulfilled: insertions)
         
     }
     
     
     // MARK: Action
     
-    public final func fetchData() {
+    /// Execute all required methods to request and cache data.
+    public final func fetch() -> Promise<Void> {
         
-        guard let fetchedResultsController = fetchedResultsController else { return }
-        
-        fetchData(with: fetchedResultsController, webServiceController: webServiceController)
-        
-    }
-    
-    public final func refreshData() {
-        
-        cache?.cleanUp(successHandler: { [weak self] in
-            
-            self?.fetchData()
-        
-        })
+        return
+            cache
+            .setUpCacheStack(in: storeType)
+            .then { _ in return self.performWebRequests() }
+            .then { return self.insertCaches(with: $0) }
+            .then { return self.cache.save() }
         
     }
     
-    
-    // MARK: UITableViewDataSource
-    
-    public final override func numberOfSections(in tableView: UITableView) -> Int {
-
-        return fetchedResultsController?.sections?.count ?? 0
-
-    }
-
-    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        guard let sections = fetchedResultsController?.sections else { return 0 }
-
-        return sections[section].numberOfObjects
+    /// Clean up previous caches and re-fetch data. Nicely cooperate with UIRefreshControl.
+    public final func refresh() -> Promise<Void> {
+        
+        return
+            clearCache()
+            .then { return self.fetch() }
         
     }
+
+
+    // MARK: - CHCacheTableViewDataSource
     
-    public final override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat { return 44.0 }
-    
-    public final override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    /// Mirror to numberOfSections(in:).
+    open func numberOfSections() -> Int {
         
-        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
-        
-        switch cellHeight {
-        case .dynamic: tableView.rowHeight = UITableViewAutomaticDimension
-        case .fixed(let height): tableView.rowHeight = height
-        }
-        
-        return tableView.rowHeight
+        return 0
         
     }
     
-    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /// The section name.
+    open func name(for section: Int) -> String {
         
-        let cell: CHTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        
-        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        if let cellContentView = self.tableView(tableView, cellContentViewForRowAt: indexPath) {
-            
-            cell.contentView.addSubview(cellContentView)
-            
-            cellContentView.pinEgdesToSuperview()
-            
-        }
-        
-        return cell
+        return "\(section)"
         
     }
     
-    public final func tableView(_ tableView: UITableView, jsonObjectForRowAt indexPath: IndexPath) -> AnyObject? {
+    /// Mirror to tableView(:numberOfRowsInSection:).
+    open func numberOfRows(in section: Int) -> Int {
         
-        let object = fetchedResultsController?.object(at: indexPath)
-        let jsonString = object?.value(forKey: "data") as? String
-        let jsonObject = try? jsonString?.jsonObject()
-            
-        return jsonObject ?? nil
+        return 0
         
     }
     
+    /// The json object for configure(cell:forRowAt:).
+    open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
     
-    // MARK: NSFetchedResultsControllerDelegate
+        return nil
     
-    public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
-        tableView.reloadData()
-
-    }
-    
-    
-    // MARK: CHWebServiceControllerDelegate
-    
-    public final func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withSuccess objects: Objects) {
-        
-        guard let cache = cache else { return }
-        let writerContext = cache.stack.writerContext
-        
-        writerContext.performAndWait {
-            
-            do {
-                
-                let jsonObjects = objects.map { $0 as! AnyObject }
-                
-                for jsonObject in jsonObjects {
-                    
-                    let jsonString = try String(jsonObject: jsonObject)
-                    
-                    let _ = try CHCache.schema.insertObject(
-                        with: [
-                            "id": cache.identifier,
-                            "data": jsonString,
-                            "createdAt": Date(),
-                            "section": section.name
-                        ],
-                        into: writerContext
-                    )
-                    
-                }
-                
-                try writerContext.save()
-                
-            }
-            catch {
-                
-                DispatchQueue.main.async {
-                    
-                    self.webServiceController(
-                        controller,
-                        didRequest: section,
-                        withFail: (statusCode: nil, error: error)
-                    )
-                    
-                }
-                
-            }
-            
-        }
-        
-    }
-    
-    public func webServiceController<Objects>(_ controller: CHWebServiceController<Objects>, didRequest section: CHWebServiceSectionInfo<Objects>, withFail result: (statusCode: Int?, error: ErrorProtocol?)) { }
-    
-}
-
-
-// MARK: UIView
-
-private extension UIView {
-    
-    func pinEgdesToSuperview() {
-        
-        guard let superview = self.superview else { fatalError("No superview exists.") }
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        
-        let leading = NSLayoutConstraint(
-            item: self,
-            attribute: .leading,
-            relatedBy: .equal,
-            toItem: superview,
-            attribute: .leading,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let top = NSLayoutConstraint(
-            item: self,
-            attribute: .top,
-            relatedBy: .equal,
-            toItem: superview,
-            attribute: .top,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let trailing = NSLayoutConstraint(
-            item: self,
-            attribute: .trailing,
-            relatedBy: .equal,
-            toItem: superview,
-            attribute: .trailing,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let bottom = NSLayoutConstraint(
-            item: self,
-            attribute: .bottom,
-            relatedBy: .equal,
-            toItem: superview,
-            attribute: .bottom,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        superview.addConstraints([ leading, top, trailing, bottom ])
-        
     }
     
 }
