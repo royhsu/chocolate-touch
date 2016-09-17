@@ -22,7 +22,7 @@ public protocol CHCacheTableViewDataSource: class {
     
 }
 
-open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity> {
+open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity>, CHCacheTableViewDataSource {
     
     // Todo: Check core data before request.
     
@@ -35,7 +35,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     /// For unit test.
     internal var storeType: CoreDataStack.StoreType? = nil
     
-    var webRequests: [CHCacheWebRequest] = []
+    public var webRequests: [CHCacheWebRequest] = []
     
     
     // MARK: Init
@@ -114,10 +114,12 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     public final func refresh() -> Promise<Void> {
         
+        // Todo: clear before refresh
+        
         return
             self
             .cache
-            .setUpCacheStack(in: self.storeType)
+            .setUpCacheStack(in: storeType)
             .then { _ in return self.performWebRequests() }
             .then { objects in
                 
@@ -152,33 +154,29 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
             .then { return self.cache.save() }
         
     }
-    
-}
 
 
-// MARK: - CHCacheTableViewDataSource
+    // MARK: - CHCacheTableViewDataSource
 
-extension CHCacheTableViewController: CHCacheTableViewDataSource {
-
-    public func numberOfSections() -> Int {
+    open func numberOfSections() -> Int {
         
         return 0
         
     }
     
-    public func name(for section: Int) -> String {
+    open func name(for section: Int) -> String {
         
         return "\(section)"
         
     }
     
-    public func numberOfRows(in section: Int) -> Int {
+    open func numberOfRows(in section: Int) -> Int {
         
         return 0
         
     }
     
-    public func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any {
+    open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any {
     
         return [String: Any]()
     

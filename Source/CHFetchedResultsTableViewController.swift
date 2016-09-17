@@ -55,21 +55,11 @@ open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTable
     
     private func fetchedResultsControllerDidSet() {
         
-        guard
-            let fetchedResultsController = fetchedResultsController
-            else {
-            
-                tableView.reloadData()
-                
-                return
-            
-            }
-        
-        fetchedResultsController.delegate = self
+        fetchedResultsController?.delegate = self
         
         do {
             
-            try fetchedResultsController.performFetch()
+            try fetchedResultsController?.performFetch()
             
         }
         catch {
@@ -77,6 +67,8 @@ open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTable
             print(error.localizedDescription)
             
         }
+        
+        tableView.reloadData()
         
     }
     
@@ -102,6 +94,7 @@ open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTable
     
     public final func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
+        tableView.endUpdates() // Stop previous animation first.
         tableView.beginUpdates()
         
     }

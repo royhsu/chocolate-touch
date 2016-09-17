@@ -41,7 +41,15 @@ class ProductTableViewController: CHCacheTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestProductData()
+        webRequests.append(productRequest)
+        
+        let _ =
+            refresh()
+            .catch { error in
+                
+                print(error.localizedDescription)
+        
+            }
         
     }
     
@@ -71,7 +79,7 @@ class ProductTableViewController: CHCacheTableViewController {
         
         let webServiceGroup = WebServiceGroup(webServices: [ webService ])
         
-        let webRequest = CHCacheWebRequest(sectionName: "Information", webServiceGroup: webServiceGroup) { objects in
+        let webRequest = CHCacheWebRequest(webServiceGroup: webServiceGroup) { objects in
             
             return objects.first!
             
@@ -81,14 +89,18 @@ class ProductTableViewController: CHCacheTableViewController {
         
     }
     
-    private func requestProductData() {
+    
+    // MARK: CHCacheTableViewDataSource
+    
+    override func numberOfSections() -> Int {
         
-        self.request(self.productRequest)
-            .catch { error in
+        return 1
         
-                fatalError(error.localizedDescription)
-                
-            }
+    }
+    
+    override func numberOfRows(in section: Int) -> Int {
+        
+        return 2
         
     }
     
