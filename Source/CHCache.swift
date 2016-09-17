@@ -12,6 +12,9 @@ import PromiseKit
 
 public class CHCache {
     
+    
+    // Todo: delete cache database method. For new app version compatibility.
+    
     private struct Constant {
         static let filename = "Cache"
     }

@@ -161,6 +161,18 @@ class ProductTableViewController: CHCacheTableViewController {
     
     // MARK: UITableViewDataSource
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        guard
+            let section = Section(rawValue: section)
+            else { return nil }
+        
+        switch section {
+        case .information: return "Information"
+        }
+        
+    }
+    
     override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
         
         guard
