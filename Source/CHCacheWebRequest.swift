@@ -16,16 +16,16 @@ public struct CHCacheWebRequest {
     
     // MARK: Property
     
-    public let sectionName: String
     public let webServiceGroup: WebServiceGroup
+    
+    /// The transform method for upcoming data.
     public let modelBuilder: ModelBuilder
     
     
     // MARK: Init
     
-    public init(sectionName: String, webServiceGroup: WebServiceGroup, modelBuilder: @escaping ModelBuilder) {
+    public init(webServiceGroup: WebServiceGroup, modelBuilder: @escaping ModelBuilder) {
         
-        self.sectionName = sectionName
         self.webServiceGroup = webServiceGroup
         self.modelBuilder = modelBuilder
         
@@ -34,6 +34,11 @@ public struct CHCacheWebRequest {
     
     // MARK: Request
     
+    /**
+     Perform every requests in group, transform all of returned data into one single json object via model builder.
+     
+     - Returns: A transformed json object.
+    */
     public func execute() -> Promise<Any> {
     
         return Promise { fulfill, reject in

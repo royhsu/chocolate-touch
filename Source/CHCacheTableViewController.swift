@@ -10,6 +10,18 @@ import CHFoundation
 import CoreData
 import PromiseKit
 
+public protocol CHCacheTableViewDataSource: class {
+    
+    func numberOfSections() -> Int
+    
+    func name(for section: Int) -> String
+    
+    func numberOfRows(in section: Int) -> Int
+    
+    func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any
+    
+}
+
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity> {
     
     // Todo: Check core data before request.
@@ -92,12 +104,84 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     // MARK: Web Request
     
-    public func performWebRequests() -> Promise<[Any]> {
+    internal func performWebRequests() -> Promise<[Any]> {
         
         let requests = self.webRequests.map { $0.execute() }
         
         return when(fulfilled: requests)
         
+    }
+    
+    public final func refresh() -> Promise<Void> {
+        
+        return
+            self
+            .cache
+            .setUpCacheStack(in: self.storeType)
+            .then { _ in return self.performWebRequests() }
+            .then { objects in
+                
+                let sections = self.numberOfSections()
+                var insertions: [Promise<Void>] = []
+                
+                for section in 0..<sections {
+                    
+                    let sectionName = self.name(for: section)
+                    let rows = self.numberOfRows(in: section)
+                    
+                    for row in 0..<rows {
+                        
+                        let indexPath = IndexPath(row: row, section: section)
+                        let jsonObject = self.jsonObject(with: objects, forRowsAt: indexPath)
+                        
+                        let insertion = self.cache.insert(
+                            identifier: self.cacheIdentifier,
+                            section: sectionName,
+                            jsonObject: jsonObject
+                        )
+                        
+                        insertions.append(insertion)
+                        
+                    }
+                    
+                }
+                
+                return when(fulfilled: insertions)
+                
+            }
+            .then { return self.cache.save() }
+        
+    }
+    
+}
+
+
+// MARK: - CHCacheTableViewDataSource
+
+extension CHCacheTableViewController: CHCacheTableViewDataSource {
+
+    public func numberOfSections() -> Int {
+        
+        return 0
+        
+    }
+    
+    public func name(for section: Int) -> String {
+        
+        return "\(section)"
+        
+    }
+    
+    public func numberOfRows(in section: Int) -> Int {
+        
+        return 0
+        
+    }
+    
+    public func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any {
+    
+        return [String: Any]()
+    
     }
     
 }

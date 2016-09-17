@@ -49,7 +49,7 @@ class CHCacheTableViewControllerTests: XCTestCase {
             webServices: [ webService1, webService2 ]
         )
         
-        let webRequest = CHCacheWebRequest(sectionName: "Section 1", webServiceGroup: webServiceGroup) { objects in
+        let webRequest = CHCacheWebRequest(webServiceGroup: webServiceGroup) { objects in
             
             let name = (objects[0] as! [String: Any])["name"] as! String
             let hobbies = (objects[1] as! [String: Any])["hobbies"] as! [String]
