@@ -13,15 +13,16 @@ import UIKit
 
 class ProductTableViewController: CHCacheTableViewController {
 
-    enum Section: Int { case information }
+    enum Section: Int { case information, description, comment }
     enum InformationRow: Int { case title, price, quantity }
     
     
     // MARK: Property
     
     let productIdentifier: String
-    let sections: [Section] = [ .information ]
+    let sections: [Section] = [ .information, .description, .comment ]
     let informationRows: [InformationRow] = [ .title, .price, .quantity ]
+    private var numberOfComments = 0
     
     
     // MARK: Init
@@ -49,6 +50,7 @@ class ProductTableViewController: CHCacheTableViewController {
         refreshControl = setUpRefreshControl()
         
         webRequests.append(productRequest)
+        webRequests.append(commentsRequest)
         
     }
     
@@ -125,6 +127,58 @@ class ProductTableViewController: CHCacheTableViewController {
         
     }
     
+    private var commentsRequest: CHCacheWebRequest {
+        
+        let url = URL(string: "https://comments.com")!
+        let urlRequest = URLRequest(url: url)
+        var webService = WebService<Any>(urlRequest: urlRequest)
+        
+        let mockSession = MockURLSession()
+        let jsonObject: [Any] = [
+            [
+                "id": "01",
+                "text": "Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
+            ],
+            [
+                "id": "02",
+                "text": "Sollicitudin Amet Sit"
+            ],
+            [
+                "id": "03",
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean lacinia bibendum nulla sed consectetur."
+            ],
+            [
+                "id": "04",
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet."
+            ],
+            [
+                "id": "05",
+                "text": "Donec ullamcorper nulla non metus auctor fringilla. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor."
+            ]
+        ]
+        mockSession.data = try! JSONSerialization.data(
+            withJSONObject: jsonObject,
+            options: []
+        )
+        
+        webService.urlSession = mockSession
+        
+        let webServiceGroup = WebServiceGroup(webServices: [ webService ])
+        
+        let webRequest = CHCacheWebRequest(webServiceGroup: webServiceGroup) { objects in
+            
+            let comments = objects.first as! Array<[String: Any]>
+            
+            self.numberOfComments = comments.count
+            
+            return comments
+            
+        }
+        
+        return webRequest
+        
+    }
+    
     
     // MARK: CHCacheTableViewDataSource
     
@@ -142,6 +196,8 @@ class ProductTableViewController: CHCacheTableViewController {
         
         switch section {
         case .information: return informationRows.count
+        case .description: return 1
+        case .comment: return numberOfComments
         }
         
     }
@@ -154,6 +210,8 @@ class ProductTableViewController: CHCacheTableViewController {
         
         switch section {
         case .information: return objects[0]
+        case .description: return objects[0]
+        case .comment: return objects[1]
         }
         
     }
@@ -169,6 +227,8 @@ class ProductTableViewController: CHCacheTableViewController {
         
         switch section {
         case .information: return "Information"
+        case .description: return "Description"
+        case .comment: return "Comment"
         }
         
     }
@@ -176,24 +236,21 @@ class ProductTableViewController: CHCacheTableViewController {
     override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
         
         guard
-            let section = Section(rawValue: indexPath.section)
+            let section = Section(rawValue: indexPath.section),
+            let row = InformationRow(rawValue: indexPath.row),
+            let cache = fetchedResultsController?.object(at: indexPath),
+            let jsonObject = try? cache.data.jsonObject()
             else { return }
         
         switch section {
         case .information:
-        
-            guard
-                let row = InformationRow(rawValue: indexPath.row),
-                let cache = fetchedResultsController?.object(at: indexPath),
-                let jsonObject = try? cache.data.jsonObject(),
-                let json = jsonObject as? [String: Any]
-                else { return }
             
+            let json = jsonObject as? [String: Any]
             
             switch row {
             case .title:
                 
-                if let title = json["title"] as? String {
+                if let title = json?["title"] as? String {
                     
                     cell.textLabel?.text = "Title: \(title)"
                     
@@ -207,7 +264,7 @@ class ProductTableViewController: CHCacheTableViewController {
             case .price:
                 
                 
-                if let price = json["price"] as? Double {
+                if let price = json?["price"] as? Double {
                  
                     cell.textLabel?.text = "Price: \(price)"
                 
@@ -220,7 +277,7 @@ class ProductTableViewController: CHCacheTableViewController {
                 
             case .quantity:
                 
-                if let quantity = json["quantity"] as? Int {
+                if let quantity = json?["quantity"] as? Int {
                     
                     cell.textLabel?.text = "Quantity: \(quantity)"
                     
@@ -232,6 +289,37 @@ class ProductTableViewController: CHCacheTableViewController {
                 }
             }
             
+        case .description:
+            
+            let json = jsonObject as? [String: Any]
+            
+            if let description = json?["description"] as? String {
+                
+                cell.textLabel?.text = "Description: \(description)"
+                
+            }
+            else {
+                
+                cell.textLabel?.text = "No Description"
+                
+            }
+            
+        case .comment:
+            
+            let jsonObjects = jsonObject as? [Any]
+            
+            if
+                let comment = jsonObjects?[indexPath.row] as? [String: Any],
+                let text = comment["text"] as? String {
+                
+                cell.textLabel?.text = "Comment: \(text)"
+                
+            }
+            else {
+                
+                cell.textLabel?.text = "No Comment"
+                
+            }
         }
         
     }
