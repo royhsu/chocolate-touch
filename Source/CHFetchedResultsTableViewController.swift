@@ -10,7 +10,13 @@ import CHFoundation
 import CoreData
 import UIKit
 
-open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTableViewController, NSFetchedResultsControllerDelegate {
+protocol CHFetchedResultsTableViewControllerDelegate: class {
+    
+    func fetchedResultsControllerDidSetUp()
+    
+}
+
+open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTableViewController, NSFetchedResultsControllerDelegate, CHFetchedResultsTableViewControllerDelegate {
 
     // Todo: Emtpy page
     
@@ -55,11 +61,20 @@ open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTable
     
     private func fetchedResultsControllerDidSet() {
         
-        fetchedResultsController?.delegate = self
+        guard
+            let fetchedResultsController = fetchedResultsController
+            else {
+                
+                tableView.reloadData()
+                return
+                
+            }
+        
+        fetchedResultsController.delegate = self
         
         do {
             
-            try fetchedResultsController?.performFetch()
+            try fetchedResultsController.performFetch()
             
         }
         catch {
@@ -70,7 +85,14 @@ open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTable
         
         tableView.reloadData()
         
+        fetchedResultsControllerDidSetUp()
+        
     }
+    
+    
+    // MARK: CHFetchedResultsTableViewControllerDelegate
+    
+    open func fetchedResultsControllerDidSetUp() { }
     
     
     // MARK: UITableViewDataSource

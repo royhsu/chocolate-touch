@@ -188,5 +188,48 @@ public class CHCache {
         }
         
     }
+    
+    public func deleteCache(with identifier: String) -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+        
+            guard let stack = stack else {
+                
+                reject(CacheError.stackNotReady)
+                
+                return
+                
+            }
+            
+            let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            backgroundContext.parent = stack.viewContext
+            
+            backgroundContext.perform {
+                
+                let fetchRequest = CHCacheEntity.fetchRequest
+                fetchRequest.predicate = NSPredicate(format: "identifier==%@", identifier)
+                fetchRequest.sortDescriptors = []
+                
+                do {
+                    
+                    let fetchedObjects = try backgroundContext.fetch(fetchRequest)
+                    
+                    for object in fetchedObjects {
+                        
+                        backgroundContext.delete(object)
+                        
+                    }
+                    
+                    try backgroundContext.save()
+                    fulfill()
+                    
+                }
+                catch { reject(error) }
+                
+            }
+        
+        }
+        
+    }
 
 }

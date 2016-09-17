@@ -43,13 +43,14 @@ class ProductTableViewController: CHCacheTableViewController {
         
         webRequests.append(productRequest)
         
-        let _ =
-            refresh()
-            .catch { error in
-                
-                print(error.localizedDescription)
+    }
+    
+    
+    // MARK: CHFetchedResultsTableViewControllerDelegate
+    
+    override func fetchedResultsControllerDidSetUp() {
         
-            }
+        if !isCached { let _ = fetch() }
         
     }
     

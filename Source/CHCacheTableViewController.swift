@@ -24,8 +24,6 @@ public protocol CHCacheTableViewDataSource: class {
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity>, CHCacheTableViewDataSource {
     
-    // Todo: Check core data before request.
-    
     
     // MARK: Property
     
@@ -35,6 +33,13 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     /// For unit test.
     internal var storeType: CoreDataStack.StoreType? = nil
     
+    public var isCached: Bool {
+        
+        let fetchedObjects = fetchedResultsController?.fetchedObjects ?? []
+    
+        return !fetchedObjects.isEmpty
+        
+    }
     public var webRequests: [CHCacheWebRequest] = []
     
     
@@ -66,21 +71,22 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpFetchedResultsController()
+        let _ = setUpFetchedResultsController()
         
     }
     
     
     // MARK: Set Up
     
-    private func setUpFetchedResultsController() {
+    private func setUpFetchedResultsController() -> Promise<Void> {
         
-        let _ =
+        return
             cache
             .setUpCacheStack(in: storeType)
             .then { stack -> Void in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
+                fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
                 fetchRequest.sortDescriptors = [
                     NSSortDescriptor(key: "createdAt", ascending: true)
                 ]
@@ -112,46 +118,73 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         
     }
     
-    public final func refresh() -> Promise<Void> {
-        
-        // Todo: clear before refresh
+    
+    // MARK: Cache
+    
+    internal func clearCache() -> Promise<Void> {
         
         return
-            self
-            .cache
-            .setUpCacheStack(in: storeType)
-            .then { _ in return self.performWebRequests() }
-            .then { objects in
+            cache
+            .deleteCache(with: cacheIdentifier)
+            .then { return self.cache.save() }
+            .then { _ -> Void in
                 
-                let sections = self.numberOfSections()
-                var insertions: [Promise<Void>] = []
-                
-                for section in 0..<sections {
-                    
-                    let sectionName = self.name(for: section)
-                    let rows = self.numberOfRows(in: section)
-                    
-                    for row in 0..<rows {
-                        
-                        let indexPath = IndexPath(row: row, section: section)
-                        let jsonObject = self.jsonObject(with: objects, forRowsAt: indexPath)
-                        
-                        let insertion = self.cache.insert(
-                            identifier: self.cacheIdentifier,
-                            section: sectionName,
-                            jsonObject: jsonObject
-                        )
-                        
-                        insertions.append(insertion)
-                        
-                    }
-                    
-                }
-                
-                return when(fulfilled: insertions)
+                NSFetchedResultsController<CHCacheEntity>.deleteCache(withName: self.cacheIdentifier)
                 
             }
+        
+    }
+    
+    internal func insertCaches(with objects: [Any]) -> Promise<Void> {
+        
+        let sections = self.numberOfSections()
+        var insertions: [Promise<Void>] = []
+        
+        for section in 0..<sections {
+            
+            let sectionName = self.name(for: section)
+            let rows = self.numberOfRows(in: section)
+            
+            for row in 0..<rows {
+                
+                let indexPath = IndexPath(row: row, section: section)
+                let jsonObject = self.jsonObject(with: objects, forRowsAt: indexPath)
+                
+                let insertion = self.cache.insert(
+                    identifier: self.cacheIdentifier,
+                    section: sectionName,
+                    jsonObject: jsonObject
+                )
+                
+                insertions.append(insertion)
+                
+            }
+            
+        }
+        
+        return when(fulfilled: insertions)
+        
+    }
+    
+    
+    // MARK: Action
+    
+    public final func fetch() -> Promise<Void> {
+        
+        return
+            cache
+            .setUpCacheStack(in: storeType)
+            .then { _ in return self.performWebRequests() }
+            .then { return self.insertCaches(with: $0) }
             .then { return self.cache.save() }
+        
+    }
+    
+    public final func refresh() -> Promise<Void> {
+        
+        return
+            clearCache()
+            .then { return self.fetch() }
         
     }
 
