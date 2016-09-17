@@ -134,9 +134,7 @@ public class CHCache {
             do {
                 
                 let jsonObjectString = try String(jsonObject: jsonObject)
-                
-                let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-                backgroundContext.parent = stack.viewContext
+                let backgroundContext = stack.createBackgroundContext()
                 
                 backgroundContext.perform {
                     
@@ -207,8 +205,7 @@ public class CHCache {
                 
             }
             
-            let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-            backgroundContext.parent = stack.viewContext
+            let backgroundContext = stack.createBackgroundContext()
             
             backgroundContext.perform {
                 

@@ -78,3 +78,20 @@ public class CoreDataStack {
     // Todo: background add persistent store
     
 }
+
+
+// MARK: - Background
+
+public extension CoreDataStack {
+    
+    /// A convenience method to create a new background context that targets its parent to view context.
+    func createBackgroundContext() -> NSManagedObjectContext {
+        
+        let backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        backgroundContext.parent = viewContext
+        
+        return backgroundContext
+        
+    }
+    
+}
