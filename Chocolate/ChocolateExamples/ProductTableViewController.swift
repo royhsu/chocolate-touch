@@ -41,7 +41,33 @@ class ProductTableViewController: CHCacheTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        refreshControl = setUpRefreshControl()
+        
         webRequests.append(productRequest)
+        
+    }
+    
+    
+    // MARK: Set Up
+    
+    private func setUpRefreshControl() -> UIRefreshControl {
+        
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: .pullToRefresh, for: .valueChanged)
+        
+        return refreshControl
+        
+    }
+    
+    
+    // MARK: Action
+    
+    func pullToRefresh(refreshControl: UIRefreshControl) {
+        
+        let _ =
+            refresh()
+            .always { refreshControl.endRefreshing() }
         
     }
     
@@ -50,7 +76,11 @@ class ProductTableViewController: CHCacheTableViewController {
     
     override func fetchedResultsControllerDidSetUp() {
         
-        if !isCached { let _ = fetch() }
+        if !isCached {
+            
+            let _ = fetch()
+        
+        }
         
     }
     
@@ -113,5 +143,14 @@ class ProductTableViewController: CHCacheTableViewController {
         cell.textLabel?.text = "Test"
         
     }
+    
+}
+
+
+// MARK: Selector
+
+private extension Selector {
+    
+    static let pullToRefresh = #selector(ProductTableViewController.pullToRefresh)
     
 }

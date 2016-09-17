@@ -114,71 +114,9 @@ open class CHFetchedResultsTableViewController<Entity: NSManagedObject>: CHTable
     
     // MARK: NSFetchedResultsControllerDelegate
     
-    public final func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
-        tableView.endUpdates() // Stop previous animation first.
-        tableView.beginUpdates()
-        
-    }
-    
-    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        
-        switch type {
-        case .insert:
-            
-            tableView.insertSections(
-                IndexSet(integer: sectionIndex),
-                with: .automatic
-            )
-            
-        case .delete:
-            
-            tableView.deleteSections(
-                IndexSet(integer: sectionIndex),
-                with: .automatic
-            )
-            
-        case .move, .update: break
-        }
-        
-    }
-    
-    public final func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            
-            tableView.insertRows(
-                at: [ newIndexPath! ],
-                with: .automatic
-            )
-            
-        case .delete:
-            
-            tableView.deleteRows(
-                at: [ indexPath! ],
-                with: .automatic
-            )
-            
-        case .move:
-            
-            tableView.deleteRows(
-                at: [ indexPath! ],
-                with: .automatic
-            )
-            tableView.insertRows(
-                at: [ indexPath! ],
-                with: .automatic
-            )
-            
-        case .update: break
-        }
-        
-    }
-    
     public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        tableView.endUpdates()
+        tableView.reloadData()
         
     }
     
