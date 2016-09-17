@@ -13,10 +13,15 @@ import UIKit
 
 class ProductTableViewController: CHCacheTableViewController {
 
+    enum Section: Int { case information }
+    enum InformationRow: Int { case title, price, quantity }
+    
     
     // MARK: Property
     
     let productIdentifier: String
+    let sections: [Section] = [ .information ]
+    let informationRows: [InformationRow] = [ .title, .price, .quantity ]
     
     
     // MARK: Init
@@ -125,13 +130,31 @@ class ProductTableViewController: CHCacheTableViewController {
     
     override func numberOfSections() -> Int {
         
-        return 1
+        return sections.count
         
     }
     
     override func numberOfRows(in section: Int) -> Int {
         
-        return 2
+        guard
+            let section = Section(rawValue: section)
+            else { return 0 }
+        
+        switch section {
+        case .information: return informationRows.count
+        }
+        
+    }
+    
+    override func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
+        
+        guard
+            let section = Section(rawValue: indexPath.section)
+            else { return 0 }
+        
+        switch section {
+        case .information: return objects[0]
+        }
         
     }
     
@@ -140,7 +163,64 @@ class ProductTableViewController: CHCacheTableViewController {
     
     override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
         
-        cell.textLabel?.text = "Test"
+        guard
+            let section = Section(rawValue: indexPath.section)
+            else { return }
+        
+        switch section {
+        case .information:
+        
+            guard
+                let row = InformationRow(rawValue: indexPath.row),
+                let cache = fetchedResultsController?.object(at: indexPath),
+                let jsonObject = try? cache.data.jsonObject(),
+                let json = jsonObject as? [String: Any]
+                else { return }
+            
+            
+            switch row {
+            case .title:
+                
+                if let title = json["title"] as? String {
+                    
+                    cell.textLabel?.text = "Title: \(title)"
+                    
+                }
+                else {
+                
+                    cell.textLabel?.text = "No title"
+                
+                }
+                
+            case .price:
+                
+                
+                if let price = json["price"] as? Double {
+                 
+                    cell.textLabel?.text = "Price: \(price)"
+                
+                }
+                else {
+                    
+                    cell.textLabel?.text = "No price"
+                    
+                }
+                
+            case .quantity:
+                
+                if let quantity = json["quantity"] as? Int {
+                    
+                    cell.textLabel?.text = "Quantity: \(quantity)"
+                    
+                }
+                else {
+                    
+                    cell.textLabel?.text = "No quantity"
+                    
+                }
+            }
+            
+        }
         
     }
     

@@ -22,7 +22,7 @@ public protocol CHCacheTableViewDataSource: class {
     
     func numberOfRows(in section: Int) -> Int
     
-    func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any
+    func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any?
     
 }
 
@@ -173,7 +173,9 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
             for row in 0..<rows {
                 
                 let indexPath = IndexPath(row: row, section: section)
-                let jsonObject = self.jsonObject(with: objects, forRowsAt: indexPath)
+                let jsonObject =
+                    self.jsonObject(with: objects, forRowsAt: indexPath) ??
+                    [AnyHashable: Any]()
                 
                 let insertion = self.cache.insert(
                     identifier: self.cacheIdentifier,
@@ -240,9 +242,9 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     }
     
     /// The json object for configure(cell:forRowAt:).
-    open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any {
+    open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
     
-        return [String: Any]()
+        return nil
     
     }
     
