@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'Chocolate'
-  spec.version          = '0.5.1'
+  spec.version          = '0.5.2'
   spec.license          = 'MIT'
   spec.homepage         = 'https://github.com/royhsu/chocolate-touch'
   spec.authors          = { 'Tiny World' => 'roy.hsu@tinyworld.cc' }
