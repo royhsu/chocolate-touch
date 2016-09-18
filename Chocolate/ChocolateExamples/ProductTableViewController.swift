@@ -237,7 +237,6 @@ class ProductTableViewController: CHCacheTableViewController {
         
         guard
             let section = Section(rawValue: indexPath.section),
-            let row = InformationRow(rawValue: indexPath.row),
             let cache = fetchedResultsController?.object(at: indexPath),
             let jsonObject = try? cache.data.jsonObject()
             else { return }
@@ -246,6 +245,10 @@ class ProductTableViewController: CHCacheTableViewController {
         case .information:
             
             let json = jsonObject as? [String: Any]
+            
+            guard
+                let row = InformationRow(rawValue: indexPath.row)
+                else { return }
             
             switch row {
             case .title:

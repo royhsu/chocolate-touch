@@ -97,7 +97,8 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
                 let fetchRequest = CHCacheEntity.fetchRequest
                 fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
                 fetchRequest.sortDescriptors = [
-                    NSSortDescriptor(key: "createdAt", ascending: true)
+                    NSSortDescriptor(key: "section", ascending: true),
+                    NSSortDescriptor(key: "row", ascending: true)
                 ]
                 
                 self.fetchedResultsController = NSFetchedResultsController(
@@ -167,7 +168,6 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         
         for section in 0..<sections {
             
-            let sectionName = self.name(for: section)
             let rows = self.numberOfRows(in: section)
             
             for row in 0..<rows {
@@ -179,7 +179,8 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
                 
                 let insertion = self.cache.insert(
                     identifier: self.cacheIdentifier,
-                    section: sectionName,
+                    section: section,
+                    row: row,
                     jsonObject: jsonObject
                 )
                 

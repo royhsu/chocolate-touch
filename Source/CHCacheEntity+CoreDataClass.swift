@@ -15,10 +15,9 @@ public class CHCacheEntity: NSManagedObject {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         
-        identifier = ""
-        section = ""
-        data = ""
         createdAt = Date()
+        data = ""
+        identifier = ""
         
     }
     

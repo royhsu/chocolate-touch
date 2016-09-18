@@ -58,13 +58,15 @@ class CHCacheTests: XCTestCase {
             
                 let cache1 = self.cache!.insert(
                     identifier: "test",
-                    section: "section 1",
+                    section: 0,
+                    row: 0,
                     jsonObject: [ "name": "Roy" ]
                 )
                 
                 let cache2 = self.cache!.insert(
                     identifier: "test",
-                    section: "section 1",
+                    section: 0,
+                    row: 1,
                     jsonObject: [ "name": "Allen" ]
                 )
                 

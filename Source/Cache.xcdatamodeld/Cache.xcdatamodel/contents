@@ -4,9 +4,10 @@
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="data" attributeType="String" minValueString="0" syncable="YES"/>
         <attribute name="identifier" attributeType="String" minValueString="0" syncable="YES"/>
-        <attribute name="section" attributeType="String" minValueString="0" syncable="YES"/>
+        <attribute name="row" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="section" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Cache" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Cache" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

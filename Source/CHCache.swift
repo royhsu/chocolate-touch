@@ -93,7 +93,7 @@ public class CHCache {
     public enum CacheError: Error { case stackNotReady }
     
     /// Insert a new cache with automatically generated background context. If you want to keep the changes, make sure to call save method.
-    public func insert(identifier: String, section: String, jsonObject: Any) -> Promise<Void> {
+    public func insert(identifier: String, section: Int, row: Int, jsonObject: Any) -> Promise<Void> {
         
         return Promise { fulfill, reject in
             
@@ -115,7 +115,8 @@ public class CHCache {
                     let cache = CHCacheEntity.insert(into: backgroundContext)
                     
                     cache.identifier = identifier
-                    cache.section = section
+                    cache.section = Int16(section)
+                    cache.row = Int16(row)
                     cache.data = jsonObjectString
                     
                     do {

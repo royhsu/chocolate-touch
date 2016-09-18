@@ -12,9 +12,10 @@ import CoreData
 
 extension CHCacheEntity {
 
-    @NSManaged public var identifier: String
-    @NSManaged public var section: String
-    @NSManaged public var data: String
     @NSManaged public var createdAt: Date
-
+    @NSManaged public var data: String
+    @NSManaged public var identifier: String
+    @NSManaged public var row: Int16
+    @NSManaged public var section: Int16
+    
 }
