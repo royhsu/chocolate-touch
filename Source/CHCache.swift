@@ -12,9 +12,6 @@ import PromiseKit
 
 public class CHCache {
     
-    
-    // Todo: delete cache database method. For new app version compatibility.
-    
     private struct Constant {
         static let filename = "Cache"
     }
@@ -33,7 +30,22 @@ public class CHCache {
             withExtension: "sqlite",
             in: .document(domainMask: .userDomainMask)
         )
+        
+    }
     
+    public var model: NSManagedObjectModel {
+        
+        /// Reference: http://stackoverflow.com/questions/25088367/how-to-use-core-datas-managedobjectmodel-inside-a-framework
+        let bundle = Bundle(for: type(of: self))
+        
+        guard
+            let modelURLString = bundle.path(forResource: Constant.filename, ofType: "momd"),
+            let modelURL = URL(string: modelURLString),
+            let model = NSManagedObjectModel(contentsOf: modelURL)
+            else { fatalError() }
+        
+        return model
+        
     }
     
     
@@ -55,10 +67,8 @@ public class CHCache {
             
             do {
                 
-                let cacheModel = CHCache.createCacheModel()
-                
                 let stack = try CoreDataStack(
-                    model: cacheModel,
+                    model: model,
                     options: [
                         NSMigratePersistentStoresAutomaticallyOption: true,
                         NSInferMappingModelAutomaticallyOption: true
@@ -77,46 +87,10 @@ public class CHCache {
         
     }
     
-    internal class func createCacheModel() -> NSManagedObjectModel {
-        
-        let identifier = NSAttributeDescription()
-        identifier.name = "identifier"
-        identifier.attributeType = .stringAttributeType
-        identifier.isOptional = false
-        
-        let section = NSAttributeDescription()
-        section.name = "section"
-        section.attributeType = .stringAttributeType
-        section.isOptional = false
-        
-        let data = NSAttributeDescription()
-        data.name = "data"
-        data.attributeType = .stringAttributeType
-        data.isOptional = false
-        
-        let createdAt = NSAttributeDescription()
-        createdAt.name = "createdAt"
-        createdAt.attributeType = .dateAttributeType
-        createdAt.isOptional = false
-        
-        let entity = NSEntityDescription()
-        entity.name = CHCacheEntity.entityName
-        entity.managedObjectClassName = CHCacheEntity.className
-        entity.properties.append(identifier)
-        entity.properties.append(data)
-        entity.properties.append(createdAt)
-        entity.properties.append(section)
-        
-        let model = NSManagedObjectModel()
-        model.entities.append(entity)
-        
-        return model
-        
-    }
     
-    enum CacheError: Error {
-        case stackNotReady
-    }
+    // MARK: Action
+    
+    public enum CacheError: Error { case stackNotReady }
     
     /// Insert a new cache with automatically generated background context. If you want to keep the changes, make sure to call save method.
     public func insert(identifier: String, section: String, jsonObject: Any) -> Promise<Void> {
@@ -143,7 +117,6 @@ public class CHCache {
                     cache.identifier = identifier
                     cache.section = section
                     cache.data = jsonObjectString
-                    cache.createdAt = Date()
                     
                     do {
                         
