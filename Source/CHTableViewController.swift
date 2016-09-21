@@ -28,6 +28,19 @@ open class CHTableViewController: UITableViewController {
     
     // MARK: UITableViewDataSource
     
+    public final override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        
+        switch cellHeight {
+        case .dynamic: tableView.estimatedRowHeight = 44.0
+        case .fixed: tableView.estimatedRowHeight = 0.0
+        }
+        
+        return tableView.estimatedRowHeight
+        
+    }
+    
     open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)

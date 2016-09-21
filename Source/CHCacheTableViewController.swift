@@ -31,6 +31,8 @@ public protocol CHCacheTableViewDataSource: class {
 
 open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity>, CHCacheTableViewDataSource {
     
+    // Todo: a better way to unit test from outside of framework.
+    
     
     // MARK: Property
     
