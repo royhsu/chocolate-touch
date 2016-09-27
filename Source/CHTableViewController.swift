@@ -8,20 +8,55 @@
 
 import UIKit
 
+// MARK: - CHTableViewDataSource
+
+public enum HeightType {
+    case dynamic
+    case fixed(CGFloat)
+}
+
+public protocol CHTableViewDataSource: class {
+    
+    func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType
+    
+    func tableView(_ tableView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> String?
+    
+    func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    
+}
+
+
+// MARK: - CHTableViewController
+
 open class CHTableViewController: UITableViewController {
     
-    public enum HeightType {
-        case dynamic
-        case fixed(CGFloat)
+    
+    // MARK: Propery
+    
+    public weak var dataSource: CHTableViewDataSource?
+    
+    
+    // MARK: Init
+    
+    public convenience init() {
+        
+        self.init(style: .plain)
+        
     }
     
-    
-    // MARK: View Life Cycle
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
+    public override init(style: UITableViewStyle) {
         
-        tableView.register(CHTableViewCell.self)
+        super.init(style: style)
+        
+        dataSource = self
+        
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        
+        dataSource = self
         
     }
     
@@ -30,7 +65,9 @@ open class CHTableViewController: UITableViewController {
     
     public final override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let heightType = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        let heightType =
+            dataSource?.tableView(tableView, heightTypeForRowAt: indexPath) ??
+            .fixed(44.0)
         
         switch heightType {
         case .dynamic: return 44.0
@@ -41,7 +78,9 @@ open class CHTableViewController: UITableViewController {
     
     public final override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let heightType = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        let heightType =
+            dataSource?.tableView(tableView, heightTypeForRowAt: indexPath) ??
+            .fixed(44.0)
         
         switch heightType {
         case .dynamic: return UITableViewAutomaticDimension
@@ -50,36 +89,46 @@ open class CHTableViewController: UITableViewController {
         
     }
     
+    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell: UITableViewCell!
+        
+        if let identifier = dataSource?.tableView(tableView, cellIdentifierForRowAt: indexPath) {
+        
+            cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        
+        }
+        else {
+            
+            cell = UITableViewCell()
+            
+        }
+        
+        dataSource?.configureCell(cell, forRowAt: indexPath)
+        
+        return cell
+        
+    }
+    
+}
+
+
+// MARK: - CHTableViewDataSource
+
+extension CHTableViewController: CHTableViewDataSource {
+    
     open func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType {
         
         return .fixed(44.0)
         
     }
     
-    public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(for: indexPath)
-        
-        if
-            cell.containerView == nil,
-            let containerView = self.tableView(tableView, containerViewForRowAt: indexPath) {
-            
-            cell.setUp(containerView: containerView)
-            
-        }
-        
-        configure(cell: cell, forRowAt: indexPath)
-        
-        return cell
-        
-    }
-    
-    open func tableView(_ tableView: UITableView, containerViewForRowAt indexPath: IndexPath) -> UIView? {
+    open func tableView(_ tableView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> String? {
         
         return nil
         
     }
     
-    open func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) { }
+    open func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) { }
     
 }

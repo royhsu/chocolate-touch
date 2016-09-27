@@ -39,7 +39,7 @@ class CHCacheTests: XCTestCase {
             .loadStore(type: .memory)
             .catch { error in
                 
-                XCTAssertNil(error, "Cannot load cache store. \(error.localizedDescription)")
+                XCTAssertNil(error, "Can't load cache store. \(error.localizedDescription)")
             
             }
             .always { expectation.fulfill() }
@@ -68,7 +68,7 @@ class CHCacheTests: XCTestCase {
             .then { _ in return self.cache!.save() }
             .catch { error in
             
-                XCTAssertNil(error, "Cannot insert a new cache. \(error.localizedDescription)")
+                XCTAssertNil(error, "Can't insert a new cache. \(error.localizedDescription)")
                 
             }
             .always { expectation.fulfill() }
@@ -101,9 +101,10 @@ class CHCacheTests: XCTestCase {
                 return self.cache!.deleteCache(identifier: cacheIdentifier)
             
             }
+            .then { _ in return self.cache!.save() }
             .catch { error in
                 
-                XCTAssertNil(error, "Cannot delete caches. \(error.localizedDescription)")
+                XCTAssertNil(error, "Can't delete caches. \(error.localizedDescription)")
                 
             }
             .always { expectation.fulfill() }

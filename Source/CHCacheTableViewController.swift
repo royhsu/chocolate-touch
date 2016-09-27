@@ -13,34 +13,22 @@ import PromiseKit
 
 // MARK: - CHCacheTableViewDataSource
 
-/// A protocol designed for replacing table view data source. Make CHCache work well with CHFetchedResultsTableViewController.
-public protocol CHCacheTableViewDataSource: class {
-    
-    func numberOfSections() -> Int
-    
-    func name(for section: Int) -> String
-    
-    func numberOfRows(in section: Int) -> Int
+public protocol CHTableViewCacheDataSource: class {
     
     func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any?
     
 }
 
-
-// MARK: - CHCacheTableViewController
-
-open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDataSource {
+open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate {
     
-    // Todo: a better way to unit test from outside of framework.
     // Todo: a expiration time for refreshing data.
-    
     
     // MARK: Property
     
     let cacheIdentifier: String
     private let cache = CHCache.default
     
-    public var fetchedResultsController: NSFetchedResultsController<CHCacheEntity>?
+    public private(set) var fetchedResultsController: NSFetchedResultsController<CHCacheEntity>?
     
     public var isCached: Bool {
         
@@ -49,6 +37,8 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
         return !fetchedObjects.isEmpty
         
     }
+    
+    public weak var cacheDataSource: CHTableViewCacheDataSource?
     
     /// An array that keeps all web requests.
     public var webRequests: [CHCacheWebRequest] = []
@@ -62,12 +52,14 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
         
         super.init(style: .plain)
         
+        cacheDataSource = self
+        
     }
     
     private init() {
         
         fatalError()
-    
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -77,23 +69,13 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
     }
     
     
-    // MARK: View Life Cycle
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let _ = setUpFetchedResultsController()
-        
-    }
-    
-    
     // MARK: Set Up
     
-    private func setUpFetchedResultsController() -> Promise<Void> {
+    public func setUpFetchedResultsController(storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
         
         return
             cache
-            .loadStore()
+            .loadStore(type: storeType)
             .then { stack -> Void in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
@@ -103,12 +85,16 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
                     NSSortDescriptor(key: "row", ascending: true)
                 ]
                 
-                self.fetchedResultsController = NSFetchedResultsController(
+                let fetchedResultsController = NSFetchedResultsController(
                     fetchRequest: fetchRequest,
                     managedObjectContext: stack.viewContext,
                     sectionNameKeyPath: "section",
                     cacheName: self.cacheIdentifier
                 )
+                
+                fetchedResultsController.delegate = self
+                
+                self.fetchedResultsController = fetchedResultsController
                 
             }
             .catch { error in
@@ -165,22 +151,22 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
     */
     internal func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
         
-        let sections = self.numberOfSections()
+        let sections = tableView.numberOfSections
         var insertions: [Promise<NSManagedObjectID>] = []
         
         for section in 0..<sections {
             
-            let rows = self.numberOfRows(in: section)
+            let rows = tableView.numberOfRows(inSection: section)
             
             for row in 0..<rows {
                 
                 let indexPath = IndexPath(row: row, section: section)
                 let jsonObject =
-                    self.jsonObject(with: objects, forRowsAt: indexPath) ??
+                    cacheDataSource?.jsonObject(with: objects, forRowsAt: indexPath) ??
                     [AnyHashable: Any]()
                 
-                let insertion = self.cache.insert(
-                    identifier: self.cacheIdentifier,
+                let insertion = cache.insert(
+                    identifier: cacheIdentifier,
                     section: section,
                     row: row,
                     jsonObject: jsonObject
@@ -223,49 +209,29 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
     
     // MARK: UITableViewDataSource
     
-    public final override func numberOfSections(in tableView: UITableView) -> Int {
+    open override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return fetchedResultsController?.sections?.count ?? 0
-        
-    }
-    
-    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let sectionInfo = fetchedResultsController?.sections?[section]
-        
-        return sectionInfo?.numberOfObjects ?? 0
+        return super.numberOfSections(in: tableView)
         
     }
     
-    
-    // MARK: - CHCacheTableViewDataSource
-    
-    /// Mirror to numberOfSections(in:).
-    open func numberOfSections() -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 0
+        return super.tableView(tableView, numberOfRowsInSection: section)
         
     }
     
-    /// The section name.
-    open func name(for section: Int) -> String {
-        
-        return "\(section)"
-        
-    }
+}
+
+
+// MARK: - CHTableViewCacheDataSource
+
+extension CHCacheTableViewController: CHTableViewCacheDataSource {
     
-    /// Mirror to tableView(:numberOfRowsInSection:).
-    open func numberOfRows(in section: Int) -> Int {
-        
-        return 0
-        
-    }
-    
-    /// The json object for configure(cell:forRowAt:).
     open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
-    
+        
         return nil
-    
+        
     }
     
 }

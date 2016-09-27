@@ -25,7 +25,6 @@
 		B07193AF1D93843A000CBD79 /* CHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AE1D93843A000CBD79 /* CHButton.swift */; };
 		B0971CF01D2804E3005BBEE8 /* Chocolate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0971CEF1D2804E3005BBEE8 /* Chocolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF81D280536005BBEE8 /* CHTableViewController.swift */; };
-		B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */; };
 		B0971D0B1D280ADB005BBEE8 /* Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; };
 		B0971D1E1D280D3F005BBEE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D1D1D280D3F005BBEE8 /* AppDelegate.swift */; };
 		B0971D251D280D3F005BBEE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0971D241D280D3F005BBEE8 /* Assets.xcassets */; };
@@ -83,7 +82,6 @@
 		B0971CEF1D2804E3005BBEE8 /* Chocolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chocolate.h; sourceTree = "<group>"; };
 		B0971CF11D2804E3005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0971CF81D280536005BBEE8 /* CHTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHTableViewController.swift; sourceTree = "<group>"; };
-		B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		B0971D061D280ADB005BBEE8 /* ChocolateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChocolateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0971D0A1D280ADB005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0971D1B1D280D3F005BBEE8 /* ChocolateExamples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChocolateExamples.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,7 +183,6 @@
 		B0971CF71D280536005BBEE8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */,
 				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
 				B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */,
 				B07193AE1D93843A000CBD79 /* CHButton.swift */,
@@ -511,7 +508,6 @@
 				B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */,
 				B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */,
 				B04B347D1D8E1CF0004150B6 /* Cache.xcdatamodeld in Sources */,
-				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B04B34A11D8E20A0004150B6 /* CHCacheEntity+CoreDataClass.swift in Sources */,
 				B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */,

@@ -12,12 +12,63 @@ import XCTest
 
 class CHCacheTableViewControllerTests: XCTestCase {
     
-    func testInitCacheTableViewControllerAndRequest() {
+    var controller: CHCacheTableViewController?
+    
+    override func setUp() {
+        super.setUp()
         
-        let expectation = self.expectation(description: "Init cache table view controller and request web service groups.")
+        controller = CHCacheTableViewController(cacheIdentifier: "Test")
+        controller!.webRequests = [ newTestWebRequest() ]
         
-        let controller = CHCacheTableViewController(cacheIdentifier: "Test")
-//        controller.storeType = .memory
+    }
+    
+    override func tearDown() {
+        
+        controller = nil
+        
+        super.tearDown()
+    }
+    
+    func testSetUpFetchedResultsController() {
+        
+        let expectation = self.expectation(description: "Set up fetched results controller.")
+        let _ =
+        controller!
+            .setUpFetchedResultsController(storeType: .memory)
+            .catch { error in
+         
+                XCTAssertNil(error, "Can't set up fetched results controller. \(error.localizedDescription)")
+        
+            }
+            .always { expectation.fulfill() }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+    }
+    
+    func testPerformWebRequests() {
+        
+        let expectation = self.expectation(description: "Perform web requests.")
+        let _ =
+        controller!
+            .performWebRequests()
+            .then { objects in
+            
+                XCTAssertEqual(objects.count, 1, "The requested objects doesn't match.")
+            
+            }
+            .catch { error in
+        
+                XCTAssertNil(error, "Can't perform web requests. \(error.localizedDescription)")
+                
+            }
+            .always { expectation.fulfill() }
+    
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+    }
+    
+    func newTestWebRequest() -> CHCacheWebRequest {
         
         let url1 = URL(string: "https://example.com")!
         let urlRequest1 = URLRequest(url: url1)
@@ -51,8 +102,11 @@ class CHCacheTableViewControllerTests: XCTestCase {
         
         let webRequest = CHCacheWebRequest(webServiceGroup: webServiceGroup) { objects in
             
-            let name = (objects[0] as! [String: Any])["name"] as! String
-            let hobbies = (objects[1] as! [String: Any])["hobbies"] as! [String]
+            let jsonObject1 = objects[0] as! [String: Any]
+            let name = jsonObject1["name"] as! String
+            
+            let jsonObject2 = objects[1] as! [String: Any]
+            let hobbies = jsonObject2["hobbies"] as! [String]
             
             return [
                 "name": name,
@@ -61,19 +115,7 @@ class CHCacheTableViewControllerTests: XCTestCase {
             
         }
         
-        controller.webRequests.append(webRequest)
-        
-        let _ =
-            controller
-            .performWebRequests()
-            .catch { error in
-        
-                XCTAssertNil(error, "Cannot request groups. \(error.localizedDescription)")
-                
-            }
-            .always { expectation.fulfill() }
-    
-        waitForExpectations(timeout: 10.0, handler: nil)
+        return webRequest
         
     }
     
