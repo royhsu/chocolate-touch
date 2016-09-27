@@ -136,7 +136,7 @@ public class CHCache {
     }
     
     /// Delete all caches related to the given identifier.
-    public func deleteCache(identifier: String) -> Promise<[NSManagedObjectID]> {
+    public func deleteCache(with identifier: String) -> Promise<[NSManagedObjectID]> {
         
         return Promise { fulfill, reject in
             

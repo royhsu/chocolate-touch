@@ -98,7 +98,7 @@ class CHCacheTests: XCTestCase {
             .then { _ in return self.cache!.save() }
             .then { _ in
                 
-                return self.cache!.deleteCache(identifier: cacheIdentifier)
+                return self.cache!.deleteCache(with: cacheIdentifier)
             
             }
             .then { _ in return self.cache!.save() }

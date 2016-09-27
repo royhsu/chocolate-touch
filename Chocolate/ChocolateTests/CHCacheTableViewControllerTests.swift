@@ -14,11 +14,17 @@ class CHCacheTableViewControllerTests: XCTestCase {
     
     var controller: CHCacheTableViewController?
     
+    let jsonObject1: [String: String] = [ "name": "Roy" ]
+    let jsonObject2: [String: [String]] = [ "hobbies": [ "drawing", "basketball" ] ]
+    
     override func setUp() {
         super.setUp()
         
         controller = CHCacheTableViewController(cacheIdentifier: "Test")
         controller!.webRequests = [ newTestWebRequest() ]
+        controller!.tableView.dataSource = self
+        controller!.dataSource = self
+        controller!.cacheDataSource = self
         
     }
     
@@ -68,13 +74,45 @@ class CHCacheTableViewControllerTests: XCTestCase {
         
     }
     
+    func testInsertCaches() {
+        
+        let expectation = self.expectation(description: "Insert caches.")
+        
+        let _ =
+        controller!
+            .setUpFetchedResultsController(storeType: .memory)
+            .then { _ in
+                
+                return self.controller!.insertCaches(
+                    with: [
+                        self.jsonObject1,
+                        self.jsonObject2
+                    ]
+                )
+            
+            }
+            .then { objectIDs in
+                
+                XCTAssertEqual(objectIDs.count, 2, "The inserted caches doesn't match.")
+                
+            }
+            .catch { error in
+                
+                XCTAssertNil(error, "Can't insert caches. \(error.localizedDescription)")
+                
+            }
+            .always { expectation.fulfill() }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+    }
+    
     func newTestWebRequest() -> CHCacheWebRequest {
         
         let url1 = URL(string: "https://example.com")!
         let urlRequest1 = URLRequest(url: url1)
         var webService1 = WebService<Any>(urlRequest: urlRequest1)
         
-        let jsonObject1: [String: String] = [ "name": "Roy" ]
         let mockSession1 = MockURLSession()
         mockSession1.data = try! JSONSerialization.data(
             withJSONObject: jsonObject1,
@@ -88,7 +126,6 @@ class CHCacheTableViewControllerTests: XCTestCase {
         var webService2 = WebService<Any>(urlRequest: urlRequest2)
         
         let mockSession2 = MockURLSession()
-        let jsonObject2: [String: [String]] = [ "hobbies": [ "drawing", "basketball" ] ]
         mockSession2.data = try! JSONSerialization.data(
             withJSONObject: jsonObject2,
             options: []
@@ -116,6 +153,67 @@ class CHCacheTableViewControllerTests: XCTestCase {
         }
         
         return webRequest
+        
+    }
+    
+}
+
+
+// MARK: - UITableViewDataSource
+
+extension CHCacheTableViewControllerTests: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return [ jsonObject1, jsonObject2 ].count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        return UITableViewCell()
+        
+    }
+    
+}
+
+
+// MARK: - CHTableViewDataSource
+
+extension CHCacheTableViewControllerTests: CHTableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType {
+        
+        return .fixed(44.0)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> String? {
+        
+        return nil
+        
+    }
+    
+    func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+}
+
+
+// MARK: - CHTableViewCacheDataSource
+
+extension CHCacheTableViewControllerTests: CHTableViewCacheDataSource {
+    
+    func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
+        
+        return nil
         
     }
     

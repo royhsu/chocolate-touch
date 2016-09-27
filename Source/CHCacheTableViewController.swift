@@ -130,7 +130,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
         return
             cache
-            .deleteCache(identifier: cacheIdentifier)
+            .deleteCache(with: cacheIdentifier)
             .then { _ in return self.cache.save() }
             .then { _ -> Void in
                 
