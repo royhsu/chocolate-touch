@@ -83,17 +83,30 @@ class CHCacheTableViewControllerTests: XCTestCase {
             .setUpFetchedResultsController(storeType: .memory)
             .then { _ in
                 
-                return self.controller!.insertCaches(
-                    with: [
-                        self.jsonObject1,
-                        self.jsonObject2
-                    ]
-                )
+                return self.controller!.insertCaches(with: [])
             
             }
-            .then { objectIDs in
+            .then { objectIDs -> Void in
                 
-                XCTAssertEqual(objectIDs.count, 2, "The inserted caches doesn't match.")
+                let tableView = self.controller!.tableView!
+                
+                var numberOfCaches = 0
+                
+                let numberOfSection = tableView.numberOfSections
+                
+                for section in 0..<numberOfSection {
+                    
+                    let numberOfRows = tableView.numberOfRows(inSection: section)
+                    
+                    for _ in 0..<numberOfRows {
+                        
+                        numberOfCaches += 1
+                        
+                    }
+                    
+                }
+                XCTAssertEqual(objectIDs.count, 6, "The inserted caches doesn't match.")
+                XCTAssertEqual(objectIDs.count, numberOfCaches, "The inserted caches doesn't match.")
                 
             }
             .catch { error in
@@ -165,13 +178,17 @@ extension CHCacheTableViewControllerTests: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return [ jsonObject1, jsonObject2 ].count
+        return 3
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        switch section {
+        case 0: return 2
+        case 1: return 3
+        default: return 1
+        }
         
     }
     
