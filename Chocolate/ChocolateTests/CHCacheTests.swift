@@ -48,9 +48,9 @@ class CHCacheTests: XCTestCase {
         
     }
     
-    func testInsertCache() {
+    func testInsertAndSaveCache() {
         
-        let expectation = self.expectation(description: "Insert a cache.")
+        let expectation = self.expectation(description: "Insert and save a cache.")
         
         let _ =
         cache!
@@ -69,6 +69,41 @@ class CHCacheTests: XCTestCase {
             .catch { error in
             
                 XCTAssertNil(error, "Cannot insert a new cache. \(error.localizedDescription)")
+                
+            }
+            .always { expectation.fulfill() }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+    }
+    
+    func testDeleteCache() {
+        
+        let expectation = self.expectation(description: "Delete caches with identifier.")
+        let cacheIdentifier = "test"
+        
+        let _ =
+        cache!
+            .loadStore(type: .memory)
+            .then { _ -> Promise<NSManagedObjectID> in
+                
+                return self.cache!.insert(
+                    identifier: cacheIdentifier,
+                    section: 0,
+                    row: 0,
+                    jsonObject: [ "name": "Roy" ]
+                )
+                
+            }
+            .then { _ in return self.cache!.save() }
+            .then { _ in
+                
+                return self.cache!.deleteCache(identifier: cacheIdentifier)
+            
+            }
+            .catch { error in
+                
+                XCTAssertNil(error, "Cannot delete caches. \(error.localizedDescription)")
                 
             }
             .always { expectation.fulfill() }
