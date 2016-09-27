@@ -29,7 +29,7 @@ public protocol CHCacheTableViewDataSource: class {
 
 // MARK: - CHCacheTableViewController
 
-open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCacheEntity>, CHCacheTableViewDataSource {
+open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDataSource {
     
     // Todo: a better way to unit test from outside of framework.
     // Todo: a expiration time for refreshing data.
@@ -40,8 +40,7 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     let cacheIdentifier: String
     private let cache = CHCache.default
     
-    /// For unit test.
-    internal var storeType: CoreDataStack.StoreType? = nil
+    public var fetchedResultsController: NSFetchedResultsController<CHCacheEntity>?
     
     public var isCached: Bool {
         
@@ -57,15 +56,15 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
     
     // MARK: Init
     
-    public init(cacheIdentifier: String) {
+    public init(cacheIdentifier: String, storeType: CHCache) {
         
         self.cacheIdentifier = cacheIdentifier
         
-        super.init()
+        super.init(style: .plain)
         
     }
     
-    private override init() {
+    private init() {
         
         fatalError()
     
@@ -221,7 +220,24 @@ open class CHCacheTableViewController: CHFetchedResultsTableViewController<CHCac
         
     }
 
-
+    
+    // MARK: UITableViewDataSource
+    
+    public final override func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return fetchedResultsController?.sections?.count ?? 0
+        
+    }
+    
+    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        let sectionInfo = fetchedResultsController?.sections?[section]
+        
+        return sectionInfo?.numberOfObjects ?? 0
+        
+    }
+    
+    
     // MARK: - CHCacheTableViewDataSource
     
     /// Mirror to numberOfSections(in:).

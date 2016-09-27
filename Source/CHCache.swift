@@ -21,7 +21,24 @@ public class CHCache {
     
     public static let `default` = CHCache()
     
-    public private(set) var stack: CoreDataStack?
+    public private(set) lazy var stack: CoreDataStack = {
+        
+        /// Reference: http://stackoverflow.com/questions/25088367/how-to-use-core-datas-managedobjectmodel-inside-a-framework
+        let bundle = Bundle(for: type(of: self))
+        
+        guard
+            let modelURLString = bundle.path(forResource: Constant.filename, ofType: "momd"),
+            let modelURL = URL(string: modelURLString),
+            let model = NSManagedObjectModel(contentsOf: modelURL)
+            else {
+                
+                fatalError("Can't find core data model for cache.")
+        
+            }
+        
+        return CoreDataStack(model: model)
+    
+    }()
     
     private var defaultStoreURL: URL {
         
@@ -33,129 +50,67 @@ public class CHCache {
         
     }
     
-    public var model: NSManagedObjectModel {
-        
-        /// Reference: http://stackoverflow.com/questions/25088367/how-to-use-core-datas-managedobjectmodel-inside-a-framework
-        let bundle = Bundle(for: type(of: self))
-        
-        guard
-            let modelURLString = bundle.path(forResource: Constant.filename, ofType: "momd"),
-            let modelURL = URL(string: modelURLString),
-            let model = NSManagedObjectModel(contentsOf: modelURL)
-            else { fatalError() }
-        
-        return model
-        
-    }
-    
-    
-    // MARK: Core Data Stack
-    
-    public func setUpCacheStack(in storeType: CoreDataStack.StoreType? = nil) -> Promise<CoreDataStack> {
-        
-        let storeType = storeType ?? .local(storeURL: defaultStoreURL)
-        
-        return Promise { fulfill, reject in
-            
-            if let stack = stack {
-                
-                fulfill(stack)
-                
-                return
-                
-            }
-            
-            do {
-                
-                let stack = try CoreDataStack(
-                    model: model,
-                    options: [
-                        NSMigratePersistentStoresAutomaticallyOption: true,
-                        NSInferMappingModelAutomaticallyOption: true
-                    ],
-                    storeType: storeType
-                )
-                
-                self.stack = stack
-                
-                fulfill(stack)
-                
-            }
-            catch { reject(error) }
-            
-        }
-        
-    }
-    
     
     // MARK: Action
     
-    public enum CacheError: Error { case stackNotReady }
-    
-    /// Insert a new cache with automatically generated background context. If you want to keep the changes, make sure to call save method.
-    public func insert(identifier: String, section: Int, row: Int, jsonObject: Any) -> Promise<Void> {
+    /** 
+     Insert a new cache in background. If you want to keep the changes, make sure to call save method.
+     
+     - Parameter identifier: A identifier for cache.
+     
+     - Parameter section: The section index for cache.
+     
+     - Parameter row: The row index for cache.
+     
+     - Parameter jsonOject: A valid json object that will be converted into string for storing.
+ 
+     - Returns: A promise with inserted managed object id.
+    */
+    public func insert(identifier: String, section: Int, row: Int, jsonObject: Any) -> Promise<NSManagedObjectID> {
         
         return Promise { fulfill, reject in
             
-            guard let stack = stack else {
-                
-                reject(CacheError.stackNotReady)
-                
-                return
-            
-            }
-            
-            do {
-                
-                let jsonObjectString = try String(jsonObject: jsonObject)
-                let backgroundContext = stack.createBackgroundContext()
-                
-                backgroundContext.perform {
+            let _ =
+            self.stack.performBackgroundTask { backgroundContext in
                     
-                    let cache = CHCacheEntity.insert(into: backgroundContext)
+                let cache = CHCacheEntity.insert(into: backgroundContext)
+                
+                do {
+                    
+                    let jsonObjectString = try String(jsonObject: jsonObject)
                     
                     cache.identifier = identifier
                     cache.section = Int16(section)
                     cache.row = Int16(row)
                     cache.data = jsonObjectString
                     
-                    do {
-                        
-                        try backgroundContext.save()
-                        fulfill()
-                        
-                    }
-                    catch { reject(error) }
+                    try backgroundContext.save()
+                    
+                    fulfill(cache.objectID)
                     
                 }
+                catch { reject(error) }
                 
             }
-            catch { reject(error) }
-        
+            
         }
         
     }
+        
     
     /// Save all changes happened on the view context.
-    public func save() -> Promise<Void> {
+    public func save() -> Promise<NSManagedObjectContext> {
         
         return Promise { fulfill, reject in
+        
+            let viewContext = self.stack.viewContext
             
-            guard let stack = stack else {
-                
-                reject(CacheError.stackNotReady)
-                
-                return
-                
-            }
-            
-            let viewContext = stack.viewContext
             viewContext.perform {
                 
                 do {
                     
                     try viewContext.save()
-                    fulfill()
+                    fulfill(viewContext)
                     
                 }
                 catch { reject(error) }
@@ -167,21 +122,12 @@ public class CHCache {
     }
     
     /// Delete all caches related to the given identifier.
-    public func deleteCache(with identifier: String) -> Promise<Void> {
+    public func deleteCache(identifier: String) -> Promise<[NSManagedObjectID]> {
         
         return Promise { fulfill, reject in
-        
-            guard let stack = stack else {
-                
-                reject(CacheError.stackNotReady)
-                
-                return
-                
-            }
             
-            let backgroundContext = stack.createBackgroundContext()
-            
-            backgroundContext.perform {
+            let _ =
+            self.stack.performBackgroundTask { backgroundContext in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
                 fetchRequest.predicate = NSPredicate(format: "identifier==%@", identifier)
@@ -198,7 +144,10 @@ public class CHCache {
                     }
                     
                     try backgroundContext.save()
-                    fulfill()
+                    
+                    let deletedObjectIDs = fetchedObjects.map { $0.objectID }
+                    
+                    fulfill(deletedObjectIDs)
                     
                 }
                 catch { reject(error) }

@@ -12,7 +12,7 @@ open class CHTableViewController: UITableViewController {
     
     public enum HeightType {
         case dynamic
-        case fixed(height: CGFloat)
+        case fixed(CGFloat)
     }
     
     
@@ -30,43 +30,31 @@ open class CHTableViewController: UITableViewController {
     
     public final override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        let heightType = self.tableView(tableView, heightTypeForRowAt: indexPath)
         
-        switch cellHeight {
-        case .dynamic: tableView.estimatedRowHeight = 44.0
-        case .fixed: tableView.estimatedRowHeight = 0.0
+        switch heightType {
+        case .dynamic: return 44.0
+        case .fixed: return 0.0
         }
-        
-        return tableView.estimatedRowHeight
         
     }
     
-    open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public final override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        let cellHeight = self.tableView(tableView, heightTypeForRowAt: indexPath)
+        let heightType = self.tableView(tableView, heightTypeForRowAt: indexPath)
         
-        switch cellHeight {
-        case .dynamic: tableView.rowHeight = UITableViewAutomaticDimension
-        case .fixed(let height): tableView.rowHeight = height
+        switch heightType {
+        case .dynamic: return UITableViewAutomaticDimension
+        case .fixed(let height): return height
         }
         
-        return tableView.rowHeight
-        
     }
-        
+    
     open func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType {
         
-        return .fixed(height: 44.0)
+        return .fixed(44.0)
         
     }
-    
-    open func tableView(_ tableView: UITableView, containerViewForRowAt indexPath: IndexPath) -> UIView? {
-        
-        return nil
-        
-    }
-    
-    open func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) { }
     
     public final override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -80,10 +68,18 @@ open class CHTableViewController: UITableViewController {
             
         }
         
-        self.configure(cell: cell, forRowAt: indexPath)
+        configure(cell: cell, forRowAt: indexPath)
         
         return cell
         
     }
+    
+    open func tableView(_ tableView: UITableView, containerViewForRowAt indexPath: IndexPath) -> UIView? {
+        
+        return nil
+        
+    }
+    
+    open func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) { }
     
 }

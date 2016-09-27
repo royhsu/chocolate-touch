@@ -33,7 +33,6 @@
 		B0971D281D280D3F005BBEE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0971D261D280D3F005BBEE8 /* LaunchScreen.storyboard */; };
 		B0971D2E1D280D9D005BBEE8 /* CatalogueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D2D1D280D9D005BBEE8 /* CatalogueTableViewController.swift */; };
 		B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF0711D36439A000B7429 /* UIView+Extensions.swift */; };
-		B0F919C61D8687260075B956 /* CHFetchedResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F919C51D8687260075B956 /* CHFetchedResultsTableViewController.swift */; };
 		C76B9EBBDBF2F971C92FE3E1 /* Pods_Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C92F168C563933353892412 /* Pods_Chocolate.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +95,6 @@
 		B0971D291D280D3F005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0971D2D1D280D9D005BBEE8 /* CatalogueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogueTableViewController.swift; sourceTree = "<group>"; };
 		B09AF0711D36439A000B7429 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		B0F919C51D8687260075B956 /* CHFetchedResultsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHFetchedResultsTableViewController.swift; sourceTree = "<group>"; };
 		C4D2123F94C697F706DB077A /* Pods-Chocolate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.release.xcconfig"; sourceTree = "<group>"; };
 		D78F3C1D7D39914B74F963F6 /* Pods-ChocolateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB2EB873348F0DA86401960D /* Pods_ChocolateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChocolateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,7 +193,6 @@
 				B07193AE1D93843A000CBD79 /* CHButton.swift */,
 				B0615C191D89496900816654 /* CHTableViewCell.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
-				B0F919C51D8687260075B956 /* CHFetchedResultsTableViewController.swift */,
 				B069892A1D30D41900EA6123 /* CHCache.swift */,
 				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
 				B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */,
@@ -518,7 +515,6 @@
 				B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */,
 				B04B347D1D8E1CF0004150B6 /* Cache.xcdatamodeld in Sources */,
 				B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */,
-				B0F919C61D8687260075B956 /* CHFetchedResultsTableViewController.swift in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B04B34A11D8E20A0004150B6 /* CHCacheEntity+CoreDataClass.swift in Sources */,
 				B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */,
