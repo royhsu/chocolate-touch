@@ -50,10 +50,24 @@ public class CHCache {
         
     }
     
+    public func loadStore(type: CoreDataStack.StoreType? = nil) -> Promise<CoreDataStack> {
+    
+        let storeType = type ?? .local(defaultStoreURL)
+        
+        return stack.loadStore(
+            type: storeType,
+            options: [
+                NSMigratePersistentStoresAutomaticallyOption: true,
+                NSInferMappingModelAutomaticallyOption: true
+            ]
+        )
+    
+    }
+    
     
     // MARK: Action
     
-    /** 
+    /**
      Insert a new cache in background. If you want to keep the changes, make sure to call save method.
      
      - Parameter identifier: A identifier for cache.
@@ -137,11 +151,7 @@ public class CHCache {
                     
                     let fetchedObjects = try backgroundContext.fetch(fetchRequest)
                     
-                    for object in fetchedObjects {
-                        
-                        backgroundContext.delete(object)
-                        
-                    }
+                    fetchedObjects.forEach { backgroundContext.delete($0) }
                     
                     try backgroundContext.save()
                     

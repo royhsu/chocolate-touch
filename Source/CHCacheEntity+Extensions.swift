@@ -23,13 +23,13 @@ public extension CHCacheEntity {
     
     class func insert(into context: NSManagedObjectContext) -> CHCacheEntity {
     
-        return NSEntityDescription.insertNewObject(forEntityName: self.entityName, into: context) as! CHCacheEntity
+        return NSEntityDescription.insertNewObject(forEntityName: entityName, into: context) as! CHCacheEntity
     
     }
     
     @nonobjc public class var fetchRequest: NSFetchRequest<CHCacheEntity> {
         
-        return NSFetchRequest<CHCacheEntity>(entityName: self.entityName)
+        return NSFetchRequest<CHCacheEntity>(entityName: entityName)
         
     }
 

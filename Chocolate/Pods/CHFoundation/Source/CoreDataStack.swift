@@ -68,7 +68,7 @@ public class CoreDataStack {
      - Returns: A promise with stack self.
      
     */
-    func loadStore(type: StoreType, options: [AnyHashable: Any]? = nil) -> Promise<CoreDataStack> {
+    public func loadStore(type: StoreType, options: [AnyHashable: Any]? = nil) -> Promise<CoreDataStack> {
         
         return Promise { fulfill, reject in
             

@@ -56,7 +56,7 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
     
     // MARK: Init
     
-    public init(cacheIdentifier: String, storeType: CHCache) {
+    public init(cacheIdentifier: String) {
         
         self.cacheIdentifier = cacheIdentifier
         
@@ -93,7 +93,7 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
         
         return
             cache
-            .setUpCacheStack(in: storeType)
+            .loadStore()
             .then { stack -> Void in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
@@ -144,8 +144,8 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
         
         return
             cache
-            .deleteCache(with: cacheIdentifier)
-            .then { return self.cache.save() }
+            .deleteCache(identifier: cacheIdentifier)
+            .then { _ in return self.cache.save() }
             .then { _ -> Void in
                 
                 NSFetchedResultsController<CHCacheEntity>.deleteCache(withName: self.cacheIdentifier)
@@ -163,10 +163,10 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
      
      - Note: Please make sure to call save method on the cache context manually if you want to keep the insertions.
     */
-    internal func insertCaches(with objects: [Any]) -> Promise<Void> {
+    internal func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
         
         let sections = self.numberOfSections()
-        var insertions: [Promise<Void>] = []
+        var insertions: [Promise<NSManagedObjectID>] = []
         
         for section in 0..<sections {
             
@@ -200,19 +200,19 @@ open class CHCacheTableViewController: CHTableViewController, CHCacheTableViewDa
     // MARK: Action
     
     /// Execute all required methods to request and cache data.
-    public final func fetch() -> Promise<Void> {
+    public final func fetch() -> Promise<NSManagedObjectContext> {
         
         return
             cache
-            .setUpCacheStack(in: storeType)
+            .loadStore()
             .then { _ in return self.performWebRequests() }
             .then { return self.insertCaches(with: $0) }
-            .then { return self.cache.save() }
+            .then { _ in return self.cache.save() }
         
     }
     
     /// Clean up previous caches and re-fetch data. Nicely cooperate with UIRefreshControl.
-    public final func refresh() -> Promise<Void> {
+    public final func refresh() -> Promise<NSManagedObjectContext> {
         
         return
             clearCache()

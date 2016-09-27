@@ -23,7 +23,6 @@
 		B069892B1D30D41900EA6123 /* CHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892A1D30D41900EA6123 /* CHCache.swift */; };
 		B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */; };
 		B07193AF1D93843A000CBD79 /* CHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AE1D93843A000CBD79 /* CHButton.swift */; };
-		B0956AD11D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */; };
 		B0971CF01D2804E3005BBEE8 /* Chocolate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0971CEF1D2804E3005BBEE8 /* Chocolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF81D280536005BBEE8 /* CHTableViewController.swift */; };
 		B0971D011D280536005BBEE8 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CFC1D280536005BBEE8 /* UITableView+Extensions.swift */; };
@@ -80,7 +79,6 @@
 		B069892A1D30D41900EA6123 /* CHCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCache.swift; sourceTree = "<group>"; };
 		B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		B07193AE1D93843A000CBD79 /* CHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHButton.swift; sourceTree = "<group>"; };
-		B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHFetchedResultsTableViewControllerTests.swift; sourceTree = "<group>"; };
 		B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0971CEF1D2804E3005BBEE8 /* Chocolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chocolate.h; sourceTree = "<group>"; };
 		B0971CF11D2804E3005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 		B0971D071D280ADB005BBEE8 /* ChocolateTests */ = {
 			isa = PBXGroup;
 			children = (
-				B0956AD01D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift */,
 				B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */,
 				B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */,
 				B0971D0A1D280ADB005BBEE8 /* Info.plist */,
@@ -530,7 +527,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0956AD11D2928BB000BC8D0 /* CHFetchedResultsTableViewControllerTests.swift in Sources */,
 				B05C6F951D8A9D6E00B32BB6 /* CHCacheTests.swift in Sources */,
 				B05C6F971D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift in Sources */,
 			);

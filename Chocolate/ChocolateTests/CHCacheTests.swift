@@ -8,6 +8,7 @@
 
 import CHFoundation
 @testable import Chocolate
+import CoreData
 import PromiseKit
 import XCTest
 
@@ -29,51 +30,42 @@ class CHCacheTests: XCTestCase {
         super.tearDown()
     }
     
-    func testSetUpCacheStack() {
+    func testLoadCacheStore() {
         
-        let expectation = self.expectation(description: "Set up cache core data stack.")
+        let expectation = self.expectation(description: "Load cache store.")
         
         let _ =
-            cache!
-            .setUpCacheStack(in: .memory)
+        cache!
+            .loadStore(type: .memory)
             .catch { error in
                 
-                XCTAssertNil(error, "Cannot set up cache stack. \(error.localizedDescription)")
+                XCTAssertNil(error, "Cannot load cache store. \(error.localizedDescription)")
             
             }
             .always { expectation.fulfill() }
-        
-        waitForExpectations(timeout: 5.0, handler: nil)
+            
+            waitForExpectations(timeout: 10.0, handler: nil)
         
     }
     
-    func testInsertCaches() {
+    func testInsertCache() {
         
-        let expectation = self.expectation(description: "Insert caches.")
+        let expectation = self.expectation(description: "Insert a cache.")
         
         let _ =
-            cache!
-            .setUpCacheStack(in: .memory)
-            .then { _ -> Promise<Void> in
+        cache!
+            .loadStore(type: .memory)
+            .then { _ -> Promise<NSManagedObjectID> in
             
-                let cache1 = self.cache!.insert(
+                return self.cache!.insert(
                     identifier: "test",
                     section: 0,
                     row: 0,
                     jsonObject: [ "name": "Roy" ]
                 )
                 
-                let cache2 = self.cache!.insert(
-                    identifier: "test",
-                    section: 0,
-                    row: 1,
-                    jsonObject: [ "name": "Allen" ]
-                )
-                
-                return when(fulfilled: cache1, cache2)
-                
             }
-            .then { return self.cache!.save() }
+            .then { _ in return self.cache!.save() }
             .catch { error in
             
                 XCTAssertNil(error, "Cannot insert a new cache. \(error.localizedDescription)")

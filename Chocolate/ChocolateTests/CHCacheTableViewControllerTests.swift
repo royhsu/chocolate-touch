@@ -17,7 +17,7 @@ class CHCacheTableViewControllerTests: XCTestCase {
         let expectation = self.expectation(description: "Init cache table view controller and request web service groups.")
         
         let controller = CHCacheTableViewController(cacheIdentifier: "Test")
-        controller.storeType = .memory
+//        controller.storeType = .memory
         
         let url1 = URL(string: "https://example.com")!
         let urlRequest1 = URLRequest(url: url1)
