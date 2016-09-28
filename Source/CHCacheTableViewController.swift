@@ -153,7 +153,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         return
             cache
             .deleteCache(with: cacheIdentifier)
-            .then { _ in return self.cache.save() }
+            .then { _ in self.saveCaches() }
             .then { _ -> Void in
                 
                 NSFetchedResultsController<CHCacheEntity>.deleteCache(withName: self.cacheIdentifier)
@@ -210,19 +210,6 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
     }
     
-    public func jsonObject(at indexPath: IndexPath) -> Any? {
-        
-        if !isCached { return nil }
-        
-        guard
-            let cache = fetchedResultsController?.object(at: indexPath),
-            let jsonObject = try? cache.data.jsonObject()
-            else { return nil }
-        
-        return jsonObject
-        
-    }
-    
     
     // MARK: Action
     
@@ -261,6 +248,22 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
             else { return 0 }
         
         return sectionInfo.numberOfObjects
+        
+    }
+    
+    
+    // MARK: JSON Object
+    
+    public func jsonObject(at indexPath: IndexPath) -> Any? {
+        
+        if !isCached { return nil }
+        
+        guard
+            let cache = fetchedResultsController?.object(at: indexPath),
+            let jsonObject = try? cache.data.jsonObject()
+            else { return nil }
+        
+        return jsonObject
         
     }
     

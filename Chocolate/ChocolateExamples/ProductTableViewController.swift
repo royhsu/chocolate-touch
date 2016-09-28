@@ -12,23 +12,23 @@ import CoreData
 import PromiseKit
 import UIKit
 
-class ProductTableViewController: CHCacheTableViewController {
+public class ProductTableViewController: CHCacheTableViewController {
 
-    enum Section: Int { case information, description, comment }
-    enum InformationRow: Int { case title, price, quantity }
+    private enum Section: Int { case information, description, comment }
+    private enum InformationRow: Int { case title, price, quantity }
     
     
     // MARK: Property
     
-    let productIdentifier: String
-    let sections: [Section] = [ .information, .description, .comment ]
-    let informationRows: [InformationRow] = [ .title, .price, .quantity ]
+    public let productIdentifier: String
+    private let sections: [Section] = [ .information, .description, .comment ]
+    private let informationRows: [InformationRow] = [ .title, .price, .quantity ]
     private var numberOfComments = 0
     
     
     // MARK: Init
     
-    init(productIdentifier: String) {
+    public init(productIdentifier: String) {
         
         self.productIdentifier = productIdentifier
         
@@ -68,7 +68,6 @@ class ProductTableViewController: CHCacheTableViewController {
                 print(error.localizedDescription)
                 
             }
-            .always { self.tableView.reloadData() }
         
     }
     
@@ -88,16 +87,11 @@ class ProductTableViewController: CHCacheTableViewController {
     
     // MARK: Action
     
-    func pullToRefresh(refreshControl: UIRefreshControl) {
+    public func pullToRefresh(refreshControl: UIRefreshControl) {
         
         let _ =
             refresh()
-            .always {
-                
-                refreshControl.endRefreshing()
-                self.tableView.reloadData()
-        
-            }
+            .always { refreshControl.endRefreshing() }
         
     }
     
@@ -192,26 +186,6 @@ class ProductTableViewController: CHCacheTableViewController {
     
     // MARK: UITableViewDataSource
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-     
-        return sections.count
-        
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard
-            let section = Section(rawValue: section)
-            else { return 0 }
-        
-        switch section {
-        case .information: return informationRows.count
-        case .description: return 1
-        case .comment: return numberOfComments
-        }
-        
-    }
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard
@@ -227,15 +201,52 @@ class ProductTableViewController: CHCacheTableViewController {
     }
     
     
+    // MARK: CHTableViewCacheDataSource
+    
+    public final override func numberOfSections() -> Int {
+     
+        return sections.count
+        
+    }
+    
+    public final override func numberOfRows(inSection section: Int) -> Int {
+        
+        guard
+            let section = Section(rawValue: section)
+            else { return 0 }
+        
+        switch section {
+        case .information: return informationRows.count
+        case .description: return 1
+        case .comment: return numberOfComments
+        }
+        
+    }
+    
+    public final override func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
+        
+        guard
+            let section = Section(rawValue: indexPath.section)
+            else { return nil }
+        
+        switch section {
+        case .information: return objects[0]
+        case .description: return objects[0]
+        case .comment: return objects[1]
+        }
+        
+    }
+
+    
     // MARK: CHTableViewDataSource
     
-    override func tableView(_ tableView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> String? {
+    public final override func tableView(_ tableView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> String? {
         
         return ProductTableViewCell.identifier
         
     }
     
-    override func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    public final override func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard
             let section = Section(rawValue: indexPath.section),
@@ -327,24 +338,20 @@ class ProductTableViewController: CHCacheTableViewController {
         }
         
     }
+
+}
+
+
+// MARK: - NSFetchedResultsControllerDelegate
+
+extension ProductTableViewController {
     
-    
-    // MARK: CHCacheTableViewDataSource
-    
-    override func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
+    public final func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        guard
-            let section = Section(rawValue: indexPath.section)
-            else { return nil }
-        
-        switch section {
-        case .information: return objects[0]
-        case .description: return objects[0]
-        case .comment: return objects[1]
-        }
+        tableView.reloadData()
         
     }
-
+    
 }
 
 
