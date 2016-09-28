@@ -15,6 +15,10 @@ import PromiseKit
 
 public protocol CHTableViewCacheDataSource: class {
     
+    func numberOfSections() -> Int
+    
+    func numberOfRows(inSection section: Int) -> Int
+    
     func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any?
     
 }
@@ -169,12 +173,12 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     */
     internal func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
         
-        let sections = tableView.numberOfSections
+        let sections = cacheDataSource?.numberOfSections() ?? 0
         var insertions: [Promise<NSManagedObjectID>] = []
         
         for section in 0..<sections {
             
-            let rows = tableView.numberOfRows(inSection: section)
+            let rows = cacheDataSource?.numberOfRows(inSection: section) ?? 0
             
             for row in 0..<rows {
                 
@@ -200,14 +204,15 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
     }
     
+    internal func saveCaches() -> Promise<Void> {
+        
+        return cache.save().asVoid()
+        
+    }
+    
     public func jsonObject(at indexPath: IndexPath) -> Any? {
         
-        // Make sure fetched results controller did peform fetch.
-        guard
-            let fetchedObjects = fetchedResultsController?.fetchedObjects
-            else { return nil }
-        
-        if fetchedObjects.isEmpty { return nil }
+        if !isCached { return nil }
         
         guard
             let cache = fetchedResultsController?.object(at: indexPath),
@@ -227,11 +232,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         return
             performWebRequests()
                 .then { self.insertCaches(with: $0) }
-                .then { _ -> Void in
-                    
-                    let _ = self.cache.save()
-        
-                }
+                .then { _ in self.saveCaches() }
         
     }
     
@@ -247,15 +248,19 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     
     // MARK: UITableViewDataSource
     
-    open override func numberOfSections(in tableView: UITableView) -> Int {
+    public final override func numberOfSections(in tableView: UITableView) -> Int {
         
-        return super.numberOfSections(in: tableView)
+        return fetchedResultsController?.sections?.count ?? 0
         
     }
     
-    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public final override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return super.tableView(tableView, numberOfRowsInSection: section)
+        guard
+            let sectionInfo = fetchedResultsController?.sections?[section]
+            else { return 0 }
+        
+        return sectionInfo.numberOfObjects
         
     }
     
@@ -265,6 +270,18 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
 // MARK: - CHTableViewCacheDataSource
 
 extension CHCacheTableViewController: CHTableViewCacheDataSource {
+    
+    open func numberOfSections() -> Int {
+        
+        return 0
+        
+    }
+    
+    open func numberOfRows(inSection section: Int) -> Int {
+        
+        return 0
+        
+    }
     
     open func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
         

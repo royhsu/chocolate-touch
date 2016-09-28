@@ -22,7 +22,6 @@ class CHCacheTableViewControllerTests: XCTestCase {
         
         controller = CHCacheTableViewController(cacheIdentifier: "Test")
         controller!.webRequests = [ newTestWebRequest() ]
-        controller!.tableView.dataSource = self
         controller!.dataSource = self
         controller!.cacheDataSource = self
         
@@ -81,32 +80,27 @@ class CHCacheTableViewControllerTests: XCTestCase {
         let _ =
         controller!
             .setUpFetchedResultsController(storeType: .memory)
-            .then { _ in
-                
-                return self.controller!.insertCaches(with: [])
-            
-            }
-            .then { objectIDs -> Void in
-                
-                let tableView = self.controller!.tableView!
+            .then { _ in self.controller!.insertCaches(with: []) }
+            .then { insertedObjects -> Void in
                 
                 var numberOfCaches = 0
                 
-                let numberOfSection = tableView.numberOfSections
-                
-                for section in 0..<numberOfSection {
+                for section in 0..<self.numberOfSections() {
                     
-                    let numberOfRows = tableView.numberOfRows(inSection: section)
+                    for _ in 0..<self.numberOfRows(inSection: section) {
                     
-                    for _ in 0..<numberOfRows {
-                        
                         numberOfCaches += 1
                         
                     }
                     
                 }
-                XCTAssertEqual(objectIDs.count, 6, "The inserted caches doesn't match.")
-                XCTAssertEqual(objectIDs.count, numberOfCaches, "The inserted caches doesn't match.")
+                
+                XCTAssertEqual(insertedObjects.count, numberOfCaches, "The inserted caches doesn't match cache data source.")
+                
+                try? self.controller!.fetchedResultsController!.performFetch()
+                let fetchedObjects = self.controller!.fetchedResultsController!.fetchedObjects
+                
+                XCTAssertEqual(insertedObjects.count, fetchedObjects?.count, "The inserted caches doesn't match fetched objects.")
                 
             }
             .catch { error in
@@ -172,35 +166,6 @@ class CHCacheTableViewControllerTests: XCTestCase {
 }
 
 
-// MARK: - UITableViewDataSource
-
-extension CHCacheTableViewControllerTests: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return 3
-        
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        switch section {
-        case 0: return 2
-        case 1: return 3
-        default: return 1
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        return UITableViewCell()
-        
-    }
-    
-}
-
-
 // MARK: - CHTableViewDataSource
 
 extension CHCacheTableViewControllerTests: CHTableViewDataSource {
@@ -227,6 +192,22 @@ extension CHCacheTableViewControllerTests: CHTableViewDataSource {
 // MARK: - CHTableViewCacheDataSource
 
 extension CHCacheTableViewControllerTests: CHTableViewCacheDataSource {
+    
+    func numberOfSections() -> Int {
+        
+        return 3
+        
+    }
+    
+    func numberOfRows(inSection section: Int) -> Int {
+        
+        switch section {
+        case 0: return 2
+        case 1: return 3
+        default: return 1
+        }
+        
+    }
     
     func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
         

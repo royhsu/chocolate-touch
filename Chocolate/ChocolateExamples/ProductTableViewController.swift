@@ -21,7 +21,7 @@ class ProductTableViewController: CHCacheTableViewController {
     // MARK: Property
     
     let productIdentifier: String
-    let sections: [Section] = [ .information, .description ]
+    let sections: [Section] = [ .information, .description, .comment ]
     let informationRows: [InformationRow] = [ .title, .price, .quantity ]
     private var numberOfComments = 0
     
@@ -50,7 +50,7 @@ class ProductTableViewController: CHCacheTableViewController {
         
         refreshControl = setUpRefreshControl()
         
-        webRequests = [ productRequest ]
+        webRequests = [ productRequest, commentsRequest ]
         
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: ProductTableViewCell.identifier)
         
