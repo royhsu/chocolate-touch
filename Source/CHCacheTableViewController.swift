@@ -76,7 +76,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         return
             cache
             .loadStore(type: storeType)
-            .then { stack -> Void in
+            .then { stack -> NSFetchedResultsController<CHCacheEntity> in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
                 fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
@@ -95,6 +95,24 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
                 fetchedResultsController.delegate = self
                 
                 self.fetchedResultsController = fetchedResultsController
+                
+                return fetchedResultsController
+                
+            }
+            .then { fetchedResultsController in
+                
+                return Promise { fulfill, reject in
+                
+                    do {
+                        
+                        try fetchedResultsController.performFetch()
+                        
+                        fulfill()
+                        
+                    }
+                    catch { reject(error) }
+                
+                }
                 
             }
             .catch { error in
@@ -182,27 +200,47 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
     }
     
+    public func jsonObject(at indexPath: IndexPath) -> Any? {
+        
+        // Make sure fetched results controller did peform fetch.
+        guard
+            let fetchedObjects = fetchedResultsController?.fetchedObjects
+            else { return nil }
+        
+        if fetchedObjects.isEmpty { return nil }
+        
+        guard
+            let cache = fetchedResultsController?.object(at: indexPath),
+            let jsonObject = try? cache.data.jsonObject()
+            else { return nil }
+        
+        return jsonObject
+        
+    }
+    
     
     // MARK: Action
     
     /// Execute all required methods to request and cache data.
-    public final func fetch() -> Promise<NSManagedObjectContext> {
+    public final func fetch() -> Promise<Void> {
         
         return
-            cache
-            .loadStore()
-            .then { _ in return self.performWebRequests() }
-            .then { return self.insertCaches(with: $0) }
-            .then { _ in return self.cache.save() }
+            performWebRequests()
+                .then { self.insertCaches(with: $0) }
+                .then { _ -> Void in
+                    
+                    let _ = self.cache.save()
+        
+                }
         
     }
     
     /// Clean up previous caches and re-fetch data. Nicely cooperate with UIRefreshControl.
-    public final func refresh() -> Promise<NSManagedObjectContext> {
+    public final func refresh() -> Promise<Void> {
         
         return
             clearCache()
-            .then { return self.fetch() }
+                .then { self.fetch() }
         
     }
 

@@ -25,6 +25,9 @@ public class CoreDataStack {
     /// The persistent store coordinator shared by view context and writer context.
     public let storeCoordinator: NSPersistentStoreCoordinator
     
+    /// Note: Temporarily fix the issue (error code: 134080) when adding persistent store multiple times.
+    public private(set) var isStoreLoaded: Bool = false
+    
     
     // MARK: Init
     
@@ -42,7 +45,7 @@ public class CoreDataStack {
      - Returns: A core data stack instance.
      
      - Note: It's recommended to always create a stack on the main thread. http://stackoverflow.com/questions/13333289/core-data-timeout-adding-persistent-store-on-application-launch
-    */
+     */
     public init(model: NSManagedObjectModel) {
         
         let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
@@ -67,10 +70,18 @@ public class CoreDataStack {
      
      - Returns: A promise with stack self.
      
-    */
+     */
     public func loadStore(type: StoreType, options: [AnyHashable: Any]? = nil) -> Promise<CoreDataStack> {
         
         return Promise { fulfill, reject in
+            
+            if isStoreLoaded {
+                
+                fulfill(self)
+                
+                return
+                
+            }
             
             DispatchQueue.global(qos: .background).async {
                 
@@ -81,6 +92,7 @@ public class CoreDataStack {
                         
                         try self.storeCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
                         
+                        self.isStoreLoaded = true
                         fulfill(self)
                         
                     }
@@ -92,6 +104,7 @@ public class CoreDataStack {
                         
                         try self.storeCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: options)
                         
+                        self.isStoreLoaded = true
                         fulfill(self)
                         
                     }
@@ -99,7 +112,7 @@ public class CoreDataStack {
                 }
                 
             }
-        
+            
         }
         
     }
@@ -132,7 +145,7 @@ public extension CoreDataStack {
                 
                 block(backgroundContext)
                 fulfill(backgroundContext)
-            
+                
             }
             
         }

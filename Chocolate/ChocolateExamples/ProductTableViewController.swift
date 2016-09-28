@@ -8,6 +8,7 @@
 
 import CHFoundation
 import Chocolate
+import CoreData
 import PromiseKit
 import UIKit
 
@@ -20,7 +21,7 @@ class ProductTableViewController: CHCacheTableViewController {
     // MARK: Property
     
     let productIdentifier: String
-    let sections: [Section] = [ .information, .description, .comment ]
+    let sections: [Section] = [ .information, .description ]
     let informationRows: [InformationRow] = [ .title, .price, .quantity ]
     private var numberOfComments = 0
     
@@ -31,7 +32,7 @@ class ProductTableViewController: CHCacheTableViewController {
         
         self.productIdentifier = productIdentifier
         
-        super.init(cacheIdentifier: productIdentifier)
+        super.init(cacheIdentifier: "products/\(productIdentifier)")
         
     }
     
@@ -49,8 +50,25 @@ class ProductTableViewController: CHCacheTableViewController {
         
         refreshControl = setUpRefreshControl()
         
-        webRequests.append(productRequest)
-        webRequests.append(commentsRequest)
+        webRequests = [ productRequest ]
+        
+        tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: ProductTableViewCell.identifier)
+        
+        let _ =
+        setUpFetchedResultsController()
+            .then { _ -> Void in
+                
+                if self.isCached { return }
+                
+                let _ = self.fetch()
+                
+            }
+            .catch { error in
+                
+                print(error.localizedDescription)
+                
+            }
+            .always { self.tableView.reloadData() }
         
     }
     
@@ -74,20 +92,12 @@ class ProductTableViewController: CHCacheTableViewController {
         
         let _ =
             refresh()
-            .always { refreshControl.endRefreshing() }
+            .always {
+                
+                refreshControl.endRefreshing()
+                self.tableView.reloadData()
         
-    }
-    
-    
-    // MARK: CHFetchedResultsTableViewControllerDelegate
-    
-    override func fetchedResultsControllerDidSetUp() {
-        
-        if !isCached {
-            
-            let _ = fetch()
-        
-        }
+            }
         
     }
     
@@ -180,15 +190,15 @@ class ProductTableViewController: CHCacheTableViewController {
     }
     
     
-    // MARK: CHCacheTableViewDataSource
+    // MARK: UITableViewDataSource
     
-    override func numberOfSections() -> Int {
-        
+    override func numberOfSections(in tableView: UITableView) -> Int {
+     
         return sections.count
         
     }
     
-    override func numberOfRows(in section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard
             let section = Section(rawValue: section)
@@ -201,23 +211,6 @@ class ProductTableViewController: CHCacheTableViewController {
         }
         
     }
-    
-    override func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
-        
-        guard
-            let section = Section(rawValue: indexPath.section)
-            else { return 0 }
-        
-        switch section {
-        case .information: return objects[0]
-        case .description: return objects[0]
-        case .comment: return objects[1]
-        }
-        
-    }
-    
-    
-    // MARK: UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -233,12 +226,20 @@ class ProductTableViewController: CHCacheTableViewController {
         
     }
     
-    override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
+    
+    // MARK: CHTableViewDataSource
+    
+    override func tableView(_ tableView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> String? {
+        
+        return ProductTableViewCell.identifier
+        
+    }
+    
+    override func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard
             let section = Section(rawValue: indexPath.section),
-            let cache = fetchedResultsController?.object(at: indexPath),
-            let jsonObject = try? cache.data.jsonObject()
+            let jsonObject = jsonObject(at: indexPath)
             else { return }
         
         switch section {
@@ -259,18 +260,18 @@ class ProductTableViewController: CHCacheTableViewController {
                     
                 }
                 else {
-                
+                    
                     cell.textLabel?.text = "No title"
-                
+                    
                 }
                 
             case .price:
                 
                 
                 if let price = json?["price"] as? Double {
-                 
+                    
                     cell.textLabel?.text = "Price: \(price)"
-                
+                    
                 }
                 else {
                     
@@ -327,6 +328,23 @@ class ProductTableViewController: CHCacheTableViewController {
         
     }
     
+    
+    // MARK: CHCacheTableViewDataSource
+    
+    override func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
+        
+        guard
+            let section = Section(rawValue: indexPath.section)
+            else { return nil }
+        
+        switch section {
+        case .information: return objects[0]
+        case .description: return objects[0]
+        case .comment: return objects[1]
+        }
+        
+    }
+
 }
 
 

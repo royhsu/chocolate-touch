@@ -14,13 +14,11 @@ public class CatalogueTableViewController: CHTableViewController {
 
     enum Row: Int {
         
-        case fetchedResultsTableView
         case cacheTableView
         
         var title: String {
             
             switch self {
-            case .fetchedResultsTableView: return "Fetched Results Table View"
             case .cacheTableView: return "Cache Table View"
             }
             
@@ -32,7 +30,6 @@ public class CatalogueTableViewController: CHTableViewController {
     // MARK: Property
     
     let rows: [Row] = [
-        .fetchedResultsTableView,
         .cacheTableView
     ]
     
@@ -70,7 +67,7 @@ public class CatalogueTableViewController: CHTableViewController {
     
     }
     
-    public override func configure(cell: CHTableViewCell, forRowAt indexPath: IndexPath) {
+    public override func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         cell.textLabel?.text = rows[indexPath.row].title
         
@@ -84,16 +81,9 @@ public class CatalogueTableViewController: CHTableViewController {
         let row = rows[indexPath.row]
         
         switch row {
-        case .fetchedResultsTableView:
-            
-            let controller = FriendListTableViewController()
-            controller.title = row.title
-            
-            show(controller, sender: nil)
-            
         case .cacheTableView:
             
-            let controller = ProductTableViewController(productIdentifier: "TestProduct")
+            let controller = ProductTableViewController(productIdentifier: "123")
             controller.navigationItem.title = row.title
             
             show(controller, sender: nil)
