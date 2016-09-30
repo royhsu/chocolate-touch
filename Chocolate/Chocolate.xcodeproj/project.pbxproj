@@ -23,6 +23,9 @@
 		B069892B1D30D41900EA6123 /* CHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892A1D30D41900EA6123 /* CHCache.swift */; };
 		B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */; };
 		B07193AF1D93843A000CBD79 /* CHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AE1D93843A000CBD79 /* CHButton.swift */; };
+		B08B26E41D9E97FA0028BD00 /* CHCacheCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08B26E31D9E97FA0028BD00 /* CHCacheCollectionViewController.swift */; };
+		B08B26E61D9E98AD0028BD00 /* CHCacheCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08B26E51D9E98AD0028BD00 /* CHCacheCollectionViewControllerTests.swift */; };
+		B08B26E81D9E98FD0028BD00 /* MockWebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08B26E71D9E98FD0028BD00 /* MockWebRequest.swift */; };
 		B0971CF01D2804E3005BBEE8 /* Chocolate.h in Headers */ = {isa = PBXBuildFile; fileRef = B0971CEF1D2804E3005BBEE8 /* Chocolate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971CF81D280536005BBEE8 /* CHTableViewController.swift */; };
 		B0971D0B1D280ADB005BBEE8 /* Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; };
@@ -31,6 +34,8 @@
 		B0971D281D280D3F005BBEE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0971D261D280D3F005BBEE8 /* LaunchScreen.storyboard */; };
 		B0971D2E1D280D9D005BBEE8 /* CatalogueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0971D2D1D280D9D005BBEE8 /* CatalogueTableViewController.swift */; };
 		B09AF0721D36439A000B7429 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09AF0711D36439A000B7429 /* UIView+Extensions.swift */; };
+		B0ACAA0F1D9BA6D900926D16 /* CHCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACAA0E1D9BA6D900926D16 /* CHCollectionViewController.swift */; };
+		B0ACAA111D9BA6F700926D16 /* HeightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ACAA101D9BA6F700926D16 /* HeightType.swift */; };
 		C76B9EBBDBF2F971C92FE3E1 /* Pods_Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C92F168C563933353892412 /* Pods_Chocolate.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +83,9 @@
 		B069892A1D30D41900EA6123 /* CHCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCache.swift; sourceTree = "<group>"; };
 		B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		B07193AE1D93843A000CBD79 /* CHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHButton.swift; sourceTree = "<group>"; };
+		B08B26E31D9E97FA0028BD00 /* CHCacheCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheCollectionViewController.swift; sourceTree = "<group>"; };
+		B08B26E51D9E98AD0028BD00 /* CHCacheCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheCollectionViewControllerTests.swift; sourceTree = "<group>"; };
+		B08B26E71D9E98FD0028BD00 /* MockWebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockWebRequest.swift; sourceTree = "<group>"; };
 		B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Chocolate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0971CEF1D2804E3005BBEE8 /* Chocolate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chocolate.h; sourceTree = "<group>"; };
 		B0971CF11D2804E3005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +99,8 @@
 		B0971D291D280D3F005BBEE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0971D2D1D280D9D005BBEE8 /* CatalogueTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogueTableViewController.swift; sourceTree = "<group>"; };
 		B09AF0711D36439A000B7429 /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		B0ACAA0E1D9BA6D900926D16 /* CHCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCollectionViewController.swift; sourceTree = "<group>"; };
+		B0ACAA101D9BA6F700926D16 /* HeightType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightType.swift; sourceTree = "<group>"; };
 		C4D2123F94C697F706DB077A /* Pods-Chocolate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chocolate.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chocolate/Pods-Chocolate.release.xcconfig"; sourceTree = "<group>"; };
 		D78F3C1D7D39914B74F963F6 /* Pods-ChocolateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChocolateTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChocolateTests/Pods-ChocolateTests.release.xcconfig"; sourceTree = "<group>"; };
 		DB2EB873348F0DA86401960D /* Pods_ChocolateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChocolateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -183,13 +193,16 @@
 		B0971CF71D280536005BBEE8 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B0ACAA101D9BA6F700926D16 /* HeightType.swift */,
 				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
 				B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */,
 				B07193AE1D93843A000CBD79 /* CHButton.swift */,
 				B0615C191D89496900816654 /* CHTableViewCell.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
+				B0ACAA0E1D9BA6D900926D16 /* CHCollectionViewController.swift */,
 				B069892A1D30D41900EA6123 /* CHCache.swift */,
 				B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */,
+				B08B26E31D9E97FA0028BD00 /* CHCacheCollectionViewController.swift */,
 				B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */,
 				B04B349F1D8E20A0004150B6 /* CHCacheEntity+CoreDataClass.swift */,
 				B04B34A01D8E20A0004150B6 /* CHCacheEntity+CoreDataProperties.swift */,
@@ -205,6 +218,8 @@
 			children = (
 				B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */,
 				B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */,
+				B08B26E51D9E98AD0028BD00 /* CHCacheCollectionViewControllerTests.swift */,
+				B08B26E71D9E98FD0028BD00 /* MockWebRequest.swift */,
 				B0971D0A1D280ADB005BBEE8 /* Info.plist */,
 			);
 			path = ChocolateTests;
@@ -505,14 +520,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0ACAA111D9BA6F700926D16 /* HeightType.swift in Sources */,
 				B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */,
 				B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */,
+				B0ACAA0F1D9BA6D900926D16 /* CHCollectionViewController.swift in Sources */,
 				B04B347D1D8E1CF0004150B6 /* Cache.xcdatamodeld in Sources */,
 				B0971CFD1D280536005BBEE8 /* CHTableViewController.swift in Sources */,
 				B04B34A11D8E20A0004150B6 /* CHCacheEntity+CoreDataClass.swift in Sources */,
 				B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */,
 				B04B34A41D8E23B5004150B6 /* CHCacheEntity+Extensions.swift in Sources */,
 				B0615C1B1D894B0A00816654 /* CHTableViewCell.swift in Sources */,
+				B08B26E41D9E97FA0028BD00 /* CHCacheCollectionViewController.swift in Sources */,
 				B04B34A21D8E20A0004150B6 /* CHCacheEntity+CoreDataProperties.swift in Sources */,
 				B07193AF1D93843A000CBD79 /* CHButton.swift in Sources */,
 				B069892B1D30D41900EA6123 /* CHCache.swift in Sources */,
@@ -524,6 +542,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B05C6F951D8A9D6E00B32BB6 /* CHCacheTests.swift in Sources */,
+				B08B26E61D9E98AD0028BD00 /* CHCacheCollectionViewControllerTests.swift in Sources */,
+				B08B26E81D9E98FD0028BD00 /* MockWebRequest.swift in Sources */,
 				B05C6F971D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
