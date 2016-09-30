@@ -8,13 +8,6 @@
 
 import UIKit
 
-// MARK: - CHTableViewDataSource
-
-public enum HeightType {
-    case dynamic
-    case fixed(CGFloat)
-}
-
 public protocol CHTableViewDataSource: class {
     
     func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType

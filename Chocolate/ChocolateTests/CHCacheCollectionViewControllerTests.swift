@@ -1,8 +1,8 @@
 //
-//  CHCacheTableViewControllerTests.swift
+//  CHCacheCollectionViewControllerTests.swift
 //  Chocolate
 //
-//  Created by 許郁棋 on 2016/9/15.
+//  Created by 許郁棋 on 2016/9/30.
 //  Copyright © 2016年 Tiny World. All rights reserved.
 //
 
@@ -10,14 +10,14 @@ import CHFoundation
 @testable import Chocolate
 import XCTest
 
-class CHCacheTableViewControllerTests: XCTestCase {
+class CHCacheCollectionViewControllerTests: XCTestCase {
     
-    var controller: CHCacheTableViewController?
+    var controller: CHCacheCollectionViewController?
     
     override func setUp() {
         super.setUp()
         
-        controller = CHCacheTableViewController(cacheIdentifier: "table/123")
+        controller = CHCacheCollectionViewController(cacheIdentifier: "collection/123", collectionViewLayout: UICollectionViewLayout())
         controller!.webRequests = [ MockWebRequest.newWebRequest() ]
         controller!.cacheDataSource = self
         
@@ -37,9 +37,9 @@ class CHCacheTableViewControllerTests: XCTestCase {
         controller!
             .setUpFetchedResultsController(storeType: .memory)
             .catch { error in
-         
+                
                 XCTAssertNil(error, "Can't set up fetched results controller. \(error.localizedDescription)")
-        
+                
             }
             .always { expectation.fulfill() }
         
@@ -54,17 +54,17 @@ class CHCacheTableViewControllerTests: XCTestCase {
         controller!
             .performWebRequests()
             .then { objects in
-            
+                
                 XCTAssertEqual(objects.count, 1, "The requested objects doesn't match.")
-            
+                
             }
             .catch { error in
-        
+                
                 XCTAssertNil(error, "Can't perform web requests. \(error.localizedDescription)")
                 
             }
             .always { expectation.fulfill() }
-    
+        
         waitForExpectations(timeout: 10.0, handler: nil)
         
     }
@@ -84,7 +84,7 @@ class CHCacheTableViewControllerTests: XCTestCase {
                 for section in 0..<self.numberOfSections() {
                     
                     for _ in 0..<self.numberOfRows(inSection: section) {
-                    
+                        
                         numberOfCaches += 1
                         
                     }
@@ -115,7 +115,7 @@ class CHCacheTableViewControllerTests: XCTestCase {
 
 // MARK: - CHTableViewCacheDataSource
 
-extension CHCacheTableViewControllerTests: CHTableViewCacheDataSource {
+extension CHCacheCollectionViewControllerTests: CHCollectionViewCacheDataSource {
     
     func numberOfSections() -> Int {
         
