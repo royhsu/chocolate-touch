@@ -60,7 +60,10 @@ public class ProductTableViewController: CHCacheTableViewController {
                 
                 if self.isCached { return }
                 
-                let _ = self.fetch()
+                return
+                    self.performWebRequests()
+                    .then { self.insertCaches(with: $0) }
+                    .then { _ in return self.saveCaches() }
                 
             }
             .catch { error in

@@ -23,9 +23,15 @@ public protocol CHTableViewCacheDataSource: class {
     
 }
 
+// Todo: a expiration time for refreshing data.
+
 open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate {
     
-    // Todo: a expiration time for refreshing data.
+    enum CacheTableViewError: Swift.Error {
+        case fetchedResultsControllerNotReady
+        case invalideCaches
+    }
+    
     
     // MARK: Property
     
@@ -75,12 +81,12 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     
     // MARK: Set Up
     
-    public func setUpFetchedResultsController(storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
+    public final func setUpFetchedResultsController(storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
         
         return
             cache
             .loadStore(type: storeType)
-            .then { stack -> NSFetchedResultsController<CHCacheEntity> in
+            .then { stack -> Void in
                 
                 let fetchRequest = CHCacheEntity.fetchRequest
                 fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
@@ -100,31 +106,35 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
                 
                 self.fetchedResultsController = fetchedResultsController
                 
-                return fetchedResultsController
-                
             }
-            .then { fetchedResultsController in
+            .then { self.performFetch() }
+            .then { _ -> Promise<Void> in
                 
                 return Promise { fulfill, reject in
                 
-                    do {
-                        
-                        try fetchedResultsController.performFetch()
-                        
-                        fulfill()
-                        
-                    }
-                    catch { reject(error) }
+                    let _ =
+                    self.validateCaches()
+                        .then { fulfill() }
+                        .catch { error in
+                            
+                            if
+                                let error = error as? CacheTableViewError,
+                                error == .invalideCaches {
+                                
+                                let _ =
+                                self.clearCache()
+                                    .then { self.performFetch() }
+                                    .then { fulfill() }
+                                    .catch { reject($0) }
+                                
+                            }
+                            else { reject(error) }
+                            
+                        }
                 
                 }
-                
-            }
-            .catch { error in
-                
-                print(error.localizedDescription)
-                
-            }
         
+            }
     }
     
     
@@ -137,9 +147,9 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
      
      - Note: Please use this method the excute all the web requests instead of request them individually.
     */
-    internal func performWebRequests() -> Promise<[Any]> {
+    internal final func performWebRequests() -> Promise<[Any]> {
         
-        let requests = self.webRequests.map { $0.execute() }
+        let requests = webRequests.map { $0.execute() }
         
         return when(fulfilled: requests)
         
@@ -148,7 +158,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     
     // MARK: Cache
     
-    internal func clearCache() -> Promise<Void> {
+    internal final func clearCache() -> Promise<Void> {
         
         return
             cache
@@ -171,7 +181,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
      
      - Note: Please make sure to call save method on the cache context manually if you want to keep the insertions.
     */
-    internal func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
+    internal final func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
         
         let sections = cacheDataSource?.numberOfSections() ?? 0
         var insertions: [Promise<NSManagedObjectID>] = []
@@ -204,34 +214,101 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
     }
     
-    internal func saveCaches() -> Promise<Void> {
+    internal final func saveCaches() -> Promise<Void> {
         
         return cache.save().asVoid()
         
     }
     
+    internal final func validateCaches() -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            guard
+                let fetchedObjects = fetchedResultsController?.fetchedObjects
+                else {
+            
+                    reject(CacheTableViewError.fetchedResultsControllerNotReady)
+                    
+                    return
+                    
+                }
+            
+            let sections = cacheDataSource?.numberOfSections() ?? 0
+            var numberOfObjectsDefinedInDataSource = 0
+            
+            for section in 0..<sections {
+                
+                let rows = cacheDataSource?.numberOfRows(inSection: section) ?? 0
+                
+                for _ in 0..<rows {
+                    
+                    numberOfObjectsDefinedInDataSource += 1
+                    
+                }
+                
+            }
+            
+            if numberOfObjectsDefinedInDataSource == fetchedObjects.count {
+                
+                fulfill()
+                
+            }
+            else { reject(CacheTableViewError.invalideCaches) }
+            
+        }
+        
+    }
+    
+    
+    // MARK: Fetched Results Controller
+    
+    /// Trigger fetched results controller to perform fetching.
+    internal final func performFetch() -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            guard
+                let fetchedResultsController = fetchedResultsController
+                else {
+                    
+                    reject(CacheTableViewError.fetchedResultsControllerNotReady)
+                    
+                    return
+                    
+            }
+            
+            do {
+                
+                try fetchedResultsController.performFetch()
+                fulfill()
+                
+            }
+            catch { reject(error) }
+            
+        }
+        
+    }
+    
     
     // MARK: Action
-    
-    /// Execute all required methods to request and cache data.
+
     public final func fetch() -> Promise<Void> {
         
         return
             performWebRequests()
-                .then { self.insertCaches(with: $0) }
-                .then { _ in self.saveCaches() }
+                .then { self.insertCaches(with: $0).asVoid() }
+                .then { self.saveCaches() }
+                .then { self.performFetch() }
         
     }
     
-    /// Clean up previous caches and re-fetch data. Nicely cooperate with UIRefreshControl.
     public final func refresh() -> Promise<Void> {
         
-        return
-            clearCache()
-                .then { self.fetch() }
+        return clearCache().then { self.fetch() }
         
     }
-
+    
     
     // MARK: UITableViewDataSource
     
