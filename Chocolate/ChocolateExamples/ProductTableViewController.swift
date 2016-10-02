@@ -36,7 +36,7 @@ public class ProductTableViewController: CHCacheTableViewController {
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         
         fatalError()
         
@@ -45,7 +45,7 @@ public class ProductTableViewController: CHCacheTableViewController {
     
     // MARK: View Life Cycle
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         
         refreshControl = setUpRefreshControl()
@@ -186,7 +186,7 @@ public class ProductTableViewController: CHCacheTableViewController {
     
     // MARK: UITableViewDataSource
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         guard
             let section = Section(rawValue: section)

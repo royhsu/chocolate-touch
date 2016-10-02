@@ -21,7 +21,7 @@ public protocol CHTableViewDataSource: class {
 
 // MARK: - CHTableViewController
 
-open class CHTableViewController: UITableViewController {
+open class CHTableViewController: UITableViewController, CHTableViewDataSource {
     
     
     // MARK: Propery
@@ -103,12 +103,8 @@ open class CHTableViewController: UITableViewController {
         
     }
     
-}
-
-
-// MARK: - CHTableViewDataSource
-
-extension CHTableViewController: CHTableViewDataSource {
+  
+    // MARK: - CHTableViewDataSource
     
     open func tableView(_ tableView: UITableView, heightTypeForRowAt indexPath: IndexPath) -> HeightType {
         

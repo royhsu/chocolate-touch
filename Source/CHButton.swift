@@ -10,27 +10,27 @@ import UIKit
 
 /// This subclass of UIButton is more sensitive from touches to make itself highlighted.
 /// Much nicely cooperate with setBackgroundColor(:for:) extension than standard button.
-class CHButton: UIButton {
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+open class CHButton: UIButton {
+    
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         isHighlighted = true
         
         super.touchesBegan(touches, with: event)
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         isHighlighted = false
         
         super.touchesEnded(touches, with: event)
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         isHighlighted = false
         
         super.touchesCancelled(touches, with: event)
     }
-
+    
 }
