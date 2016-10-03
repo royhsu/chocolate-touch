@@ -15,6 +15,7 @@ public extension String {
     
     enum JSONObjectError: Error {
         case invalidData
+        case invalidJSONObject
         case invalidString
     }
     
@@ -35,6 +36,12 @@ public extension String {
     init(jsonObject: Any, encoding: Encoding = .utf8, options: JSONSerialization.WritingOptions = []) throws {
         
         do {
+            
+            if !JSONSerialization.isValidJSONObject(jsonObject) {
+                
+                throw JSONObjectError.invalidJSONObject
+                
+            }
             
             let data = try JSONSerialization.data(withJSONObject: jsonObject, options: options)
             guard

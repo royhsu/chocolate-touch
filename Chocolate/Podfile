@@ -5,15 +5,15 @@ platform :ios, "8.0"
 use_frameworks!
 
 target 'Chocolate' do
-	pod 'CHFoundation', '0.4.4'
+	pod 'CHFoundation', '0.4.5'
 end
 
 target 'ChocolateTests' do
-	pod 'CHFoundation', '0.4.4'
+	pod 'CHFoundation', '0.4.5'
 end
 
 target 'ChocolateExamples' do
-	pod 'CHFoundation', '0.4.4'
+	pod 'CHFoundation', '0.4.5'
 end
 
 post_install do |installer|
