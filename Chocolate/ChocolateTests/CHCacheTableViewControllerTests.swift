@@ -138,7 +138,6 @@ class CHCacheTableViewControllerTests: XCTestCase {
                 let expectedError = CHCacheTableViewController.CacheTableViewError.invalideCaches
                 
                 XCTAssertEqual(error, expectedError)
-                
             
             }
             .always { expectation.fulfill() }

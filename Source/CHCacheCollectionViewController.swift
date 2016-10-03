@@ -24,10 +24,17 @@ public protocol CHCollectionViewCacheDataSource: class {
 }
 
 
+// TODO: a expiration time for refreshing data.
+
 // MARK: - CHCacheCollectionViewController
 
-open class CHCacheCollectionViewController: CHCollectionViewController, NSFetchedResultsControllerDelegate {
+open class CHCacheCollectionViewController: CHCollectionViewController, CHCollectionViewCacheDataSource, NSFetchedResultsControllerDelegate {
 
+    public enum CacheCollectionViewError: Swift.Error {
+        case fetchedResultsControllerNotReady
+        case invalideCaches
+    }
+    
     
     // MARK: Property
     
@@ -77,12 +84,12 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
     
     // MARK: Set Up
     
-    public func setUpFetchedResultsController(storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
+    public final func setUpFetchedResultsController(storeType: CoreDataStack.StoreType? = nil) -> Promise<Void> {
         
         return
             cache
                 .loadStore(type: storeType)
-                .then { stack -> NSFetchedResultsController<CHCacheEntity> in
+                .then { stack -> Void in
                     
                     let fetchRequest = CHCacheEntity.fetchRequest
                     fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
@@ -102,31 +109,35 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
                     
                     self.fetchedResultsController = fetchedResultsController
                     
-                    return fetchedResultsController
-                    
                 }
-                .then { fetchedResultsController in
+                .then { self.performFetch() }
+                .then { _ -> Promise<Void> in
                     
                     return Promise { fulfill, reject in
                         
-                        do {
-                            
-                            try fetchedResultsController.performFetch()
-                            
-                            fulfill()
-                            
+                        let _ =
+                        self.validateCaches()
+                            .then { fulfill() }
+                            .catch { error in
+                                
+                                if
+                                    let error = error as? CacheCollectionViewError,
+                                    error == .invalideCaches {
+                                    
+                                    let _ =
+                                    self.clearCache()
+                                        .then { self.performFetch() }
+                                        .then { fulfill() }
+                                        .catch { reject($0) }
+                                    
+                                }
+                                else { reject(error) }
+                                
                         }
-                        catch { reject(error) }
                         
                     }
                     
-                }
-                .catch { error in
-                    
-                    print(error.localizedDescription)
-                    
         }
-        
     }
     
     
@@ -150,7 +161,7 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
     
     // MARK: Cache
     
-    internal func clearCache() -> Promise<Void> {
+    internal final func clearCache() -> Promise<Void> {
         
         return
             cache
@@ -173,7 +184,7 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
      
      - Note: Please make sure to call save method on the cache context manually if you want to keep the insertions.
      */
-    internal func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
+    internal final func insertCaches(with objects: [Any]) -> Promise<[NSManagedObjectID]> {
         
         let sections = cacheDataSource?.numberOfSections() ?? 0
         var insertions: [Promise<NSManagedObjectID>] = []
@@ -206,31 +217,98 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
         
     }
     
-    internal func saveCaches() -> Promise<Void> {
+    internal final func saveCaches() -> Promise<Void> {
         
         return cache.save().asVoid()
+        
+    }
+    
+    internal final func validateCaches() -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            guard
+                let fetchedObjects = fetchedResultsController?.fetchedObjects
+                else {
+                    
+                    reject(CacheCollectionViewError.fetchedResultsControllerNotReady)
+                    
+                    return
+                    
+            }
+            
+            let sections = cacheDataSource?.numberOfSections() ?? 0
+            var numberOfObjectsDefinedInDataSource = 0
+            
+            for section in 0..<sections {
+                
+                let rows = cacheDataSource?.numberOfRows(inSection: section) ?? 0
+                
+                for _ in 0..<rows {
+                    
+                    numberOfObjectsDefinedInDataSource += 1
+                    
+                }
+                
+            }
+            
+            if numberOfObjectsDefinedInDataSource == fetchedObjects.count {
+                
+                fulfill()
+                
+            }
+            else { reject(CacheCollectionViewError.invalideCaches) }
+            
+        }
+        
+    }
+    
+    
+    // MARK: Fetched Results Controller
+    
+    /// Trigger fetched results controller to perform fetching.
+    internal final func performFetch() -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            guard
+                let fetchedResultsController = fetchedResultsController
+                else {
+                    
+                    reject(CacheCollectionViewError.fetchedResultsControllerNotReady)
+                    
+                    return
+                    
+            }
+            
+            do {
+                
+                try fetchedResultsController.performFetch()
+                fulfill()
+                
+            }
+            catch { reject(error) }
+            
+        }
         
     }
     
     
     // MARK: Action
     
-    /// Execute all required methods to request and cache data.
     public final func fetch() -> Promise<Void> {
         
         return
             performWebRequests()
-                .then { self.insertCaches(with: $0) }
-                .then { _ in self.saveCaches() }
+                .then { self.insertCaches(with: $0).asVoid() }
+                .then { self.saveCaches() }
+                .then { self.performFetch() }
         
     }
     
-    /// Clean up previous caches and re-fetch data. Nicely cooperate with UIRefreshControl.
     public final func refresh() -> Promise<Void> {
         
-        return
-            clearCache()
-                .then { self.fetch() }
+        return clearCache().then { self.fetch() }
         
     }
     
@@ -256,7 +334,7 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
     
     // MARK: JSON Object
     
-    public func jsonObject(at indexPath: IndexPath) -> Any? {
+    public final func jsonObject(at indexPath: IndexPath) -> Any? {
         
         if !isCached { return nil }
         
@@ -269,12 +347,8 @@ open class CHCacheCollectionViewController: CHCollectionViewController, NSFetche
         
     }
     
-}
 
-
-// MARK: - CHTableViewCacheDataSource
-
-extension CHCacheCollectionViewController: CHCollectionViewCacheDataSource {
+    // MARK: CHCollectionViewCacheDataSource
     
     open func numberOfSections() -> Int {
         

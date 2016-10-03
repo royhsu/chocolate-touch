@@ -11,7 +11,7 @@ import CoreData
 import PromiseKit
 
 
-// MARK: - CHCacheTableViewDataSource
+// MARK: - CHTableViewCacheDataSource
 
 public protocol CHTableViewCacheDataSource: class {
     
@@ -23,11 +23,14 @@ public protocol CHTableViewCacheDataSource: class {
     
 }
 
-// Todo: a expiration time for refreshing data.
 
-open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsControllerDelegate {
+// TODO: a expiration time for refreshing data.
+
+// MARK: - CHCacheTableViewController
+
+open class CHCacheTableViewController: CHTableViewController, CHTableViewCacheDataSource, NSFetchedResultsControllerDelegate {
     
-    enum CacheTableViewError: Swift.Error {
+    public enum CacheTableViewError: Swift.Error {
         case fetchedResultsControllerNotReady
         case invalideCaches
     }
@@ -331,7 +334,7 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
     
     // MARK: JSON Object
     
-    public func jsonObject(at indexPath: IndexPath) -> Any? {
+    public final func jsonObject(at indexPath: IndexPath) -> Any? {
         
         if !isCached { return nil }
         
@@ -344,12 +347,8 @@ open class CHCacheTableViewController: CHTableViewController, NSFetchedResultsCo
         
     }
     
-}
-
-
-// MARK: - CHTableViewCacheDataSource
-
-extension CHCacheTableViewController: CHTableViewCacheDataSource {
+    
+    // MARK: CHTableViewCacheDataSource
     
     open func numberOfSections() -> Int {
         

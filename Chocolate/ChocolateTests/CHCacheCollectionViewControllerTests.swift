@@ -110,6 +110,42 @@ class CHCacheCollectionViewControllerTests: XCTestCase {
         
     }
     
+    func testValidateCaches() {
+        
+        let expectation = self.expectation(description: "Validate caches.")
+        
+        let _ =
+        controller!
+            .setUpFetchedResultsController(storeType: .memory)
+            .then { _ in self.controller!.insertCaches(with: []) }
+            .then { _ -> Void in
+                
+                // Unexpected cache.
+                let _ = CHCache.default.insert(identifier: self.controller!.cacheIdentifier, section: 0, row: 0, jsonObject: [:])
+                
+            }
+            .then { self.controller!.saveCaches() }
+            .then { self.controller!.performFetch() }
+            .then { self.controller!.validateCaches() }
+            .then {
+                
+                XCTAssert(false, "Should throw an error because of invalid caches.")
+                
+            }
+            .catch {
+                
+                let error = $0 as? CHCacheCollectionViewController.CacheCollectionViewError
+                let expectedError = CHCacheCollectionViewController.CacheCollectionViewError.invalideCaches
+                
+                XCTAssertEqual(error, expectedError)
+                
+            }
+            .always { expectation.fulfill() }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+        
+    }
+    
 }
 
 
