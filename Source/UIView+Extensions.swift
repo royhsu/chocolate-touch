@@ -11,23 +11,20 @@ import UIKit
 public extension UIView {
     
     /**
-     A convenience method that help you to generate a view from local xib file.
+     A convenience method loads a view from local xib file.
      
      - Author: Roy Hsu
      
-     - Parameter nibNamed: The name of xib file.
+     - Parameter nibName: The name of xib file.
      
      - Parameter bundle: The bundle xib file located. Default is nil.
      
      - Returns: The view instance.
     */
     
-    public class func view(nibNamed: String, bundle: Bundle? = nil) -> UIView? {
+    public class func load(nibName name: String, bundle: Bundle? = nil) -> UIView? {
         
-        return
-            UINib(nibName: nibNamed, bundle: bundle)
-            .instantiate(withOwner: nil, options: nil)
-            .first as? UIView
+        return UINib.load(nibName: name, bundle: bundle) as? UIView
     
     }
         

@@ -20,6 +20,8 @@
 		B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */; };
 		B05D71221DAA72FB0009083D /* Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; };
 		B05D71231DAA72FB0009083D /* Chocolate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B05D71271DAA7FA50009083D /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D71261DAA7FA50009083D /* UIViewController+Extensions.swift */; };
+		B05D71291DAA7FFB0009083D /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05D71281DAA7FFB0009083D /* UINib+Extensions.swift */; };
 		B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */; };
 		B069892B1D30D41900EA6123 /* CHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892A1D30D41900EA6123 /* CHCache.swift */; };
 		B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */; };
@@ -87,6 +89,8 @@
 		B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTests.swift; sourceTree = "<group>"; };
 		B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTableViewControllerTests.swift; sourceTree = "<group>"; };
 		B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheWebRequest.swift; sourceTree = "<group>"; };
+		B05D71261DAA7FA50009083D /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		B05D71281DAA7FFB0009083D /* UINib+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCacheTableViewController.swift; sourceTree = "<group>"; };
 		B069892A1D30D41900EA6123 /* CHCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CHCache.swift; sourceTree = "<group>"; };
 		B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
@@ -203,7 +207,9 @@
 			isa = PBXGroup;
 			children = (
 				B0ACAA101D9BA6F700926D16 /* HeightType.swift */,
+				B05D71281DAA7FFB0009083D /* UINib+Extensions.swift */,
 				B09AF0711D36439A000B7429 /* UIView+Extensions.swift */,
+				B05D71261DAA7FA50009083D /* UIViewController+Extensions.swift */,
 				B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */,
 				B07193AE1D93843A000CBD79 /* CHButton.swift */,
 				B0971CF81D280536005BBEE8 /* CHTableViewController.swift */,
@@ -539,7 +545,9 @@
 				B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */,
 				B04B34A41D8E23B5004150B6 /* CHCacheEntity+Extensions.swift in Sources */,
 				B08B26E41D9E97FA0028BD00 /* CHCacheCollectionViewController.swift in Sources */,
+				B05D71271DAA7FA50009083D /* UIViewController+Extensions.swift in Sources */,
 				B04B34A21D8E20A0004150B6 /* CHCacheEntity+CoreDataProperties.swift in Sources */,
+				B05D71291DAA7FFB0009083D /* UINib+Extensions.swift in Sources */,
 				B07193AF1D93843A000CBD79 /* CHButton.swift in Sources */,
 				B069892B1D30D41900EA6123 /* CHCache.swift in Sources */,
 			);

@@ -31,9 +31,11 @@ open class CHTableViewController: UITableViewController, CHTableViewDataSource {
     
     // MARK: Init
     
-    public convenience init() {
+    public init() {
         
-        self.init(style: .plain)
+        super.init(style: .plain)
+        
+        dataSource = self
         
     }
     

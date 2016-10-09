@@ -36,7 +36,7 @@ public class CatalogueTableViewController: CHTableViewController {
     
     // MARK: Init
     
-    public init() {
+    public override init() {
         
         super.init(style: .plain)
         

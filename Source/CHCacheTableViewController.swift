@@ -69,7 +69,7 @@ open class CHCacheTableViewController: CHTableViewController, CHTableViewCacheDa
         
     }
     
-    private init() {
+    private override init() {
         
         fatalError()
         
@@ -88,56 +88,31 @@ open class CHCacheTableViewController: CHTableViewController, CHTableViewCacheDa
         
         return
             cache
-            .loadStore(type: storeType)
-            .then { stack -> Void in
+                .loadStore(type: storeType)
+                .then { stack -> Void in
                 
-                let fetchRequest = CHCacheEntity.fetchRequest
-                fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
-                fetchRequest.sortDescriptors = [
-                    NSSortDescriptor(key: "section", ascending: true),
-                    NSSortDescriptor(key: "row", ascending: true)
-                ]
-                
-                let fetchedResultsController = NSFetchedResultsController(
-                    fetchRequest: fetchRequest,
-                    managedObjectContext: stack.viewContext,
-                    sectionNameKeyPath: "section",
-                    cacheName: self.cacheIdentifier
-                )
-                
-                fetchedResultsController.delegate = self
-                
-                self.fetchedResultsController = fetchedResultsController
-                
-            }
-            .then { self.performFetch() }
-            .then { _ -> Promise<Void> in
-                
-                return Promise { fulfill, reject in
-                
-                    let _ =
-                    self.validateCaches()
-                        .then { fulfill() }
-                        .catch { error in
-                            
-                            if
-                                let error = error as? CacheTableViewError,
-                                error == .invalideCaches {
-                                
-                                let _ =
-                                self.clearCache()
-                                    .then { self.performFetch() }
-                                    .then { fulfill() }
-                                    .catch { reject($0) }
-                                
-                            }
-                            else { reject(error) }
-                            
-                        }
-                
+                    let fetchRequest = CHCacheEntity.fetchRequest
+                    fetchRequest.predicate = NSPredicate(format: "identifier==%@", self.cacheIdentifier)
+                    fetchRequest.sortDescriptors = [
+                        NSSortDescriptor(key: "section", ascending: true),
+                        NSSortDescriptor(key: "row", ascending: true)
+                    ]
+                    
+                    let fetchedResultsController = NSFetchedResultsController(
+                        fetchRequest: fetchRequest,
+                        managedObjectContext: stack.viewContext,
+                        sectionNameKeyPath: "section",
+                        cacheName: self.cacheIdentifier
+                    )
+                    
+                    fetchedResultsController.delegate = self
+                    
+                    self.fetchedResultsController = fetchedResultsController
+                    
                 }
+                .then { self.performFetch() }
+                .then { self.clearInvalidCaches() }
         
-            }
     }
     
     
@@ -165,13 +140,13 @@ open class CHCacheTableViewController: CHTableViewController, CHTableViewCacheDa
         
         return
             cache
-            .deleteCache(with: cacheIdentifier)
-            .then { _ in self.saveCaches() }
-            .then { _ -> Void in
-                
-                NSFetchedResultsController<CHCacheEntity>.deleteCache(withName: self.cacheIdentifier)
-                
-            }
+                .deleteCache(with: cacheIdentifier)
+                .then { _ in self.saveCaches() }
+                .then { _ -> Void in
+                    
+                    NSFetchedResultsController<CHCacheEntity>.deleteCache(withName: self.cacheIdentifier)
+                    
+                }
         
     }
     
@@ -258,6 +233,34 @@ open class CHCacheTableViewController: CHTableViewController, CHTableViewCacheDa
                 
             }
             else { reject(CacheTableViewError.invalideCaches) }
+            
+        }
+        
+    }
+    
+    private func clearInvalidCaches() -> Promise<Void> {
+        
+        return Promise { fulfill, reject in
+            
+            let _ =
+            self.validateCaches()
+                .then { fulfill() }
+                .catch {
+                    
+                    if
+                        let error = $0 as? CacheTableViewError,
+                        error == .invalideCaches {
+                        
+                        let _ =
+                        self.clearCache()
+                            .then { self.performFetch() }
+                            .then { fulfill() }
+                            .catch { reject($0) }
+                        
+                    }
+                    else { reject($0) }
+                    
+                }
             
         }
         

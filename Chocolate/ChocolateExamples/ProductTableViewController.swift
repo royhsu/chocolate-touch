@@ -269,7 +269,7 @@ public class ProductTableViewController: CHCacheTableViewController {
             let description = (jsonObject?["description"] as? String) ?? "Empty"
                 
             cell.textLabel?.text = "Description: \(description)"
-               
+            
         case .comment:
             
             let jsonObjects = jsonObject as? [Object]
