@@ -14,6 +14,8 @@ import UIKit
 
 public class ProductTableViewController: CHCacheTableViewController {
 
+    typealias Object = [String: Any]
+    
     private enum Section: Int { case information, description, comment }
     private enum InformationRow: Int { case title, price, quantity }
     
@@ -48,7 +50,7 @@ public class ProductTableViewController: CHCacheTableViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        refreshControl = setUpRefreshControl()
+        setUpRefreshControl()
         
         webRequests = [ productRequest, commentsRequest ]
         
@@ -56,34 +58,24 @@ public class ProductTableViewController: CHCacheTableViewController {
         
         let _ =
         setUpFetchedResultsController()
-            .then { _ -> Void in
+            .then { _ -> Promise<Void> in
                 
-                if self.isCached { return }
+                if self.isCached { return Promise(value: ()) }
                 
-                return
-                    self.performWebRequests()
-                    .then { self.insertCaches(with: $0) }
-                    .then { _ in return self.saveCaches() }
+                return self.fetch()
                 
             }
-            .catch { error in
-                
-                print(error.localizedDescription)
-                
-            }
+            .catch { print($0.localizedDescription) }
         
     }
     
     
     // MARK: Set Up
     
-    private func setUpRefreshControl() -> UIRefreshControl {
+    private func setUpRefreshControl() {
         
-        let refreshControl = UIRefreshControl()
-        
-        refreshControl.addTarget(self, action: .pullToRefresh, for: .valueChanged)
-        
-        return refreshControl
+        refreshControl = UIRefreshControl()
+        refreshControl!.addTarget(self, action: .pullToRefresh, for: .valueChanged)
         
     }
     
@@ -93,7 +85,7 @@ public class ProductTableViewController: CHCacheTableViewController {
     public func pullToRefresh(refreshControl: UIRefreshControl) {
         
         let _ =
-            refresh()
+        refresh()
             .always { refreshControl.endRefreshing() }
         
     }
@@ -126,7 +118,7 @@ public class ProductTableViewController: CHCacheTableViewController {
         
         let webRequest = CHCacheWebRequest(webServiceGroup: webServiceGroup) { objects in
             
-            return objects.first!
+            return objects.first ?? Object()
             
         }
         
@@ -174,7 +166,7 @@ public class ProductTableViewController: CHCacheTableViewController {
         
         let webRequest = CHCacheWebRequest(webServiceGroup: webServiceGroup) { objects in
             
-            let comments = objects.first as! Array<[String: Any]>
+            let comments = objects.first as? [Object] ?? []
             
             self.numberOfComments = comments.count
             
@@ -191,11 +183,7 @@ public class ProductTableViewController: CHCacheTableViewController {
     
     override public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        guard
-            let section = Section(rawValue: section)
-            else { return nil }
-        
-        switch section {
+        switch sections[section] {
         case .information: return "Information"
         case .description: return "Description"
         case .comment: return "Comment"
@@ -214,11 +202,7 @@ public class ProductTableViewController: CHCacheTableViewController {
     
     public final override func numberOfRows(inSection section: Int) -> Int {
         
-        guard
-            let section = Section(rawValue: section)
-            else { return 0 }
-        
-        switch section {
+        switch sections[section] {
         case .information: return informationRows.count
         case .description: return 1
         case .comment: return numberOfComments
@@ -228,11 +212,9 @@ public class ProductTableViewController: CHCacheTableViewController {
     
     public final override func jsonObject(with objects: [Any], forRowsAt indexPath: IndexPath) -> Any? {
         
-        guard
-            let section = Section(rawValue: indexPath.section)
-            else { return nil }
+        if objects.count != webRequests.count { return nil }
         
-        switch section {
+        switch sections[indexPath.section] {
         case .information: return objects[0]
         case .description: return objects[0]
         case .comment: return objects[1]
@@ -252,92 +234,49 @@ public class ProductTableViewController: CHCacheTableViewController {
     public final override func configureCell(_ cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         guard
-            let section = Section(rawValue: indexPath.section),
             let jsonObject = jsonObject(at: indexPath)
             else { return }
         
-        switch section {
+        switch sections[indexPath.section] {
         case .information:
             
-            let json = jsonObject as? [String: Any]
+            let jsonObject = jsonObject as? Object
             
-            guard
-                let row = InformationRow(rawValue: indexPath.row)
-                else { return }
-            
-            switch row {
+            switch informationRows[indexPath.row] {
             case .title:
                 
-                if let title = json?["title"] as? String {
+                let title = (jsonObject?["title"] as? String) ?? "Empty"
                     
-                    cell.textLabel?.text = "Title: \(title)"
-                    
-                }
-                else {
-                    
-                    cell.textLabel?.text = "No title"
-                    
-                }
+                cell.textLabel?.text = "Title: \(title)"
                 
             case .price:
                 
-                
-                if let price = json?["price"] as? Double {
+                let price = (jsonObject?["price"] as? String) ?? "0.0"
                     
-                    cell.textLabel?.text = "Price: \(price)"
-                    
-                }
-                else {
-                    
-                    cell.textLabel?.text = "No price"
-                    
-                }
+                cell.textLabel?.text = "Price: \(price)"
                 
             case .quantity:
                 
-                if let quantity = json?["quantity"] as? Int {
+                let quantity = (jsonObject?["quantity"] as? String) ?? "0"
                     
-                    cell.textLabel?.text = "Quantity: \(quantity)"
-                    
-                }
-                else {
-                    
-                    cell.textLabel?.text = "No quantity"
-                    
-                }
+                cell.textLabel?.text = "Quantity: \(quantity)"
+                
             }
             
         case .description:
             
-            let json = jsonObject as? [String: Any]
-            
-            if let description = json?["description"] as? String {
+            let jsonObject = jsonObject as? Object
+            let description = (jsonObject?["description"] as? String) ?? "Empty"
                 
-                cell.textLabel?.text = "Description: \(description)"
-                
-            }
-            else {
-                
-                cell.textLabel?.text = "No Description"
-                
-            }
-            
+            cell.textLabel?.text = "Description: \(description)"
+               
         case .comment:
             
-            let jsonObjects = jsonObject as? [Any]
-            
-            if
-                let comment = jsonObjects?[indexPath.row] as? [String: Any],
-                let text = comment["text"] as? String {
+            let jsonObjects = jsonObject as? [Object]
+            let commentObject = jsonObjects?[indexPath.row]
+            let text = (commentObject?["text"] as? String) ?? "Empty"
                 
-                cell.textLabel?.text = "Comment: \(text)"
-                
-            }
-            else {
-                
-                cell.textLabel?.text = "No Comment"
-                
-            }
+            cell.textLabel?.text = "Comment: \(text)"
         }
         
     }

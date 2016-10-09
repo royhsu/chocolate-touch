@@ -18,6 +18,8 @@
 		B05C6F951D8A9D6E00B32BB6 /* CHCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F941D8A9D6E00B32BB6 /* CHCacheTests.swift */; };
 		B05C6F971D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6F961D8AD9C600B32BB6 /* CHCacheTableViewControllerTests.swift */; };
 		B05C6FA61D8BD74C00B32BB6 /* CHCacheWebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05C6FA51D8BD74C00B32BB6 /* CHCacheWebRequest.swift */; };
+		B05D71221DAA72FB0009083D /* Chocolate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; };
+		B05D71231DAA72FB0009083D /* Chocolate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0971CEC1D2804E3005BBEE8 /* Chocolate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B06989251D3099A700EA6123 /* CHCacheTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06989241D3099A700EA6123 /* CHCacheTableViewController.swift */; };
 		B069892B1D30D41900EA6123 /* CHCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B069892A1D30D41900EA6123 /* CHCache.swift */; };
 		B07193AB1D9380D6000CBD79 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07193AA1D9380D6000CBD79 /* UIButton+Extensions.swift */; };
@@ -39,6 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B05D71241DAA72FB0009083D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0971CE31D2804E3005BBEE8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0971CEB1D2804E3005BBEE8;
+			remoteInfo = Chocolate;
+		};
 		B0971D0C1D280ADB005BBEE8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B0971CE31D2804E3005BBEE8 /* Project object */;
@@ -55,6 +64,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B05D71231DAA72FB0009083D /* Chocolate.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E8C8A21D207F5ECE5F491FD /* Pods_ChocolateExamples.framework in Frameworks */,
+				B05D71221DAA72FB0009083D /* Chocolate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +317,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B05D71251DAA72FB0009083D /* PBXTargetDependency */,
 			);
 			name = ChocolateExamples;
 			productName = ChocolateExamples;
@@ -559,6 +571,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B05D71251DAA72FB0009083D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0971CEB1D2804E3005BBEE8 /* Chocolate */;
+			targetProxy = B05D71241DAA72FB0009083D /* PBXContainerItemProxy */;
+		};
 		B0971D0D1D280ADB005BBEE8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B0971CEB1D2804E3005BBEE8 /* Chocolate */;
