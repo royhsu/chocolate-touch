@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'Chocolate'
-  spec.version          = '0.6.1'
+  spec.version          = '0.6.2'
   spec.license          = 'MIT'
   spec.homepage         = 'https://github.com/royhsu/chocolate-touch'
   spec.authors          = { 'Tiny World' => 'roy.hsu@tinyworld.cc' }
@@ -10,5 +10,5 @@ Pod::Spec.new do |spec|
   spec.resources        = 'Source/*.{xcdatamodeld,xcdatamodel}'
   spec.ios.deployment_target = '8.0'
 
-  spec.dependency 'CHFoundation', '0.4.5'
+  spec.dependency 'CHFoundation', '0.4.6'
 end

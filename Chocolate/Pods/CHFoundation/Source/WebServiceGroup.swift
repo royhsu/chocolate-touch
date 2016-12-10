@@ -29,15 +29,9 @@ public struct WebServiceGroup {
     
     public func request() -> Promise<[Any]> {
         
-        return Promise { fulfill, reject in
-            
-            let promises = webServices.map { $0.request() }
-            
-            when(fulfilled: promises)
-                .then { fulfill($0) }
-                .catch { reject($0) }
+        let promises = webServices.map { $0.request() }
         
-        }
+        return when(fulfilled: promises)
         
     }
     

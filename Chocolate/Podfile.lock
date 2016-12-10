@@ -1,25 +1,25 @@
 PODS:
-  - CHFoundation (0.4.5):
-    - PromiseKit (= 4.0.3)
-  - PromiseKit (4.0.3):
-    - PromiseKit/Foundation (= 4.0.3)
-    - PromiseKit/QuartzCore (= 4.0.3)
-    - PromiseKit/UIKit (= 4.0.3)
-  - PromiseKit/CorePromise (4.0.3)
-  - PromiseKit/Foundation (4.0.3):
+  - CHFoundation (0.4.6):
+    - PromiseKit (= 4.1.0)
+  - PromiseKit (4.1.0):
+    - PromiseKit/Foundation (= 4.1.0)
+    - PromiseKit/QuartzCore (= 4.1.0)
+    - PromiseKit/UIKit (= 4.1.0)
+  - PromiseKit/CorePromise (4.1.0)
+  - PromiseKit/Foundation (4.1.0):
     - PromiseKit/CorePromise
-  - PromiseKit/QuartzCore (4.0.3):
+  - PromiseKit/QuartzCore (4.1.0):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (4.0.3):
+  - PromiseKit/UIKit (4.1.0):
     - PromiseKit/CorePromise
 
 DEPENDENCIES:
-  - CHFoundation (= 0.4.5)
+  - CHFoundation (= 0.4.6)
 
 SPEC CHECKSUMS:
-  CHFoundation: 1575494507f4048e781e1d1f57a92aa83529a55b
-  PromiseKit: dfe8fcc6445674fb23378d89990838c1cbdbf05a
+  CHFoundation: 4cae70570819a651b7693252e74185ee07333803
+  PromiseKit: c98453ff78544c0ad5bb0ea980782e6875f47978
 
-PODFILE CHECKSUM: 3a4e58a6ef8413b4d953812d8a8f903ddb2ff6c0
+PODFILE CHECKSUM: fc7f855ec5d028c6d3139f61a8550bdbc4df113f
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1
